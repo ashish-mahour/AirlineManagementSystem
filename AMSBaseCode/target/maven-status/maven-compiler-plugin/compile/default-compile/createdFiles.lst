@@ -1,9 +1,13 @@
+com\ams\dao\impl\UserDAOImplements.class
 com\ams\main\LoginActivity$1.class
+com\ams\main\MainActivity.class
+com\ams\dao\api\UserDAO.class
+com\ams\model\DBConnect.class
+com\ams\main\MainActivity$1.class
 com\ams\main\MainActivity$2.class
 com\ams\main\RegisterActivity$2.class
-com\ams\main\MainActivity.class
 com\ams\main\RegisterActivity$1.class
 com\ams\main\LoginActivity.class
+com\ams\entities\UserData.class
 com\ams\main\RegisterActivity.class
 com\ams\main\LoginActivity$2.class
-com\ams\main\MainActivity$1.class
