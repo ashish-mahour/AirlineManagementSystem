@@ -72,6 +72,7 @@ public class LoginActivity {
 		frame.setSize(450, 600);
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
 	}

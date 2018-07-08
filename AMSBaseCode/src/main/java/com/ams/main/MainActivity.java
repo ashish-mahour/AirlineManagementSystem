@@ -134,6 +134,7 @@ public class MainActivity {
 		jFrame.setSize(340, 600);
 		jFrame.setVisible(true);
 		jFrame.setLocationRelativeTo(null);
+		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	public static void main(String[] args) {
 		new MainActivity().show();

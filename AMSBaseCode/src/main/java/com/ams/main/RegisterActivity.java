@@ -32,6 +32,7 @@ public class RegisterActivity {
 		frame.setSize(340, 600);
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	public void show() {
 		mSubmit.addActionListener(new ActionListener() {
