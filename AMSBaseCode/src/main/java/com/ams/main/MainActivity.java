@@ -21,7 +21,7 @@ import javax.swing.JTextField;
 public class MainActivity {
 	
 	public void show() {
-		final JFrame jFrame = new JFrame("Swings Application");
+		final JFrame jFrame = new JFrame("Airline Management System");
 		BufferedImage bufferedImage = null;
 		JLabel image;
 		JLabel mlabelUsername, mLabelPassword;
