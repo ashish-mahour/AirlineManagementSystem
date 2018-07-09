@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class MainActivity {
@@ -117,11 +118,14 @@ public class MainActivity {
 						&& password.getText().equalsIgnoreCase("admin")) {
 					new LoginActivity().show();
 					jFrame.dispose();
+				}else {
+					JOptionPane.showMessageDialog(jFrame, "Wrong login cresidendials!!", "Alert", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
 		});
-		
+		jFrame.getRootPane().setDefaultButton(submit);
+		jFrame.getContentPane().setBackground(Color.decode("#99c2ff"));
 		jFrame.add(mlabelUsername);
 		jFrame.add(username);
 		jFrame.add(mLabelPassword);

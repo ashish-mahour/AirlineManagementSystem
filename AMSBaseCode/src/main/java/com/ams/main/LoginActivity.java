@@ -70,6 +70,7 @@ public class LoginActivity {
 		
 		frame.setLayout(null);
 		frame.setSize(450, 600);
+		frame.getContentPane().setBackground(Color.decode("#99c2ff"));
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
