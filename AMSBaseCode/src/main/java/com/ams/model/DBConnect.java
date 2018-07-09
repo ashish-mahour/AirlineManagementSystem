@@ -18,7 +18,6 @@ public class DBConnect {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		return conn;
 	}
 
