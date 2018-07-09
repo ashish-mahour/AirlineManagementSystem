@@ -30,7 +30,7 @@ public class MainActivity {
 		final JTextField password;
 		JButton submit,cancel;
 		try {
-			bufferedImage = ImageIO.read(new File("E:\\Wallpapers and Icons\\backgrounds_2.jpg"));
+			bufferedImage = ImageIO.read(new File("src\\main\\java\\images\\airlineLogo.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
