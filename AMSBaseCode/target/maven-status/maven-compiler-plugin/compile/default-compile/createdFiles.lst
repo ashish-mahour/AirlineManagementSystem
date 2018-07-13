@@ -1,6 +1,7 @@
 com\ams\dao\impl\UserDAOImplements.class
 com\ams\main\LoginActivity$1.class
 com\ams\main\MainActivity.class
+com\ams\model\Validations.class
 com\ams\dao\api\UserDAO.class
 com\ams\model\DBConnect.class
 com\ams\main\MainActivity$1.class
