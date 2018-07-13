@@ -258,8 +258,7 @@ public class RegisterActivity {
 					JOptionPane.showMessageDialog(frame, "Please check any one user type!", "Alert",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
-					JOptionPane.showMessageDialog(frame, "Everything is okay", "Alert",
-							JOptionPane.INFORMATION_MESSAGE);
+					
 				}
 
 			}
