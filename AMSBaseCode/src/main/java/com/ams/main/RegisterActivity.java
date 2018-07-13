@@ -20,6 +20,8 @@ import javax.swing.JTextField;
 
 import org.jdesktop.swingx.JXDatePicker;
 
+import com.ams.dao.impl.UserDAOImplements;
+import com.ams.entities.UserData;
 import com.ams.model.Validations;
 
 public class RegisterActivity {
@@ -39,6 +41,8 @@ public class RegisterActivity {
 	Date minDate;
 
 	ArrayList<JTextField> list;
+	
+	UserDAOImplements userDAOImplements;
 
 	public RegisterActivity() {
 		// TODO Auto-generated constructor stub
@@ -76,6 +80,8 @@ public class RegisterActivity {
 		radioUser = new JRadioButton("User");
 
 		list = new ArrayList<JTextField>();
+		
+		userDAOImplements = new UserDAOImplements();
 
 		try {
 			minDate = new SimpleDateFormat("dd-MM-yyyy").parse("08-07-2000");
@@ -258,6 +264,42 @@ public class RegisterActivity {
 					JOptionPane.showMessageDialog(frame, "Please check any one user type!", "Alert",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
+					UserData userData = new UserData();
+					userData.setId(1);
+					userData.setUserName(editUsername.getText());
+					userData.setPassword(editPassword.getText());
+					userData.setEmail(editEmail.getText());
+					userData.setFullName(editFullName.getText());
+					try {
+						userData.setAge(Integer.parseInt(editAge.getText()));
+						userData.setContactNo(Long.parseLong(editContactNo.getText()));
+					} catch (Exception e) {
+						// TODO: handle exception
+						JOptionPane.showMessageDialog(frame, e.getMessage(), "Alert",
+								JOptionPane.ERROR_MESSAGE);
+					}
+					userData.setDob(editDob.getDate());
+					userData.setAddress(editAdress.getText());
+					if(radioMale.isSelected()) {
+						userData.setGender("M");	
+					} else if(radioFMale.isSelected()) {
+						userData.setGender("F");	
+					} else if(radioOther.isSelected()){
+						userData.setGender("O");
+					}
+					
+					if(radioAdmin.isSelected()) {
+						userData.setUserType("Admin");	
+					} else if(radioUser.isSelected()){
+						userData.setUserType("User");
+					}
+					
+					if(userDAOImplements.saveUser(userData)) {
+						JOptionPane.showMessageDialog(frame, "User Registered!", "Success",
+								JOptionPane.INFORMATION_MESSAGE);
+
+					}
+										
 					
 				}
 

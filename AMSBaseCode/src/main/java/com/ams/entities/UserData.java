@@ -13,6 +13,7 @@ public class UserData {
 	private String address;
 	private long contactNo;
 	private String gender;
+	private String userType;
 
 	public int getId() {
 		return id;
@@ -92,6 +93,14 @@ public class UserData {
 
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
 	}
 
 }

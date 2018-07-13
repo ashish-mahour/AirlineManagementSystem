@@ -10,14 +10,16 @@ public class DBConnect {
 	private static Connection getLocalConnection() {
 		Connection conn = null;
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:\\localhost:3306\\airlinemanagementsystem", "root", "ashu");
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/airlinemanagementsystem?autoReconnect=true&useSSL=false", "root", "ashu");
 
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		return conn;
