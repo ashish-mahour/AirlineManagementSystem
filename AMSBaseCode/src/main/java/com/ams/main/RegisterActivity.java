@@ -43,6 +43,8 @@ public class RegisterActivity {
 	ArrayList<JTextField> list;
 	
 	UserDAOImplements userDAOImplements;
+	
+	SimpleDateFormat simpleDateFormat;
 
 	public RegisterActivity() {
 		// TODO Auto-generated constructor stub
@@ -82,6 +84,8 @@ public class RegisterActivity {
 		list = new ArrayList<JTextField>();
 		
 		userDAOImplements = new UserDAOImplements();
+		
+		simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 		try {
 			minDate = new SimpleDateFormat("dd-MM-yyyy").parse("08-07-2000");
@@ -278,7 +282,7 @@ public class RegisterActivity {
 						JOptionPane.showMessageDialog(frame, e.getMessage(), "Alert",
 								JOptionPane.ERROR_MESSAGE);
 					}
-					userData.setDob(editDob.getDate());
+					userData.setDob(simpleDateFormat.format(editDob.getDate()));
 					userData.setAddress(editAdress.getText());
 					if(radioMale.isSelected()) {
 						userData.setGender("M");	

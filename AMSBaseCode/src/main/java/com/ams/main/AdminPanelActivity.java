@@ -18,7 +18,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
-public class LoginActivity {
+public class AdminPanelActivity {
 	JFrame frame;
 	BufferedImage iconImage;
 	File imageFile;
@@ -27,7 +27,7 @@ public class LoginActivity {
 	JMenuItem menuItem1,menuItem2,menuItem3;
 	JPanel container;
 	JButton menuButton;
-	public LoginActivity() {
+	public AdminPanelActivity() {
 		// TODO Auto-generated constructor stub
 		frame = new JFrame("Logged In");
 		

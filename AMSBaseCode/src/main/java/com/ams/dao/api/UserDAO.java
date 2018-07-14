@@ -7,7 +7,7 @@ import com.ams.entities.UserData;
 public interface UserDAO {
 	public boolean saveUser(UserData userData);
 
-	public boolean updateUser(UserData userData, int id);
+	public boolean updateUser(UserData userData, String username);
 
 	public boolean deleteUser(String username);
 

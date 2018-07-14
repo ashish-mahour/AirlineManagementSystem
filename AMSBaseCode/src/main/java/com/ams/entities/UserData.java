@@ -1,6 +1,5 @@
 package com.ams.entities;
 
-import java.util.Date;
 
 public class UserData {
 	private int id;
@@ -9,7 +8,7 @@ public class UserData {
 	private String email;
 	private String fullName;
 	private int age;
-	private Date dob;
+	private String dob;
 	private String address;
 	private long contactNo;
 	private String gender;
@@ -63,14 +62,7 @@ public class UserData {
 		this.age = age;
 	}
 
-	public Date getDob() {
-		return dob;
-	}
-
-	public void setDob(Date dob) {
-		this.dob = dob;
-	}
-
+	
 	public String getAddress() {
 		return address;
 	}
@@ -101,6 +93,14 @@ public class UserData {
 
 	public void setUserType(String userType) {
 		this.userType = userType;
+	}
+
+	public String getDob() {
+		return dob;
+	}
+
+	public void setDob(String dob) {
+		this.dob = dob;
 	}
 
 }
