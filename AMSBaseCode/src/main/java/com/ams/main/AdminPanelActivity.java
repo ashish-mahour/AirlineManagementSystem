@@ -22,7 +22,7 @@ import javax.swing.JPopupMenu;
 import com.ams.entities.UserData;
 
 public class AdminPanelActivity {
-	static JFrame frame;
+	JFrame frame;
 	
 	BufferedImage iconImage;
 	File imageFile;
