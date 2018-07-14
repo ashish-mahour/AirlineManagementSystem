@@ -134,7 +134,12 @@ public class MainActivity {
 				// TODO Auto-generated method stub
 				for (UserData userData : userDatas) {
 					if (userData.getUserName().equalsIgnoreCase(username.getText()) && userData.getPassword().equalsIgnoreCase(password.getText()) && userData.getUserType().equalsIgnoreCase("admin")) {
-						new AdminPanelActivity().show();
+						new AdminPanelActivity(userData).show();
+						jFrame.dispose();
+						isLoggedin = true;
+						break;
+					} else if (userData.getUserName().equalsIgnoreCase(username.getText()) && userData.getPassword().equalsIgnoreCase(password.getText()) && userData.getUserType().equalsIgnoreCase("user")) {
+						new UserPanelActivity(userData).show();
 						jFrame.dispose();
 						isLoggedin = true;
 						break;

@@ -21,8 +21,8 @@ import javax.swing.JPopupMenu;
 
 import com.ams.entities.UserData;
 
-public class AdminPanelActivity {
-	static JFrame frame;
+public class UserPanelActivity {
+JFrame frame;
 	
 	BufferedImage iconImage;
 	File imageFile;
@@ -41,10 +41,10 @@ public class AdminPanelActivity {
 	JLabel textUsername, textPassword, textEmail, textFullName, textAge, textDob, textAddress, textContactNo,
 	textGender, textUType;
 	
-	public AdminPanelActivity(UserData userData) {
+	public  UserPanelActivity(UserData userData) {
 		// TODO Auto-generated constructor stub
 		this.userData = userData;
-		frame = new JFrame("Admin Panel - AMS");
+		frame = new JFrame("User panel - AMS");
 		
 		try {
 			imageFile = new File("E:\\Wallpapers and Icons\\backgrounds_2.jpg");
@@ -120,6 +120,4 @@ public class AdminPanelActivity {
 			}
 		});
 	}
-	
-
 }
