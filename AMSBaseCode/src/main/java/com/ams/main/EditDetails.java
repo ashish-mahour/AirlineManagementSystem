@@ -147,6 +147,7 @@ public class EditDetails extends JPanel {
 		lblGender.setBounds(21, 301, 121, 22);
 		
 		panel.add(lblGender);
+		lblTextgender.setEditable(false);
 		lblTextgender.setForeground(new Color(0, 0, 0));
 		lblTextgender.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblTextgender.setBounds(184, 301, 192, 22);
@@ -157,6 +158,7 @@ public class EditDetails extends JPanel {
 		lblUserType.setBounds(21, 334, 121, 22);
 		
 		panel.add(lblUserType);
+		lblTextutype.setEditable(false);
 		lblTextutype.setForeground(new Color(0, 0, 0));
 		lblTextutype.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblTextutype.setBounds(184, 334, 192, 22);
