@@ -301,7 +301,8 @@ public class RegisterActivity {
 					if(userDAOImplements.saveUser(userData)) {
 						JOptionPane.showMessageDialog(frame, "User Registered!", "Success",
 								JOptionPane.INFORMATION_MESSAGE);
-
+						frame.dispose();
+						new MainActivity().show();
 					}
 										
 					

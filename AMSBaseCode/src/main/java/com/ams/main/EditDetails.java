@@ -3,17 +3,22 @@ package com.ams.main;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Color;
 import javax.swing.border.EmptyBorder;
 
 import org.jdesktop.swingx.JXDatePicker;
 
+import com.ams.dao.impl.UserDAOImplements;
 import com.ams.entities.UserData;
 
 import java.awt.Font;
 import java.sql.Date;
 
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class EditDetails extends JPanel {
 	/**
@@ -46,6 +51,8 @@ public class EditDetails extends JPanel {
 	private final JXDatePicker txtTextdateofbirth = new JXDatePicker();
 	private final JButton btnUpdate = new JButton("Update");
 	private final JButton btnCancel = new JButton("Cancel");
+	
+	private UserDAOImplements userDAOImplements;
 
 	/**
 	 * Create the panel.
@@ -174,6 +181,31 @@ public class EditDetails extends JPanel {
 		txtTextdateofbirth.setBounds(184, 373, 192, 22);
 		
 		panel.add(txtTextdateofbirth);
+		
+		userDAOImplements = new UserDAOImplements();
+		
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				UserData userDataforUpdate = new UserData();
+				try {
+					userDataforUpdate.setId(Integer.parseInt(textID.getText()));
+					userDataforUpdate.setUserName(textUsername.getText());
+					userDataforUpdate.setPassword(textPassword.getText());
+					userDataforUpdate.setEmail(textEmail.getText());
+					userDataforUpdate.setFullName(lblFullName.getText());
+					userDataforUpdate.setAge(Integer.parseInt(lblTextage.getText()));
+					userDataforUpdate.setAddress(lblTextaddress.getText());
+					userDataforUpdate.setContactNo(Long.parseLong(lblTextcontact.getText()));
+					userDataforUpdate.setGender(lblTextgender.getText());
+					userDataforUpdate.setUserType(lblUserType.getText());
+					userDataforUpdate.setDob(txtTextdateofbirth.getDate().toString());
+					userDAOImplements.updateUser(userDataforUpdate, textUsername.getText());
+				} catch (Exception e) {
+					// TODO: handle exception
+					JOptionPane.showMessageDialog(EditDetails.this, e.getMessage(), "Alert", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		btnUpdate.setForeground(new Color(0, 51, 0));
 		btnUpdate.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnUpdate.setBackground(new Color(0, 204, 204));

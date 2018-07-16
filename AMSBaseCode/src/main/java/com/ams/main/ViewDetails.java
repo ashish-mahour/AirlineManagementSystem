@@ -48,7 +48,7 @@ public class ViewDetails extends JPanel {
 		initGUI();
 		panel.setBorder(new EmptyBorder(0, 0, 0, 0));
 		panel.setBackground(new Color(0, 0, 0));
-		panel.setBounds(10, 11, 386, 430);
+		panel.setBounds(10, 11, 397, 430);
 		
 		add(panel);
 		panel.setLayout(null);
