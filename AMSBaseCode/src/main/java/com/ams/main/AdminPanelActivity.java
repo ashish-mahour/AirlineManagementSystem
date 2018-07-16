@@ -1,8 +1,8 @@
 package com.ams.main;
 
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -20,8 +20,10 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
 import com.ams.entities.UserData;
+import javax.swing.border.EtchedBorder;
 
 public class AdminPanelActivity {
+
 	JFrame frame;
 	
 	BufferedImage iconImage;
@@ -41,13 +43,17 @@ public class AdminPanelActivity {
 	JLabel textUsername, textPassword, textEmail, textFullName, textAge, textDob, textAddress, textContactNo,
 	textGender, textUType;
 	
+	ViewDetails viewDetailsActivity;
+	
+	EditDetails editDetailsActivity;
+	
 	public AdminPanelActivity(UserData userData) {
 		// TODO Auto-generated constructor stub
 		this.userData = userData;
 		frame = new JFrame("Admin Panel - AMS");
 		
 		try {
-			imageFile = new File("E:\\Wallpapers and Icons\\backgrounds_2.jpg");
+			imageFile = new File("src\\main\\java\\images\\m.png");
 			iconImage = ImageIO.read(imageFile);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -85,20 +91,25 @@ public class AdminPanelActivity {
 		detailsButton.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		
 		container = new JPanel();
-		container.setLayout(new GridLayout(11, 2));
-		container.setBackground(Color.GRAY);
+		container.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(0, 204, 51), new Color(0, 204, 102)));
+		container.setLayout(new CardLayout());
+		container.setBackground(new Color(102, 204, 153));
 		container.setLocation(150, 20);
-		container.setSize(400,500);
+		container.setSize(413,518);
 		
-		frame.add(icon);
-		frame.add(username);
-		frame.add(usertype);
-		frame.add(detailsButton);
-		frame.add(container);
+		viewDetailsActivity = new ViewDetails(userData);
+		editDetailsActivity = new EditDetails(userData);
 		
-		frame.setLayout(null);
+		
+		frame.getContentPane().add(icon);
+		frame.getContentPane().add(username);
+		frame.getContentPane().add(usertype);
+		frame.getContentPane().add(detailsButton);
+		frame.getContentPane().add(container);
+		
+		frame.getContentPane().setLayout(null);
 		frame.setSize(600, 600);
-		frame.getContentPane().setBackground(Color.decode("#99c2ff"));
+		frame.getContentPane().setBackground(new Color(102, 204, 153));
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -117,6 +128,27 @@ public class AdminPanelActivity {
 		viewDetails.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
+				container.removeAll();
+				container.repaint();
+				container.revalidate();
+				container.add(viewDetailsActivity);
+				container.repaint();
+				container.revalidate();
+				
+			}
+		});
+		editDetails.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				container.removeAll();
+				container.repaint();
+				container.revalidate();
+				container.add(editDetailsActivity);
+				container.repaint();
+				container.revalidate();
+				
 			}
 		});
 	}
