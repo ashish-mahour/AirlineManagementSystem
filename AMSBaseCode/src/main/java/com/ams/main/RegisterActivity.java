@@ -3,6 +3,7 @@ package com.ams.main;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
@@ -244,7 +245,8 @@ public class RegisterActivity {
 			}
 
 		}
-
+		
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(RegisterActivity.class.getResource("/images/planeIcon.png")));
 		frame.setLayout(null);
 		frame.setSize(340, 600);
 		frame.getContentPane().setBackground(Color.decode("#99c2ff"));

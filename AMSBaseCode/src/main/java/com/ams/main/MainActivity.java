@@ -3,6 +3,7 @@ package com.ams.main;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -22,6 +23,8 @@ import javax.swing.JTextField;
 
 import com.ams.dao.impl.UserDAOImplements;
 import com.ams.entities.UserData;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+import java.awt.Component;
 
 public class MainActivity {
 
@@ -53,12 +56,15 @@ public class MainActivity {
 		image.setSize(300, 200);
 
 		mlabelUsername = new JLabel("Username");
+		mlabelUsername.setForeground(new Color(255, 255, 255));
 		mLabelPassword = new JLabel("Password");
+		mLabelPassword.setForeground(new Color(255, 255, 255));
 		username = new JTextField();
 		password = new JTextField();
 		submit = new JButton("Submit");
 		cancel = new JButton("Cancel");
 		mRegLabel = new JLabel("New User ? Create new account ");
+		mRegLabel.setForeground(new Color(255, 255, 255));
 
 		mlabelUsername.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		mlabelUsername.setLocation(10, 220);
@@ -111,7 +117,7 @@ public class MainActivity {
 
 			public void mouseExited(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				mRegLabel.setForeground(Color.BLACK);
+				mRegLabel.setForeground(new Color(255, 255, 255));
 
 			}
 
@@ -153,17 +159,20 @@ public class MainActivity {
 				}
 			}
 		});
+		jFrame.setBackground(new Color(0, 100, 0));
+		jFrame.setIconImage(Toolkit.getDefaultToolkit().getImage(MainActivity.class.getResource("/images/planeIcon.png")));
 		jFrame.getRootPane().setDefaultButton(submit);
-		jFrame.getContentPane().setBackground(Color.decode("#99c2ff"));
-		jFrame.add(mlabelUsername);
-		jFrame.add(username);
-		jFrame.add(mLabelPassword);
-		jFrame.add(password);
-		jFrame.add(submit);
-		jFrame.add(cancel);
-		jFrame.add(mRegLabel);
-		jFrame.add(image);
-		jFrame.setLayout(null);
+		jFrame.getContentPane().setBackground(new Color(32, 178, 170));
+		jFrame.getContentPane().add(mlabelUsername);
+		jFrame.getContentPane().add(username);
+		jFrame.getContentPane().add(mLabelPassword);
+		jFrame.getContentPane().add(password);
+		jFrame.getContentPane().add(submit);
+		jFrame.getContentPane().add(cancel);
+		jFrame.getContentPane().add(mRegLabel);
+		jFrame.getContentPane().add(image);
+		jFrame.getContentPane().setLayout(null);
+		jFrame.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{mlabelUsername, username, mLabelPassword, password, submit, cancel, mRegLabel, image}));
 		jFrame.setSize(340, 600);
 		jFrame.setVisible(true);
 		jFrame.setLocationRelativeTo(null);
