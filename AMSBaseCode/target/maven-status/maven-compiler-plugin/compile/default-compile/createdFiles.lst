@@ -1,6 +1,5 @@
 com\ams\activities\MainActivity.class
 com\ams\model\Validations.class
-org\eclipse\wb\swing\FocusTraversalOnArray.class
 com\ams\dao\api\UserDAO.class
 com\ams\activities\AdminPanelActivity$6.class
 com\ams\activities\UserPanelActivity$4.class

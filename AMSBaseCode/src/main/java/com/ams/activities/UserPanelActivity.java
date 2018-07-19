@@ -19,13 +19,14 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.border.EtchedBorder;
 
 import com.ams.dao.impl.UserDAOImplements;
 import com.ams.entities.UserData;
 import com.ams.panels.EditDetails;
 import com.ams.panels.ViewDetails;
 import java.awt.Toolkit;
+import javax.swing.border.LineBorder;
+import java.awt.Component;
 
 public class UserPanelActivity {
 	JFrame frame;
@@ -35,8 +36,6 @@ public class UserPanelActivity {
 
 	JLabel icon, username, usertype;
 
-	JPopupMenu detailsMenu;
-	JMenuItem editDetails, viewDetails, deleteAcc;
 
 	JPanel container;
 
@@ -53,12 +52,19 @@ public class UserPanelActivity {
 
 	UserDAOImplements userDAOImplements;
 	private JButton btnExit;
+	private JPopupMenu popupMenu;
+	private JMenuItem mntmViewDetails;
+	private JMenuItem mntmEditDetails;
+	private JMenuItem mntmDeleteMyAccount;
+
+	protected static boolean menuShow = false;
 
 	public UserPanelActivity(UserData userData) {
 		// TODO Auto-generated constructor stub
 		this.userData = userData;
 		frame = new JFrame("User panel - AMS");
-		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(UserPanelActivity.class.getResource("/images/planeIcon.png")));
+		frame.setIconImage(
+				Toolkit.getDefaultToolkit().getImage(UserPanelActivity.class.getResource("/images/planeIcon.png")));
 
 		try {
 			imageFile = new File("src\\main\\java\\images\\m.png");
@@ -74,37 +80,30 @@ public class UserPanelActivity {
 		username = new JLabel(userData.getFullName());
 		usertype = new JLabel(userData.getUserType());
 
-		detailsMenu = new JPopupMenu();
-
-		editDetails = new JMenuItem("Edit Details");
-		viewDetails = new JMenuItem("View Details");
-		deleteAcc = new JMenuItem("Delete Account");
 
 		detailsButton = new JButton("Details");
-
-		detailsMenu.add(editDetails);
-		detailsMenu.add(viewDetails);
-		detailsMenu.add(deleteAcc);
+		detailsButton.setBorder(new LineBorder(new Color(204, 255, 204), 1, true));
+		detailsButton.setBackground(new Color(102, 204, 0));
 
 		username.setLocation(10, 130);
-		username.setSize(200, 20);
+		username.setSize(124, 20);
 		username.setToolTipText(userData.getFullName());
-		username.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		username.setFont(new Font("Segoe Script", Font.PLAIN, 14));
 
 		usertype.setLocation(10, 150);
 		usertype.setSize(100, 20);
-		usertype.setFont(new Font("Times New Roman", Font.PLAIN, 10));
+		usertype.setFont(new Font("Segoe Print", Font.PLAIN, 8));
 
-		detailsButton.setLocation(10, 170);
-		detailsButton.setSize(83, 31);
-		detailsButton.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		detailsButton.setLocation(10, 181);
+		detailsButton.setSize(124, 31);
+		detailsButton.setFont(new Font("Monospaced", Font.PLAIN, 18));
 
 		container = new JPanel();
-		container.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(0, 204, 51), new Color(0, 204, 102)));
+		container.setBorder(new LineBorder(new Color(153, 153, 153), 2, true));
 		container.setLayout(new CardLayout());
-		container.setBackground(new Color(102, 204, 153));
-		container.setLocation(134, 20);
-		container.setSize(429, 518);
+		container.setBackground(new Color(204, 204, 204));
+		container.setLocation(144, 20);
+		container.setSize(424, 500);
 
 		viewDetailsActivity = new ViewDetails(userData);
 		editDetailsActivity = new EditDetails(userData);
@@ -114,15 +113,35 @@ public class UserPanelActivity {
 		frame.getContentPane().add(username);
 		frame.getContentPane().add(usertype);
 		frame.getContentPane().add(detailsButton);
+
+		popupMenu = new JPopupMenu();
+		addPopup(detailsButton, popupMenu);
+
+		mntmViewDetails = new JMenuItem("View Details");
+		mntmViewDetails.setBorder(new LineBorder(new Color(0, 204, 102), 1, true));
+		mntmViewDetails.setBackground(new Color(0, 153, 51));
+		popupMenu.add(mntmViewDetails);
+
+		mntmEditDetails = new JMenuItem("Edit Details");
+		mntmEditDetails.setBorder(new LineBorder(new Color(0, 204, 102), 1, true));
+		mntmEditDetails.setBackground(new Color(0, 153, 51));
+		popupMenu.add(mntmEditDetails);
+
+		mntmDeleteMyAccount = new JMenuItem("Delete my account");
+		mntmDeleteMyAccount.setBorder(new LineBorder(new Color(0, 204, 102), 1, true));
+		mntmDeleteMyAccount.setBackground(new Color(0, 153, 51));
+		popupMenu.add(mntmDeleteMyAccount);
 		frame.getContentPane().add(container);
 
 		frame.getContentPane().setLayout(null);
-		frame.setSize(600, 600);
-		frame.getContentPane().setBackground(new Color(102, 204, 153));
+		frame.setSize(599, 569);
+		frame.getContentPane().setBackground(new Color(102, 102, 102));
 
-		btnExit = new JButton("Exit");
-		btnExit.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		btnExit.setBounds(10, 221, 100, 31);
+		btnExit = new JButton("Logout");
+		btnExit.setBorder(new LineBorder(new Color(255, 204, 153), 1, true));
+		btnExit.setBackground(new Color(255, 102, 51));
+		btnExit.setFont(new Font("Monospaced", Font.PLAIN, 18));
+		btnExit.setBounds(10, 239, 108, 31);
 		frame.getContentPane().add(btnExit);
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
@@ -131,15 +150,7 @@ public class UserPanelActivity {
 	}
 
 	public void show() {
-		detailsButton.addMouseListener(new MouseAdapter() {
-
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				detailsMenu.show(frame, 20, 240);
-			}
-		});
-		viewDetails.addActionListener(new ActionListener() {
+		mntmViewDetails.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				container.removeAll();
@@ -151,7 +162,7 @@ public class UserPanelActivity {
 
 			}
 		});
-		editDetails.addActionListener(new ActionListener() {
+		mntmEditDetails.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -165,7 +176,7 @@ public class UserPanelActivity {
 
 			}
 		});
-		deleteAcc.addActionListener(new ActionListener() {
+		mntmDeleteMyAccount.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -191,5 +202,33 @@ public class UserPanelActivity {
 			}
 		});
 
+	}
+
+	private static void addPopup(Component component, final JPopupMenu popup) {
+		component.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if (!menuShow) {
+					showMenu(e);
+					menuShow = true;
+				} else {
+					popup.setVisible(false);
+					menuShow = false;
+				}
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if (!menuShow) {
+					showMenu(e);
+					menuShow = true;
+				} else {
+					popup.setVisible(false);
+					menuShow = false;
+				}
+			}
+			private void showMenu(MouseEvent e) {
+				popup.show(e.getComponent(), e.getX(), e.getY());
+			}
+		});
 	}
 }
