@@ -1,4 +1,4 @@
-package com.ams.main;
+package com.ams.activities;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -25,6 +25,7 @@ import com.ams.dao.impl.UserDAOImplements;
 import com.ams.entities.UserData;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
+import javax.swing.border.LineBorder;
 
 public class MainActivity {
 
@@ -52,30 +53,43 @@ public class MainActivity {
 			e.printStackTrace();
 		}
 		image = new JLabel(new ImageIcon(bufferedImage));
+		image.setBorder(new LineBorder(new Color(51, 153, 255), 2, true));
 		image.setLocation(10, 10);
 		image.setSize(300, 200);
 
 		mlabelUsername = new JLabel("Username");
-		mlabelUsername.setForeground(new Color(255, 255, 255));
+		mlabelUsername.setForeground(new Color(204, 255, 204));
 		mLabelPassword = new JLabel("Password");
-		mLabelPassword.setForeground(new Color(255, 255, 255));
+		mLabelPassword.setForeground(new Color(204, 255, 204));
 		username = new JTextField();
+		username.setToolTipText("Enter your username");
 		password = new JTextField();
+		password.setToolTipText("Enter your password");
 		submit = new JButton("Submit");
+		submit.setBorder(new LineBorder(new Color(204, 255, 255), 2, true));
+		submit.setBackground(new Color(102, 255, 102));
+		username.setBorder(new LineBorder(new Color(204, 255, 255), 2, true));
+		username.setBackground(new Color(153, 255, 255));
+		password.setBorder(new LineBorder(new Color(204, 255, 255), 2, true));
+		password.setBackground(new Color(153, 255, 255));
 		cancel = new JButton("Cancel");
+		cancel.setBorder(new LineBorder(new Color(204, 255, 255), 2, true));
+		cancel.setBackground(new Color(102, 255, 102));
 		mRegLabel = new JLabel("New User ? Create new account ");
 		mRegLabel.setForeground(new Color(255, 255, 255));
+		
+		
 
-		mlabelUsername.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		mlabelUsername.setFont(new Font("Segoe Print", Font.BOLD, 20));
 		mlabelUsername.setLocation(10, 220);
-		mlabelUsername.setSize(300, 30);
+		mlabelUsername.setSize(119, 30);
 
 		username.setLocation(10, 250);
 		username.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		username.setSize(300, 30);
 
 		mLabelPassword.setLocation(10, 290);
-		mLabelPassword.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		mLabelPassword.setFont(new Font("Segoe Print", Font.BOLD, 20));
 		mLabelPassword.setSize(300, 30);
 
 		password.setLocation(10, 320);
@@ -83,11 +97,11 @@ public class MainActivity {
 		password.setSize(300, 30);
 
 		submit.setLocation(10, 380);
-		submit.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		submit.setSize(100, 30);
+		submit.setFont(new Font("Monospaced", Font.PLAIN, 20));
+		submit.setSize(119, 30);
 
 		cancel.setLocation(200, 380);
-		cancel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		cancel.setFont(new Font("Monospaced", Font.PLAIN, 20));
 		cancel.setSize(110, 30);
 
 		mRegLabel.setLocation(80, 450);

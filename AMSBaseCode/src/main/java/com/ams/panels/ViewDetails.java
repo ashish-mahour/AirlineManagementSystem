@@ -1,4 +1,4 @@
-package com.ams.main;
+package com.ams.panels;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -8,10 +8,11 @@ import javax.swing.border.EmptyBorder;
 import com.ams.entities.UserData;
 
 import java.awt.Font;
+import javax.swing.border.LineBorder;
 
 public class ViewDetails extends JPanel {
 	/**
-	 * 
+	 * Instantiating and  Initializing the objects 
 	 */
 	private static final long serialVersionUID = -6384119036923666743L;
 	private UserData userData;
@@ -46,14 +47,14 @@ public class ViewDetails extends JPanel {
 	public ViewDetails(UserData userData) {
 		this.userData = userData;
 		initGUI();
-		panel.setBorder(new EmptyBorder(0, 0, 0, 0));
-		panel.setBackground(new Color(0, 0, 0));
-		panel.setBounds(10, 11, 397, 430);
+		panel.setBorder(new LineBorder(new Color(204, 255, 255), 2, true));
+		panel.setBackground(new Color(51, 153, 255));
+		panel.setBounds(12, 12, 396, 464);
 		
 		add(panel);
 		panel.setLayout(null);
 		label.setForeground(Color.WHITE);
-		label.setFont(new Font("Tahoma", Font.BOLD, 18));
+		label.setFont(new Font("Segoe Print", Font.BOLD, 18));
 		label.setBounds(21, 42, 87, 30);
 		
 		panel.add(label);
@@ -63,7 +64,7 @@ public class ViewDetails extends JPanel {
 		
 		panel.add(textID);
 		label_2.setForeground(Color.WHITE);
-		label_2.setFont(new Font("Tahoma", Font.BOLD, 18));
+		label_2.setFont(new Font("Segoe Print", Font.BOLD, 18));
 		label_2.setBounds(21, 77, 121, 22);
 		
 		panel.add(label_2);
@@ -73,7 +74,7 @@ public class ViewDetails extends JPanel {
 		
 		panel.add(textUsername);
 		label_4.setForeground(Color.WHITE);
-		label_4.setFont(new Font("Tahoma", Font.BOLD, 18));
+		label_4.setFont(new Font("Segoe Print", Font.BOLD, 18));
 		label_4.setBounds(21, 110, 121, 22);
 		
 		panel.add(label_4);
@@ -83,7 +84,7 @@ public class ViewDetails extends JPanel {
 		
 		panel.add(textPassword);
 		label_6.setForeground(Color.WHITE);
-		label_6.setFont(new Font("Tahoma", Font.BOLD, 18));
+		label_6.setFont(new Font("Segoe Print", Font.BOLD, 18));
 		label_6.setBounds(21, 143, 121, 22);
 		
 		panel.add(label_6);
@@ -93,7 +94,7 @@ public class ViewDetails extends JPanel {
 		
 		panel.add(textEmail);
 		lblFullName.setForeground(Color.WHITE);
-		lblFullName.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblFullName.setFont(new Font("Segoe Print", Font.BOLD, 18));
 		lblFullName.setBounds(21, 176, 121, 22);
 		
 		panel.add(lblFullName);
@@ -103,7 +104,7 @@ public class ViewDetails extends JPanel {
 		
 		panel.add(lblTextfullname);
 		lblAge.setForeground(Color.WHITE);
-		lblAge.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblAge.setFont(new Font("Segoe Print", Font.BOLD, 18));
 		lblAge.setBounds(21, 209, 121, 22);
 		
 		panel.add(lblAge);
@@ -113,7 +114,7 @@ public class ViewDetails extends JPanel {
 		
 		panel.add(lblTextage);
 		lblAddress.setForeground(Color.WHITE);
-		lblAddress.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblAddress.setFont(new Font("Segoe Print", Font.BOLD, 18));
 		lblAddress.setBounds(21, 248, 121, 22);
 		
 		panel.add(lblAddress);
@@ -123,7 +124,7 @@ public class ViewDetails extends JPanel {
 		
 		panel.add(lblTextaddress);
 		lblContactNo.setForeground(Color.WHITE);
-		lblContactNo.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblContactNo.setFont(new Font("Segoe Print", Font.BOLD, 18));
 		lblContactNo.setBounds(21, 280, 121, 22);
 		
 		panel.add(lblContactNo);
@@ -133,7 +134,7 @@ public class ViewDetails extends JPanel {
 		
 		panel.add(lblTextcontact);
 		lblGender.setForeground(Color.WHITE);
-		lblGender.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblGender.setFont(new Font("Segoe Print", Font.BOLD, 18));
 		lblGender.setBounds(21, 313, 121, 22);
 		
 		panel.add(lblGender);
@@ -143,17 +144,17 @@ public class ViewDetails extends JPanel {
 		
 		panel.add(lblTextgender);
 		lblUserType.setForeground(Color.WHITE);
-		lblUserType.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblUserType.setFont(new Font("Segoe Print", Font.BOLD, 18));
 		lblUserType.setBounds(21, 351, 121, 22);
 		
 		panel.add(lblUserType);
 		lblTextutype.setForeground(Color.WHITE);
 		lblTextutype.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblTextutype.setBounds(184, 351, 192, 22);
+		lblTextutype.setBounds(185, 347, 192, 22);
 		
 		panel.add(lblTextutype);
 		lblDateOfBirth.setForeground(Color.WHITE);
-		lblDateOfBirth.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblDateOfBirth.setFont(new Font("Segoe Print", Font.BOLD, 18));
 		lblDateOfBirth.setBounds(21, 384, 121, 22);
 		
 		panel.add(lblDateOfBirth);
@@ -176,8 +177,8 @@ public class ViewDetails extends JPanel {
 		lblTextutype.setText(userData.getUserType());
 		lblTextdateofbirth.setText(userData.getDob());
 		
-		setBorder(new EmptyBorder(0, 0, 0, 0));
-		setBackground(new Color(51, 204, 153));
+		setBorder(new LineBorder(new Color(102, 102, 102), 2, true));
+		setBackground(new Color(153, 153, 153));
 		setLayout(null);
 	}
 }

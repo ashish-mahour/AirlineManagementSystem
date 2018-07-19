@@ -1,4 +1,4 @@
-package com.ams.main;
+package com.ams.activities;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -24,6 +24,7 @@ import org.jdesktop.swingx.JXDatePicker;
 import com.ams.dao.impl.UserDAOImplements;
 import com.ams.entities.UserData;
 import com.ams.model.Validations;
+import javax.swing.border.LineBorder;
 
 public class RegisterActivity {
 	JFrame frame;
@@ -52,9 +53,16 @@ public class RegisterActivity {
 		frame = new JFrame("Registration ");
 
 		mSubmit = new JButton("Submit");
+		mSubmit.setBorder(new LineBorder(new Color(153, 255, 255), 2, true));
+		mSubmit.setBackground(new Color(0, 204, 204));
+		
 		mCancel = new JButton("Cancel");
+		mCancel.setBorder(new LineBorder(new Color(153, 255, 255), 2, true));
+		mCancel.setBackground(new Color(0, 204, 204));
 
 		textUsername = new JLabel("Username : ");
+		textUsername.setBackground(new Color(204, 204, 204));
+		textUsername.setForeground(new Color(0, 0, 0));
 		textPassword = new JLabel("Password : ");
 		textEmail = new JLabel("Email : ");
 		textFullName = new JLabel("Full Name : ");
@@ -66,21 +74,56 @@ public class RegisterActivity {
 		textUType = new JLabel("User Type :");
 
 		editUsername = new JTextField();
+		editUsername.setBackground(new Color(153, 255, 153));
+		editUsername.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
+		
 		editPassword = new JTextField();
+		editPassword.setBackground(new Color(153, 255, 153));
+		editPassword.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
+		
 		editEmail = new JTextField();
+		editEmail.setBackground(new Color(153, 255, 153));
+		editEmail.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
+		
 		editFullName = new JTextField();
+		editFullName.setBackground(new Color(153, 255, 153));
+		editFullName.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
+		
 		editAge = new JTextField();
+		editAge.setBackground(new Color(153, 255, 153));
+		editAge.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
+		
 		editAdress = new JTextField();
+		editAdress.setBackground(new Color(153, 255, 153));
+		editAdress.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
+		
 		editContactNo = new JTextField();
+		editContactNo.setBackground(new Color(153, 255, 153));
+		editContactNo.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
 
 		genderGroup = new ButtonGroup();
+		
 		radioMale = new JRadioButton("Male");
+		radioMale.setBackground(new Color(153, 255, 153));
+		radioMale.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
+		
 		radioFMale = new JRadioButton("Female");
+		radioFMale.setBackground(new Color(153, 255, 153));
+		radioFMale.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
+		
 		radioOther = new JRadioButton("Other");
+		radioOther.setBackground(new Color(153, 255, 153));
+		radioOther.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
 
 		utypeGroup = new ButtonGroup();
+		
 		radioAdmin = new JRadioButton("Admin");
+		radioAdmin.setBackground(new Color(153, 255, 153));
+		radioAdmin.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
+		
 		radioUser = new JRadioButton("User");
+		radioUser.setBackground(new Color(153, 255, 153));
+		radioUser.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
 
 		list = new ArrayList<JTextField>();
 		
@@ -95,7 +138,7 @@ public class RegisterActivity {
 		}
 
 		textUsername.setLocation(20, 10);
-		textUsername.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		textUsername.setFont(new Font("Segoe Print", Font.BOLD, 16));
 		textUsername.setSize(100, 30);
 
 		editUsername.setLocation(120, 10);
@@ -103,7 +146,7 @@ public class RegisterActivity {
 		editUsername.setSize(180, 30);
 
 		textPassword.setLocation(20, 50);
-		textPassword.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		textPassword.setFont(new Font("Segoe Print", Font.BOLD, 16));
 		textPassword.setSize(100, 30);
 
 		editPassword.setLocation(120, 50);
@@ -111,7 +154,7 @@ public class RegisterActivity {
 		editPassword.setSize(180, 30);
 
 		textEmail.setLocation(20, 90);
-		textEmail.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		textEmail.setFont(new Font("Segoe Print", Font.BOLD, 16));
 		textEmail.setSize(100, 30);
 
 		editEmail.setLocation(120, 90);
@@ -119,7 +162,7 @@ public class RegisterActivity {
 		editEmail.setSize(180, 30);
 
 		textDob.setLocation(20, 130);
-		textDob.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		textDob.setFont(new Font("Segoe Print", Font.BOLD, 16));
 		textDob.setSize(130, 30);
 
 		editDob = new JXDatePicker();
@@ -127,9 +170,11 @@ public class RegisterActivity {
 		editDob.setDate(minDate);
 		editDob.setLocation(150, 130);
 		editDob.setSize(150, 30);
+		editDob.getEditor().setBackground(new Color(153, 255, 153));
+		editDob.getEditor().setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
 
 		textFullName.setLocation(20, 170);
-		textFullName.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		textFullName.setFont(new Font("Segoe Print", Font.BOLD, 16));
 		textFullName.setSize(100, 30);
 
 		editFullName.setLocation(120, 170);
@@ -137,7 +182,7 @@ public class RegisterActivity {
 		editFullName.setSize(180, 30);
 
 		textAge.setLocation(20, 210);
-		textAge.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		textAge.setFont(new Font("Segoe Print", Font.BOLD, 16));
 		textAge.setSize(100, 30);
 
 		editAge.setLocation(120, 210);
@@ -145,7 +190,7 @@ public class RegisterActivity {
 		editAge.setSize(180, 30);
 
 		textAddress.setLocation(20, 250);
-		textAddress.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		textAddress.setFont(new Font("Segoe Print", Font.BOLD, 16));
 		textAddress.setSize(100, 30);
 
 		editAdress.setLocation(120, 250);
@@ -153,15 +198,15 @@ public class RegisterActivity {
 		editAdress.setSize(180, 30);
 
 		textContactNo.setLocation(20, 290);
-		textContactNo.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		textContactNo.setSize(100, 30);
+		textContactNo.setFont(new Font("Segoe Print", Font.BOLD, 16));
+		textContactNo.setSize(120, 30);
 
-		editContactNo.setLocation(120, 290);
+		editContactNo.setLocation(150, 290);
 		editContactNo.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		editContactNo.setSize(180, 30);
+		editContactNo.setSize(150, 30);
 
 		textGender.setLocation(20, 330);
-		textGender.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		textGender.setFont(new Font("Segoe Print", Font.BOLD, 16));
 		textGender.setSize(100, 30);
 
 		radioMale.setLocation(120, 330);
@@ -181,7 +226,7 @@ public class RegisterActivity {
 		genderGroup.add(radioOther);
 
 		textUType.setLocation(20, 430);
-		textUType.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		textUType.setFont(new Font("Segoe Print", Font.BOLD, 16));
 		textUType.setSize(100, 30);
 
 		radioAdmin.setLocation(120, 430);
@@ -196,48 +241,48 @@ public class RegisterActivity {
 		utypeGroup.add(radioUser);
 
 		mSubmit.setLocation(20, 500);
-		mSubmit.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		mSubmit.setSize(100, 30);
+		mSubmit.setFont(new Font("Monospaced", Font.PLAIN, 18));
+		mSubmit.setSize(130, 30);
 
-		mCancel.setLocation(200, 500);
-		mCancel.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		mCancel.setSize(100, 30);
+		mCancel.setLocation(162, 500);
+		mCancel.setFont(new Font("Monospaced", Font.PLAIN, 18));
+		mCancel.setSize(138, 30);
 
-		frame.add(textUsername);
-		frame.add(editUsername);
+		frame.getContentPane().add(textUsername);
+		frame.getContentPane().add(editUsername);
 
-		frame.add(textPassword);
-		frame.add(editPassword);
+		frame.getContentPane().add(textPassword);
+		frame.getContentPane().add(editPassword);
 
-		frame.add(textEmail);
-		frame.add(editEmail);
+		frame.getContentPane().add(textEmail);
+		frame.getContentPane().add(editEmail);
 
-		frame.add(textFullName);
-		frame.add(editFullName);
+		frame.getContentPane().add(textFullName);
+		frame.getContentPane().add(editFullName);
 
-		frame.add(textAge);
-		frame.add(editAge);
+		frame.getContentPane().add(textAge);
+		frame.getContentPane().add(editAge);
 
-		frame.add(textDob);
-		frame.add(editDob);
+		frame.getContentPane().add(textDob);
+		frame.getContentPane().add(editDob);
 
-		frame.add(textAddress);
-		frame.add(editAdress);
+		frame.getContentPane().add(textAddress);
+		frame.getContentPane().add(editAdress);
 
-		frame.add(textContactNo);
-		frame.add(editContactNo);
+		frame.getContentPane().add(textContactNo);
+		frame.getContentPane().add(editContactNo);
 
-		frame.add(textGender);
-		frame.add(radioMale);
-		frame.add(radioFMale);
-		frame.add(radioOther);
+		frame.getContentPane().add(textGender);
+		frame.getContentPane().add(radioMale);
+		frame.getContentPane().add(radioFMale);
+		frame.getContentPane().add(radioOther);
 
-		frame.add(textUType);
-		frame.add(radioAdmin);
-		frame.add(radioUser);
+		frame.getContentPane().add(textUType);
+		frame.getContentPane().add(radioAdmin);
+		frame.getContentPane().add(radioUser);
 
-		frame.add(mCancel);
-		frame.add(mSubmit);
+		frame.getContentPane().add(mCancel);
+		frame.getContentPane().add(mSubmit);
 
 		for (Component x : frame.getContentPane().getComponents()) {
 			if (x instanceof JTextField) {
@@ -247,9 +292,9 @@ public class RegisterActivity {
 		}
 		
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(RegisterActivity.class.getResource("/images/planeIcon.png")));
-		frame.setLayout(null);
+		frame.getContentPane().setLayout(null);
 		frame.setSize(340, 600);
-		frame.getContentPane().setBackground(Color.decode("#99c2ff"));
+		frame.getContentPane().setBackground(new Color(0, 204, 102));
 		frame.getRootPane().setDefaultButton(mSubmit);
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
