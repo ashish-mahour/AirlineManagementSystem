@@ -13,6 +13,7 @@ import com.ams.entities.UserData;
 
 import java.awt.Font;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -52,6 +53,7 @@ public class EditDetails extends JPanel {
 	private final JButton btnCancel = new JButton("Cancel");
 	
 	private UserDAOImplements userDAOImplements;
+	
 
 	/**
 	 * Create the panel.
@@ -206,6 +208,7 @@ public class EditDetails extends JPanel {
 		userDAOImplements = new UserDAOImplements();
 		btnUpdate.setBorder(new LineBorder(new Color(204, 255, 255), 2, true));
 		
+		
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				UserData userDataforUpdate = new UserData();
@@ -214,14 +217,15 @@ public class EditDetails extends JPanel {
 					userDataforUpdate.setUserName(textUsername.getText());
 					userDataforUpdate.setPassword(textPassword.getText());
 					userDataforUpdate.setEmail(textEmail.getText());
-					userDataforUpdate.setFullName(lblFullName.getText());
+					userDataforUpdate.setFullName(lblTextfullname.getText());
 					userDataforUpdate.setAge(Integer.parseInt(lblTextage.getText()));
 					userDataforUpdate.setAddress(lblTextaddress.getText());
 					userDataforUpdate.setContactNo(Long.parseLong(lblTextcontact.getText()));
 					userDataforUpdate.setGender(lblTextgender.getText());
-					userDataforUpdate.setUserType(lblUserType.getText());
-					userDataforUpdate.setDob(txtTextdateofbirth.getDate().toString());
+					userDataforUpdate.setUserType(lblTextutype.getText());
+					userDataforUpdate.setDob(new SimpleDateFormat("yyyy-MM-dd").format(txtTextdateofbirth.getDate()));
 					userDAOImplements.updateUser(userDataforUpdate, textUsername.getText());
+					JOptionPane.showMessageDialog(EditDetails.this, "Details updated!", "AMS - Alert", JOptionPane.INFORMATION_MESSAGE);
 				} catch (Exception e) {
 					// TODO: handle exception
 					JOptionPane.showMessageDialog(EditDetails.this, e.getMessage(), "Alert", JOptionPane.ERROR_MESSAGE);

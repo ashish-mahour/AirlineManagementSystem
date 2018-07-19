@@ -171,6 +171,14 @@ public class MainActivity {
 				}
 			}
 		});
+		cancel.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				System.exit(0);
+			}
+		});
 		jFrame.setIconImage(Toolkit.getDefaultToolkit().getImage(MainActivity.class.getResource("/images/planeIcon.png")));
 		jFrame.setBackground(new Color(0, 100, 0));
 		jFrame.getRootPane().setDefaultButton(submit);
