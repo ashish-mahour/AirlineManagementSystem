@@ -23,8 +23,6 @@ import javax.swing.JTextField;
 
 import com.ams.dao.impl.UserDAOImplements;
 import com.ams.entities.UserData;
-import org.eclipse.wb.swing.FocusTraversalOnArray;
-import java.awt.Component;
 import javax.swing.border.LineBorder;
 
 public class MainActivity {
@@ -173,8 +171,8 @@ public class MainActivity {
 				}
 			}
 		});
-		jFrame.setBackground(new Color(0, 100, 0));
 		jFrame.setIconImage(Toolkit.getDefaultToolkit().getImage(MainActivity.class.getResource("/images/planeIcon.png")));
+		jFrame.setBackground(new Color(0, 100, 0));
 		jFrame.getRootPane().setDefaultButton(submit);
 		jFrame.getContentPane().setBackground(new Color(32, 178, 170));
 		jFrame.getContentPane().add(mlabelUsername);
@@ -186,7 +184,6 @@ public class MainActivity {
 		jFrame.getContentPane().add(mRegLabel);
 		jFrame.getContentPane().add(image);
 		jFrame.getContentPane().setLayout(null);
-		jFrame.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{mlabelUsername, username, mLabelPassword, password, submit, cancel, mRegLabel, image}));
 		jFrame.setSize(340, 600);
 		jFrame.setVisible(true);
 		jFrame.setLocationRelativeTo(null);

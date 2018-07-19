@@ -25,6 +25,7 @@ import com.ams.dao.impl.UserDAOImplements;
 import com.ams.entities.UserData;
 import com.ams.panels.EditDetails;
 import com.ams.panels.ViewDetails;
+import java.awt.Toolkit;
 
 public class UserPanelActivity {
 	JFrame frame;
@@ -57,6 +58,7 @@ public class UserPanelActivity {
 		// TODO Auto-generated constructor stub
 		this.userData = userData;
 		frame = new JFrame("User panel - AMS");
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(UserPanelActivity.class.getResource("/images/planeIcon.png")));
 
 		try {
 			imageFile = new File("src\\main\\java\\images\\m.png");

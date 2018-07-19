@@ -3,7 +3,6 @@ package com.ams.panels;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Color;
-import javax.swing.border.EmptyBorder;
 
 import com.ams.entities.UserData;
 

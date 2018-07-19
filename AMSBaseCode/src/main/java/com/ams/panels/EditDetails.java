@@ -6,8 +6,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Color;
-import javax.swing.border.EmptyBorder;
-
 import org.jdesktop.swingx.JXDatePicker;
 
 import com.ams.dao.impl.UserDAOImplements;
