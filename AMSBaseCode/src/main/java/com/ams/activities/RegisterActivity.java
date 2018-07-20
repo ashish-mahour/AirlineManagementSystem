@@ -50,7 +50,7 @@ public class RegisterActivity {
 
 	public RegisterActivity() {
 		// TODO Auto-generated constructor stub
-		frame = new JFrame("Registration ");
+		frame = new JFrame("User Registration - AMS ");
 
 		mSubmit = new JButton("Submit");
 		mSubmit.setBorder(new LineBorder(new Color(153, 255, 255), 2, true));

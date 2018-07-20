@@ -20,8 +20,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
+import com.ams.dao.impl.LocationDAOImpl;
 import com.ams.dao.impl.UserDAOImplements;
+import com.ams.entities.LocationData;
 import com.ams.entities.UserData;
+import com.ams.panels.AddUpdateLocation;
 import com.ams.panels.EditDetails;
 import com.ams.panels.ViewDetails;
 
@@ -65,15 +68,19 @@ public class AdminPanelActivity {
 	private JMenuItem mntmShowAllFlights;
 	private static boolean menuShow = false;
 	private final JPopupMenu popupMenu_1 = new JPopupMenu();
-	private final JMenuItem mntmAdd = new JMenuItem("Add Location");
+	private final JMenuItem mntmAddLocation = new JMenuItem("Add Location");
 	private final JMenuItem mntmModifyLocation = new JMenuItem("Modify Location");
 	private final JMenuItem mntmDeleteLocation = new JMenuItem("Delete Location");
 	private JMenuItem mntmViewAll;
+	private String locationCode = "";
+	private LocationData locationData;
+	private LocationDAOImpl locationDAOImpl;
 
 	public AdminPanelActivity(UserData userData) {
 		// TODO Auto-generated constructor stub
 		this.userData = userData;
 		frame = new JFrame("Admin Panel - AMS");
+		locationDAOImpl = new LocationDAOImpl();
 		frame.setResizable(false);
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(AdminPanelActivity.class.getResource("/images/planeIcon.png")));
 
@@ -111,11 +118,7 @@ public class AdminPanelActivity {
 		detailsButton.setAlignmentY(0.0f);
 		detailsButton.setBackground(new Color(0, 204, 255));
 		detailsButton.setBorder(new LineBorder(new Color(204, 255, 255), 1, true));
-		detailsButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-
+	
 		detailsMenu.add(editDetails);
 		detailsMenu.add(viewDetails);
 		detailsMenu.add(deleteAcc);
@@ -201,9 +204,9 @@ public class AdminPanelActivity {
 		frame.getContentPane().add(btnManageLoactions);
 		
 		addPopup(btnManageLoactions, popupMenu_1);
-		mntmAdd.setBackground(new Color(32, 178, 170));
+		mntmAddLocation.setBackground(new Color(32, 178, 170));
 		
-		popupMenu_1.add(mntmAdd);
+		popupMenu_1.add(mntmAddLocation);
 		mntmModifyLocation.setBackground(new Color(32, 178, 170));
 		
 		popupMenu_1.add(mntmModifyLocation);
@@ -263,6 +266,47 @@ public class AdminPanelActivity {
 
 			}
 		});
+		
+		mntmAddLocation.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				AddUpdateLocation addLocation = new AddUpdateLocation();
+				container.removeAll();
+				container.repaint();
+				container.revalidate();
+				container.add(addLocation);
+				container.repaint();
+				container.revalidate();
+				
+				
+			}
+		});
+		mntmModifyLocation.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				//AskingforUpdate askingforUpdate = new AskingforUpdate();
+				locationCode = JOptionPane.showInputDialog(frame, "Location Code :", "Alert - AMS", JOptionPane.INFORMATION_MESSAGE);
+				locationData = locationDAOImpl.getLocationByCode(locationCode);
+				AddUpdateLocation addUpdateLocation;
+				if(locationData != null) {
+					addUpdateLocation = new AddUpdateLocation(locationData,true);
+					container.removeAll();
+					container.repaint();
+					container.revalidate();
+					container.add(addUpdateLocation);
+					container.repaint();
+					container.revalidate();
+				} else {
+					JOptionPane.showMessageDialog(frame, "No data found!", "Alert - AMS", JOptionPane.ERROR_MESSAGE);
+				}
+				
+			}
+		});
+		
 		btnExit.addActionListener(new ActionListener() {
 			
 			@Override

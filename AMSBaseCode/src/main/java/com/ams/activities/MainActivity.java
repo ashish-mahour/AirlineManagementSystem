@@ -27,7 +27,7 @@ import javax.swing.border.LineBorder;
 
 public class MainActivity {
 
-	final JFrame jFrame = new JFrame("Airline Management System");
+	final JFrame jFrame = new JFrame("Airline Management System - Home");
 
 	BufferedImage bufferedImage = null;
 

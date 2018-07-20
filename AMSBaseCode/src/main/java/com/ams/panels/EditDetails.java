@@ -50,7 +50,6 @@ public class EditDetails extends JPanel {
 	private final JLabel lblDateOfBirth = new JLabel("Date of Birth");
 	private final JXDatePicker txtTextdateofbirth = new JXDatePicker();
 	private final JButton btnUpdate = new JButton("Update");
-	private final JButton btnCancel = new JButton("Cancel");
 	
 	private UserDAOImplements userDAOImplements;
 	
@@ -235,16 +234,9 @@ public class EditDetails extends JPanel {
 		btnUpdate.setForeground(new Color(0, 51, 0));
 		btnUpdate.setFont(new Font("Monospaced", Font.PLAIN, 18));
 		btnUpdate.setBackground(new Color(0, 204, 204));
-		btnUpdate.setBounds(21, 421, 169, 33);
+		btnUpdate.setBounds(104, 420, 192, 33);
 		
 		panel.add(btnUpdate);
-		btnCancel.setBorder(new LineBorder(new Color(204, 255, 255), 2, true));
-		btnCancel.setForeground(new Color(0, 51, 0));
-		btnCancel.setFont(new Font("Monospaced", Font.PLAIN, 18));
-		btnCancel.setBackground(new Color(0, 204, 204));
-		btnCancel.setBounds(202, 421, 174, 33);
-		
-		panel.add(btnCancel);
 	}
 	private void initGUI() {
 		textID.setText(String.valueOf(userData.getId()));

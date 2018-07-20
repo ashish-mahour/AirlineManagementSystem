@@ -58,6 +58,11 @@ public class UserPanelActivity {
 	private JMenuItem mntmDeleteMyAccount;
 
 	protected static boolean menuShow = false;
+	private final JButton btnFlights = new JButton("Flights");
+	private final JPopupMenu popupMenuFlights = new JPopupMenu();
+	private final JMenuItem mntmCheckFlight = new JMenuItem("Check Flight");
+	private final JMenuItem mntmBookFlight = new JMenuItem("Book Flight");
+	private final JMenuItem mntmCancelFlights = new JMenuItem("Cancel Flights");
 
 	public UserPanelActivity(UserData userData) {
 		// TODO Auto-generated constructor stub
@@ -141,8 +146,25 @@ public class UserPanelActivity {
 		btnExit.setBorder(new LineBorder(new Color(255, 204, 153), 1, true));
 		btnExit.setBackground(new Color(255, 102, 51));
 		btnExit.setFont(new Font("Monospaced", Font.PLAIN, 18));
-		btnExit.setBounds(10, 239, 108, 31);
+		btnExit.setBounds(10, 267, 108, 31);
 		frame.getContentPane().add(btnExit);
+		btnFlights.setFont(new Font("Monospaced", Font.PLAIN, 18));
+		btnFlights.setBorder(new LineBorder(new Color(204, 255, 204), 1, true));
+		btnFlights.setBackground(new Color(135, 206, 250));
+		btnFlights.setBounds(10, 224, 124, 31);
+		
+		frame.getContentPane().add(btnFlights);
+		
+		addPopup(btnFlights, popupMenuFlights);
+		mntmCheckFlight.setBackground(new Color(0, 191, 255));
+		
+		popupMenuFlights.add(mntmCheckFlight);
+		mntmBookFlight.setBackground(new Color(0, 191, 255));
+		
+		popupMenuFlights.add(mntmBookFlight);
+		mntmCancelFlights.setBackground(new Color(0, 191, 255));
+		
+		popupMenuFlights.add(mntmCancelFlights);
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
