@@ -25,18 +25,8 @@ public class AskingforUpdate extends JDialog {
 	private String locationCode;
 	private final JTextField textFieldCode = new JTextField();
 	private final JLabel lblLocationCode = new JLabel("Location Code");
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			AskingforUpdate dialog = new AskingforUpdate();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	public static boolean valueSet = false;
+	
 
 	/**
 	 * Create the dialog.
@@ -71,6 +61,7 @@ public class AskingforUpdate extends JDialog {
 				public void actionPerformed(ActionEvent arg0) {
 					// TODO Auto-generated method stub
 					setLocationCode(textFieldCode.getText());
+					valueSet = true;
 					dispose();
 				}
 			});
@@ -80,6 +71,7 @@ public class AskingforUpdate extends JDialog {
 			cancelButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					dispose();
+					valueSet = true;
 				}
 			});
 			cancelButton.setBounds(75, 82, 73, 26);
@@ -94,6 +86,8 @@ public class AskingforUpdate extends JDialog {
 		
 		contentPanel.add(lblLocationCode);
 		setLocationRelativeTo(null);
+		setVisible(true);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 
 	public String getLocationCode() {

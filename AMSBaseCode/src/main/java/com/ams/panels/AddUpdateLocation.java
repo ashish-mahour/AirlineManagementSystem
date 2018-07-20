@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.SwingConstants;
 
 public class AddUpdateLocation extends JPanel {
 	/**
@@ -31,24 +32,27 @@ public class AddUpdateLocation extends JPanel {
 	private LocationDAOImpl locationDAOImpl;
 	private LocationData locationData;
 	private boolean updateFlag = false;
+	private final JLabel lblTitle = new JLabel("Title");
 
 	/**
-	 * Create the panel.
+	 * Creating the panel.
 	 */
 	public AddUpdateLocation(LocationData locationData,boolean update) {
 		this.locationData = locationData;
 		this.updateFlag = update;
+		lblTitle.setText("Update Details");
 		showData();
 	}
 	
 	public AddUpdateLocation() {
 		showData();
+		lblTitle.setText("Add Details");
 	}
 	public void showData() {
 		textFieldLocationName.setFont(new Font("Dialog", Font.PLAIN, 14));
 		textFieldLocationName.setBorder(new LineBorder(new Color(255, 222, 173), 1, true));
 		textFieldLocationName.setBackground(new Color(255, 160, 122));
-		textFieldLocationName.setBounds(179, 29, 188, 27);
+		textFieldLocationName.setBounds(179, 58, 188, 27);
 		textFieldLocationName.setColumns(10);
 
 		initGUI();
@@ -91,29 +95,35 @@ public class AddUpdateLocation extends JPanel {
 		panel.setLayout(null);
 		lblLocationName.setForeground(new Color(255, 255, 255));
 		lblLocationName.setFont(new Font("Segoe Print", Font.BOLD, 15));
-		lblLocationName.setBounds(31, 27, 138, 27);
+		lblLocationName.setBounds(31, 58, 138, 27);
 
 		panel.add(lblLocationName);
 
 		panel.add(textFieldLocationName);
 		lblLocationCode.setForeground(Color.WHITE);
 		lblLocationCode.setFont(new Font("Segoe Print", Font.BOLD, 15));
-		lblLocationCode.setBounds(31, 67, 138, 27);
+		lblLocationCode.setBounds(31, 97, 138, 27);
 
 		panel.add(lblLocationCode);
 		textFieldCode.setFont(new Font("Dialog", Font.PLAIN, 14));
 		textFieldCode.setColumns(10);
 		textFieldCode.setBorder(new LineBorder(new Color(255, 222, 173), 1, true));
 		textFieldCode.setBackground(new Color(255, 160, 122));
-		textFieldCode.setBounds(179, 67, 188, 27);
+		textFieldCode.setBounds(179, 97, 188, 27);
 
 		panel.add(textFieldCode);
 		btnSublmit.setForeground(new Color(255, 255, 255));
 		btnSublmit.setBorder(new LineBorder(new Color(152, 251, 152), 1, true));
 		btnSublmit.setBackground(new Color(50, 205, 50));
 		btnSublmit.setFont(new Font("Monospaced", Font.PLAIN, 18));
-		btnSublmit.setBounds(117, 121, 176, 33);
+		btnSublmit.setBounds(114, 136, 176, 33);
 
 		panel.add(btnSublmit);
+		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitle.setForeground(Color.WHITE);
+		lblTitle.setFont(new Font("Copperplate Gothic Light", Font.BOLD, 18));
+		lblTitle.setBounds(102, 12, 221, 27);
+		
+		panel.add(lblTitle);
 	}
 }

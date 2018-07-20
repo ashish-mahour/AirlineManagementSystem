@@ -82,7 +82,8 @@ public class AdminPanelActivity {
 		frame = new JFrame("Admin Panel - AMS");
 		locationDAOImpl = new LocationDAOImpl();
 		frame.setResizable(false);
-		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(AdminPanelActivity.class.getResource("/images/planeIcon.png")));
+		frame.setIconImage(
+				Toolkit.getDefaultToolkit().getImage(AdminPanelActivity.class.getResource("/images/planeIcon.png")));
 
 		try {
 			imageFile = new File("src\\main\\java\\images\\m.png");
@@ -118,7 +119,7 @@ public class AdminPanelActivity {
 		detailsButton.setAlignmentY(0.0f);
 		detailsButton.setBackground(new Color(0, 204, 255));
 		detailsButton.setBorder(new LineBorder(new Color(204, 255, 255), 1, true));
-	
+
 		detailsMenu.add(editDetails);
 		detailsMenu.add(viewDetails);
 		detailsMenu.add(deleteAcc);
@@ -157,14 +158,14 @@ public class AdminPanelActivity {
 		frame.getContentPane().setLayout(null);
 		frame.setSize(595, 565);
 		frame.getContentPane().setBackground(new Color(102, 102, 102));
-		
+
 		btnExit = new JButton("Logout");
 		btnExit.setBorder(new LineBorder(new Color(255, 204, 204), 1, true));
 		btnExit.setBackground(new Color(255, 153, 153));
 		btnExit.setFont(new Font("Monospaced", Font.PLAIN, 18));
 		btnExit.setBounds(10, 309, 68, 31);
 		frame.getContentPane().add(btnExit);
-		
+
 		btnManageFlights = new JButton("Flights");
 		btnManageFlights.setBorder(new LineBorder(new Color(255, 204, 153), 1, true));
 		btnManageFlights.setBackground(new Color(255, 160, 122));
@@ -173,58 +174,59 @@ public class AdminPanelActivity {
 		frame.getContentPane().add(btnManageFlights);
 		popupMenu.setForeground(Color.ORANGE);
 		popupMenu.setBackground(new Color(255, 165, 0));
-		
+
 		addPopup(btnManageFlights, popupMenu);
 		addPopup(detailsButton, detailsMenu);
 		mntmAddFlights.setBackground(Color.ORANGE);
 		mntmAddFlights.setForeground(Color.BLACK);
-		
+
 		popupMenu.add(mntmAddFlights);
 		mntmUpdateDetails.setForeground(Color.BLACK);
 		mntmUpdateDetails.setBackground(Color.ORANGE);
-		
+
 		popupMenu.add(mntmUpdateDetails);
-		
+
 		mntmDeleteFlight = new JMenuItem("Delete Flight");
 		mntmDeleteFlight.setForeground(Color.BLACK);
 		mntmDeleteFlight.setBackground(Color.ORANGE);
 		popupMenu.add(mntmDeleteFlight);
-		
+
 		mntmShowAllFlights = new JMenuItem("Show all Flights");
 		mntmShowAllFlights.setBackground(Color.ORANGE);
 		mntmShowAllFlights.setForeground(Color.BLACK);
 		popupMenu.add(mntmShowAllFlights);
-		
+
 		btnManageLoactions = new JButton("Loactions");
 		btnManageLoactions.setBorder(new LineBorder(new Color(51, 255, 153), 1, true));
 		btnManageLoactions.setBackground(new Color(72, 209, 204));
 		btnManageLoactions.setFont(new Font("Monospaced", Font.PLAIN, 18));
 		btnManageLoactions.setBounds(10, 269, 116, 31);
-		
+
 		frame.getContentPane().add(btnManageLoactions);
-		
+
 		addPopup(btnManageLoactions, popupMenu_1);
 		mntmAddLocation.setBackground(new Color(32, 178, 170));
-		
+
 		popupMenu_1.add(mntmAddLocation);
 		mntmModifyLocation.setBackground(new Color(32, 178, 170));
-		
+
 		popupMenu_1.add(mntmModifyLocation);
 		mntmDeleteLocation.setBackground(new Color(32, 178, 170));
-		
+
 		popupMenu_1.add(mntmDeleteLocation);
-		
+
 		mntmViewAll = new JMenuItem("View all");
 		mntmViewAll.setBackground(new Color(32, 178, 170));
 		popupMenu_1.add(mntmViewAll);
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getRootPane().setDefaultButton(null);
 
 	}
 
 	public void show() {
-		
+
 		viewDetails.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
@@ -266,9 +268,9 @@ public class AdminPanelActivity {
 
 			}
 		});
-		
+
 		mntmAddLocation.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
@@ -279,47 +281,49 @@ public class AdminPanelActivity {
 				container.add(addLocation);
 				container.repaint();
 				container.revalidate();
-				
-				
+
 			}
 		});
 		mntmModifyLocation.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				//AskingforUpdate askingforUpdate = new AskingforUpdate();
-				locationCode = JOptionPane.showInputDialog(frame, "Location Code :", "Alert - AMS", JOptionPane.INFORMATION_MESSAGE);
-				locationData = locationDAOImpl.getLocationByCode(locationCode);
-				AddUpdateLocation addUpdateLocation;
-				if(locationData != null) {
-					addUpdateLocation = new AddUpdateLocation(locationData,true);
-					container.removeAll();
-					container.repaint();
-					container.revalidate();
-					container.add(addUpdateLocation);
-					container.repaint();
-					container.revalidate();
-				} else {
-					JOptionPane.showMessageDialog(frame, "No data found!", "Alert - AMS", JOptionPane.ERROR_MESSAGE);
+				// AskingforUpdate askingforUpdate = new AskingforUpdate();
+					locationCode = JOptionPane.showInputDialog(frame, "Location Code :", "Alert - AMS",
+							JOptionPane.INFORMATION_MESSAGE);
+					// locationCode = askingforUpdate.getLocationCode();
+					locationData = locationDAOImpl.getLocationByCode(locationCode);
+					AddUpdateLocation addUpdateLocation;
+					if (locationData != null) {
+						addUpdateLocation = new AddUpdateLocation(locationData, true);
+						container.removeAll();
+						container.repaint();
+						container.revalidate();
+						container.add(addUpdateLocation);
+						container.repaint();
+						container.revalidate();
+					} else {
+						JOptionPane.showMessageDialog(frame, "No data found!", "Alert - AMS",
+								JOptionPane.ERROR_MESSAGE);
+					}
 				}
-				
-			}
 		});
-		
+
 		btnExit.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				frame.dispose();
 				new MainActivity().show();
-				
+
 			}
 		});
 	}
+
 	private static void addPopup(Component component, final JPopupMenu popup) {
-		
+
 		component.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				if (!menuShow) {
@@ -330,6 +334,7 @@ public class AdminPanelActivity {
 					menuShow = false;
 				}
 			}
+
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				// TODO Auto-generated method stub
@@ -341,6 +346,7 @@ public class AdminPanelActivity {
 					menuShow = false;
 				}
 			}
+
 			private void showMenu(MouseEvent e) {
 				popup.show(e.getComponent(), e.getX(), e.getY());
 			}
