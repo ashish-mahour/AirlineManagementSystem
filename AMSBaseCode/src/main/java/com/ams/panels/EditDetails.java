@@ -49,7 +49,7 @@ public class EditDetails extends JPanel {
 	private final JTextField lblTextutype = new JTextField("textUType");
 	private final JLabel lblDateOfBirth = new JLabel("Date of Birth");
 	private final JXDatePicker txtTextdateofbirth = new JXDatePicker();
-	private final JButton btnUpdate = new JButton("Update");
+	public final JButton btnUpdate = new JButton("Update");
 	
 	private UserDAOImplements userDAOImplements;
 	

@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import com.ams.dao.impl.UserDAOImplements;
@@ -35,7 +36,7 @@ public class MainActivity {
 	JLabel mlabelUsername, mLabelPassword;
 	final JLabel mRegLabel;
 	final JTextField username;
-	final JTextField password;
+	final JPasswordField password;
 	JButton submit, cancel;
 
 	ArrayList<UserData> userDatas;
@@ -61,7 +62,7 @@ public class MainActivity {
 		mLabelPassword.setForeground(new Color(204, 255, 204));
 		username = new JTextField();
 		username.setToolTipText("Enter your username");
-		password = new JTextField();
+		password = new JPasswordField();
 		password.setToolTipText("Enter your password");
 		submit = new JButton("Submit");
 		submit.setBorder(new LineBorder(new Color(204, 255, 255), 2, true));
@@ -151,12 +152,12 @@ public class MainActivity {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				for (UserData userData : userDatas) {
-					if (userData.getUserName().equalsIgnoreCase(username.getText()) && userData.getPassword().equalsIgnoreCase(password.getText()) && userData.getUserType().equalsIgnoreCase("admin")) {
+					if (userData.getUserName().equalsIgnoreCase(username.getText()) && userData.getPassword().equalsIgnoreCase(password.getPassword().toString()) && userData.getUserType().equalsIgnoreCase("admin")) {
 						new AdminPanelActivity(userData).show();
 						jFrame.dispose();
 						isLoggedin = true;
 						break;
-					} else if (userData.getUserName().equalsIgnoreCase(username.getText()) && userData.getPassword().equalsIgnoreCase(password.getText()) && userData.getUserType().equalsIgnoreCase("user")) {
+					} else if (userData.getUserName().equalsIgnoreCase(username.getText()) && userData.getPassword().equalsIgnoreCase(password.getPassword().toString()) && userData.getUserType().equalsIgnoreCase("user")) {
 						new UserPanelActivity(userData).show();
 						jFrame.dispose();
 						isLoggedin = true;

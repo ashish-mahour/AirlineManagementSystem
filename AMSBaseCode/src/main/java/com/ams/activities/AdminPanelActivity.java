@@ -248,6 +248,7 @@ public class AdminPanelActivity {
 				container.repaint();
 				container.revalidate();
 				container.add(editDetailsActivity);
+				frame.getRootPane().setDefaultButton(editDetailsActivity.btnUpdate);
 				container.repaint();
 				container.revalidate();
 
@@ -290,24 +291,46 @@ public class AdminPanelActivity {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				// AskingforUpdate askingforUpdate = new AskingforUpdate();
-					locationCode = JOptionPane.showInputDialog(frame, "Location Code :", "Alert - AMS",
-							JOptionPane.INFORMATION_MESSAGE);
-					// locationCode = askingforUpdate.getLocationCode();
-					locationData = locationDAOImpl.getLocationByCode(locationCode);
-					AddUpdateLocation addUpdateLocation;
-					if (locationData != null) {
-						addUpdateLocation = new AddUpdateLocation(locationData, true);
-						container.removeAll();
-						container.repaint();
-						container.revalidate();
-						container.add(addUpdateLocation);
-						container.repaint();
-						container.revalidate();
-					} else {
-						JOptionPane.showMessageDialog(frame, "No data found!", "Alert - AMS",
-								JOptionPane.ERROR_MESSAGE);
-					}
+				locationCode = JOptionPane.showInputDialog(frame, "Location Code :", "Alert - AMS",
+						JOptionPane.INFORMATION_MESSAGE);
+				// locationCode = askingforUpdate.getLocationCode();
+				locationData = locationDAOImpl.getLocationByCode(locationCode);
+				AddUpdateLocation addUpdateLocation;
+				if (locationData != null) {
+					addUpdateLocation = new AddUpdateLocation(locationData, true);
+					container.removeAll();
+					container.repaint();
+					container.revalidate();
+					container.add(addUpdateLocation);
+					container.repaint();
+					container.revalidate();
+				} else {
+					JOptionPane.showMessageDialog(frame, "No data found!", "Alert - AMS", JOptionPane.ERROR_MESSAGE);
 				}
+			}
+		});
+
+		mntmDeleteLocation.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				locationCode = JOptionPane.showInputDialog(frame, "Location Code :", "Alert - AMS",
+						JOptionPane.INFORMATION_MESSAGE);
+				// locationCode = askingforUpdate.getLocationCode();
+				locationData = locationDAOImpl.getLocationByCode(locationCode);
+				if (locationData != null) {
+					int selectionBtn = JOptionPane.showConfirmDialog(frame,
+							"Do you want to delete " + locationData.getLocationName(), "Alert - AMS",
+							JOptionPane.INFORMATION_MESSAGE);
+					if (selectionBtn == JOptionPane.YES_OPTION) {
+						locationDAOImpl.deleteLocation(locationData.getLocationCode());
+					}
+				} else {
+					JOptionPane.showMessageDialog(frame, "No data found!", "Alert - AMS", JOptionPane.ERROR_MESSAGE);
+				}
+
+			}
 		});
 
 		btnExit.addActionListener(new ActionListener() {

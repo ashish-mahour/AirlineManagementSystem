@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 
@@ -26,6 +27,7 @@ public class AskingforUpdate extends JDialog {
 	private final JTextField textFieldCode = new JTextField();
 	private final JLabel lblLocationCode = new JLabel("Location Code");
 	public static boolean valueSet = false;
+	private JButton okButton,cancelButton;
 	
 
 	/**
@@ -50,7 +52,7 @@ public class AskingforUpdate extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
-			JButton okButton = new JButton("OK");
+			okButton = new JButton("OK");
 			okButton.setBounds(12, 82, 51, 26);
 			contentPanel.add(okButton);
 			okButton.setActionCommand("OK");
@@ -67,7 +69,7 @@ public class AskingforUpdate extends JDialog {
 			});
 		}
 		{
-			JButton cancelButton = new JButton("Cancel");
+			cancelButton = new JButton("Cancel");
 			cancelButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					dispose();
@@ -89,7 +91,7 @@ public class AskingforUpdate extends JDialog {
 		setVisible(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
-
+	
 	public String getLocationCode() {
 		return locationCode;
 	}
