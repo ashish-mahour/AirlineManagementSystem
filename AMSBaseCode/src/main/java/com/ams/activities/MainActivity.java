@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -25,6 +24,10 @@ import javax.swing.JTextField;
 import com.ams.dao.impl.UserDAOImplements;
 import com.ams.entities.UserData;
 import javax.swing.border.LineBorder;
+import javax.swing.SwingConstants;
+import javax.swing.border.MatteBorder;
+import java.awt.Dialog.ModalExclusionType;
+import java.awt.Window.Type;
 
 public class MainActivity {
 
@@ -46,15 +49,15 @@ public class MainActivity {
 	public MainActivity() {
 		// TODO Auto-generated constructor stub
 		try {
-			bufferedImage = ImageIO.read(new File("src\\main\\java\\images\\airlineLogo.png"));
+			bufferedImage = ImageIO.read(MainActivity.class.getResource("/images/airlineLogo.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		image = new JLabel(new ImageIcon(bufferedImage));
 		image.setBorder(new LineBorder(new Color(51, 153, 255), 2, true));
-		image.setLocation(10, 10);
-		image.setSize(300, 200);
+		image.setLocation(12, 12);
+		image.setSize(328, 216);
 
 		mlabelUsername = new JLabel("Username");
 		mlabelUsername.setForeground(new Color(204, 255, 204));
@@ -65,47 +68,53 @@ public class MainActivity {
 		password = new JPasswordField();
 		password.setToolTipText("Enter your password");
 		submit = new JButton("Submit");
+		submit.setForeground(new Color(0, 0, 0));
 		submit.setBorder(new LineBorder(new Color(204, 255, 255), 2, true));
-		submit.setBackground(new Color(102, 255, 102));
+		submit.setBackground(new Color(0, 255, 127));
 		username.setBorder(new LineBorder(new Color(204, 255, 255), 2, true));
 		username.setBackground(new Color(153, 255, 255));
 		password.setBorder(new LineBorder(new Color(204, 255, 255), 2, true));
 		password.setBackground(new Color(153, 255, 255));
 		cancel = new JButton("Cancel");
+		cancel.setForeground(new Color(0, 0, 0));
 		cancel.setBorder(new LineBorder(new Color(204, 255, 255), 2, true));
-		cancel.setBackground(new Color(102, 255, 102));
+		cancel.setBackground(new Color(0, 255, 127));
 		mRegLabel = new JLabel("New User ? Create new account ");
-		mRegLabel.setForeground(new Color(255, 255, 255));
+		mRegLabel.setBorder(new MatteBorder(2, 0, 0, 0, (Color) new Color(175, 238, 238)));
+		mRegLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		mRegLabel.setOpaque(true);
+		mRegLabel.setBackground(new Color(0, 206, 209));
+		mRegLabel.setForeground(new Color(0, 0, 0));
 		
 		
 
-		mlabelUsername.setFont(new Font("Segoe Print", Font.BOLD, 20));
-		mlabelUsername.setLocation(10, 220);
+		mlabelUsername.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
+		mlabelUsername.setLocation(12, 233);
 		mlabelUsername.setSize(119, 30);
 
-		username.setLocation(10, 250);
+		username.setLocation(12, 265);
 		username.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		username.setSize(300, 30);
+		username.setSize(330, 30);
 
-		mLabelPassword.setLocation(10, 290);
-		mLabelPassword.setFont(new Font("Segoe Print", Font.BOLD, 20));
-		mLabelPassword.setSize(300, 30);
+		mLabelPassword.setLocation(12, 295);
+		mLabelPassword.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
+		mLabelPassword.setSize(119, 30);
 
-		password.setLocation(10, 320);
+		password.setLocation(12, 325);
 		password.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		password.setSize(300, 30);
+		password.setSize(330, 30);
 
-		submit.setLocation(10, 380);
-		submit.setFont(new Font("Monospaced", Font.PLAIN, 20));
-		submit.setSize(119, 30);
+		submit.setLocation(12, 367);
+		submit.setFont(new Font("SimSun", Font.PLAIN, 20));
+		submit.setSize(144, 30);
 
-		cancel.setLocation(200, 380);
-		cancel.setFont(new Font("Monospaced", Font.PLAIN, 20));
-		cancel.setSize(110, 30);
+		cancel.setLocation(190, 367);
+		cancel.setFont(new Font("SimSun", Font.PLAIN, 20));
+		cancel.setSize(150, 30);
 
-		mRegLabel.setLocation(80, 450);
-		mRegLabel.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		mRegLabel.setSize(300, 30);
+		mRegLabel.setLocation(0, 409);
+		mRegLabel.setFont(new Font("Calibri Light", Font.PLAIN, 18));
+		mRegLabel.setSize(352, 30);
 
 		mRegLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
@@ -130,13 +139,13 @@ public class MainActivity {
 
 			public void mouseExited(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				mRegLabel.setForeground(new Color(255, 255, 255));
+				mRegLabel.setForeground(new Color(0, 0, 0));
 
 			}
 
 			public void mouseEntered(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				mRegLabel.setForeground(Color.GREEN);
+				mRegLabel.setForeground(Color.WHITE);
 
 			}
 
@@ -152,18 +161,19 @@ public class MainActivity {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				for (UserData userData : userDatas) {
-					if (userData.getUserName().equalsIgnoreCase(username.getText()) && userData.getPassword().equalsIgnoreCase(password.getPassword().toString()) && userData.getUserType().equalsIgnoreCase("admin")) {
+					if (userData.getUserName().equalsIgnoreCase(username.getText()) && userData.getPassword().equalsIgnoreCase(String.valueOf(password.getPassword())) && userData.getUserType().equalsIgnoreCase("admin")) {
 						new AdminPanelActivity(userData).show();
 						jFrame.dispose();
 						isLoggedin = true;
 						break;
-					} else if (userData.getUserName().equalsIgnoreCase(username.getText()) && userData.getPassword().equalsIgnoreCase(password.getPassword().toString()) && userData.getUserType().equalsIgnoreCase("user")) {
+					} else if (userData.getUserName().equalsIgnoreCase(username.getText()) && userData.getPassword().equalsIgnoreCase(String.valueOf(password.getPassword())) && userData.getUserType().equalsIgnoreCase("user")) {
 						new UserPanelActivity(userData).show();
 						jFrame.dispose();
 						isLoggedin = true;
 						break;
 					} else {
 						isLoggedin = false;
+						
 					}
 				}
 				if(!isLoggedin) {
@@ -180,6 +190,9 @@ public class MainActivity {
 				System.exit(0);
 			}
 		});
+		jFrame.setType(Type.POPUP);
+		jFrame.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
+		jFrame.setResizable(false);
 		jFrame.setIconImage(Toolkit.getDefaultToolkit().getImage(MainActivity.class.getResource("/images/planeIcon.png")));
 		jFrame.setBackground(new Color(0, 100, 0));
 		jFrame.getRootPane().setDefaultButton(submit);
@@ -193,7 +206,7 @@ public class MainActivity {
 		jFrame.getContentPane().add(mRegLabel);
 		jFrame.getContentPane().add(image);
 		jFrame.getContentPane().setLayout(null);
-		jFrame.setSize(340, 600);
+		jFrame.setSize(368, 478);
 		jFrame.setVisible(true);
 		jFrame.setLocationRelativeTo(null);
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -35,7 +35,7 @@ public class RegisterActivity {
 
 	JTextField editUsername, editPassword, editEmail, editFullName, editAge, editAdress, editContactNo;
 
-	JRadioButton radioMale, radioFMale, radioOther, radioAdmin, radioUser;
+	JRadioButton radioMale, radioFMale, radioOther, radioUser;
 
 	ButtonGroup genderGroup, utypeGroup;
 
@@ -43,9 +43,9 @@ public class RegisterActivity {
 	Date minDate;
 
 	ArrayList<JTextField> list;
-	
+
 	UserDAOImplements userDAOImplements;
-	
+
 	SimpleDateFormat simpleDateFormat;
 
 	public RegisterActivity() {
@@ -55,80 +55,86 @@ public class RegisterActivity {
 		mSubmit = new JButton("Submit");
 		mSubmit.setBorder(new LineBorder(new Color(153, 255, 255), 2, true));
 		mSubmit.setBackground(new Color(0, 204, 204));
-		
+
 		mCancel = new JButton("Cancel");
 		mCancel.setBorder(new LineBorder(new Color(153, 255, 255), 2, true));
 		mCancel.setBackground(new Color(0, 204, 204));
 
 		textUsername = new JLabel("Username : ");
-		textUsername.setBackground(new Color(204, 204, 204));
-		textUsername.setForeground(new Color(0, 0, 0));
+		textUsername.setForeground(new Color(255, 255, 255));
 		textPassword = new JLabel("Password : ");
+		textPassword.setForeground(new Color(255, 255, 255));
 		textEmail = new JLabel("Email : ");
+		textEmail.setForeground(new Color(255, 255, 255));
 		textFullName = new JLabel("Full Name : ");
+		textFullName.setForeground(new Color(255, 255, 255));
 		textAge = new JLabel("Age : ");
+		textAge.setForeground(new Color(255, 255, 255));
 		textDob = new JLabel("Date of birth : ");
+		textDob.setForeground(new Color(255, 255, 255));
 		textAddress = new JLabel("Address : ");
+		textAddress.setForeground(new Color(255, 255, 255));
 		textContactNo = new JLabel("Contact No : ");
+		textContactNo.setForeground(new Color(255, 255, 255));
 		textGender = new JLabel("Gender : ");
+		textGender.setForeground(new Color(255, 255, 255));
 		textUType = new JLabel("User Type :");
+		textUType.setForeground(new Color(255, 255, 255));
 
 		editUsername = new JTextField();
 		editUsername.setBackground(new Color(153, 255, 153));
 		editUsername.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
-		
+
 		editPassword = new JTextField();
 		editPassword.setBackground(new Color(153, 255, 153));
 		editPassword.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
-		
+
 		editEmail = new JTextField();
 		editEmail.setBackground(new Color(153, 255, 153));
 		editEmail.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
-		
+
 		editFullName = new JTextField();
 		editFullName.setBackground(new Color(153, 255, 153));
 		editFullName.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
-		
+
 		editAge = new JTextField();
 		editAge.setBackground(new Color(153, 255, 153));
 		editAge.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
-		
+
 		editAdress = new JTextField();
 		editAdress.setBackground(new Color(153, 255, 153));
 		editAdress.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
-		
+
 		editContactNo = new JTextField();
 		editContactNo.setBackground(new Color(153, 255, 153));
 		editContactNo.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
 
 		genderGroup = new ButtonGroup();
-		
+
 		radioMale = new JRadioButton("Male");
 		radioMale.setBackground(new Color(153, 255, 153));
 		radioMale.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
-		
+
 		radioFMale = new JRadioButton("Female");
 		radioFMale.setBackground(new Color(153, 255, 153));
 		radioFMale.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
-		
+
 		radioOther = new JRadioButton("Other");
 		radioOther.setBackground(new Color(153, 255, 153));
 		radioOther.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
 
 		utypeGroup = new ButtonGroup();
-		
-		radioAdmin = new JRadioButton("Admin");
-		radioAdmin.setBackground(new Color(153, 255, 153));
-		radioAdmin.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
-		
+
 		radioUser = new JRadioButton("User");
+		radioUser.setToolTipText("You can only be a user!");
+		radioUser.setSelected(true);
 		radioUser.setBackground(new Color(153, 255, 153));
 		radioUser.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
 
 		list = new ArrayList<JTextField>();
-		
+
 		userDAOImplements = new UserDAOImplements();
-		
+
 		simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 		try {
@@ -138,7 +144,7 @@ public class RegisterActivity {
 		}
 
 		textUsername.setLocation(20, 10);
-		textUsername.setFont(new Font("Segoe Print", Font.BOLD, 16));
+		textUsername.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 16));
 		textUsername.setSize(100, 30);
 
 		editUsername.setLocation(120, 10);
@@ -146,7 +152,7 @@ public class RegisterActivity {
 		editUsername.setSize(180, 30);
 
 		textPassword.setLocation(20, 50);
-		textPassword.setFont(new Font("Segoe Print", Font.BOLD, 16));
+		textPassword.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 16));
 		textPassword.setSize(100, 30);
 
 		editPassword.setLocation(120, 50);
@@ -154,7 +160,7 @@ public class RegisterActivity {
 		editPassword.setSize(180, 30);
 
 		textEmail.setLocation(20, 90);
-		textEmail.setFont(new Font("Segoe Print", Font.BOLD, 16));
+		textEmail.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 16));
 		textEmail.setSize(100, 30);
 
 		editEmail.setLocation(120, 90);
@@ -162,7 +168,7 @@ public class RegisterActivity {
 		editEmail.setSize(180, 30);
 
 		textDob.setLocation(20, 130);
-		textDob.setFont(new Font("Segoe Print", Font.BOLD, 16));
+		textDob.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 16));
 		textDob.setSize(130, 30);
 
 		editDob = new JXDatePicker();
@@ -174,7 +180,7 @@ public class RegisterActivity {
 		editDob.getEditor().setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
 
 		textFullName.setLocation(20, 170);
-		textFullName.setFont(new Font("Segoe Print", Font.BOLD, 16));
+		textFullName.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 16));
 		textFullName.setSize(100, 30);
 
 		editFullName.setLocation(120, 170);
@@ -182,7 +188,7 @@ public class RegisterActivity {
 		editFullName.setSize(180, 30);
 
 		textAge.setLocation(20, 210);
-		textAge.setFont(new Font("Segoe Print", Font.BOLD, 16));
+		textAge.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 16));
 		textAge.setSize(100, 30);
 
 		editAge.setLocation(120, 210);
@@ -190,7 +196,7 @@ public class RegisterActivity {
 		editAge.setSize(180, 30);
 
 		textAddress.setLocation(20, 250);
-		textAddress.setFont(new Font("Segoe Print", Font.BOLD, 16));
+		textAddress.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 16));
 		textAddress.setSize(100, 30);
 
 		editAdress.setLocation(120, 250);
@@ -198,7 +204,7 @@ public class RegisterActivity {
 		editAdress.setSize(180, 30);
 
 		textContactNo.setLocation(20, 290);
-		textContactNo.setFont(new Font("Segoe Print", Font.BOLD, 16));
+		textContactNo.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 16));
 		textContactNo.setSize(120, 30);
 
 		editContactNo.setLocation(150, 290);
@@ -206,7 +212,7 @@ public class RegisterActivity {
 		editContactNo.setSize(150, 30);
 
 		textGender.setLocation(20, 330);
-		textGender.setFont(new Font("Segoe Print", Font.BOLD, 16));
+		textGender.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 16));
 		textGender.setSize(100, 30);
 
 		radioMale.setLocation(120, 330);
@@ -226,26 +232,20 @@ public class RegisterActivity {
 		genderGroup.add(radioOther);
 
 		textUType.setLocation(20, 430);
-		textUType.setFont(new Font("Segoe Print", Font.BOLD, 16));
+		textUType.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 16));
 		textUType.setSize(100, 30);
 
-		radioAdmin.setLocation(120, 430);
-		radioAdmin.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		radioAdmin.setSize(180, 30);
-
-		radioUser.setLocation(120, 460);
+		radioUser.setLocation(120, 430);
 		radioUser.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		radioUser.setSize(180, 30);
-
-		utypeGroup.add(radioAdmin);
 		utypeGroup.add(radioUser);
 
 		mSubmit.setLocation(20, 500);
-		mSubmit.setFont(new Font("Monospaced", Font.PLAIN, 18));
+		mSubmit.setFont(new Font("Imprint MT Shadow", Font.PLAIN, 18));
 		mSubmit.setSize(130, 30);
 
 		mCancel.setLocation(162, 500);
-		mCancel.setFont(new Font("Monospaced", Font.PLAIN, 18));
+		mCancel.setFont(new Font("Imprint MT Shadow", Font.PLAIN, 18));
 		mCancel.setSize(138, 30);
 
 		frame.getContentPane().add(textUsername);
@@ -278,7 +278,6 @@ public class RegisterActivity {
 		frame.getContentPane().add(radioOther);
 
 		frame.getContentPane().add(textUType);
-		frame.getContentPane().add(radioAdmin);
 		frame.getContentPane().add(radioUser);
 
 		frame.getContentPane().add(mCancel);
@@ -290,11 +289,12 @@ public class RegisterActivity {
 			}
 
 		}
-		
-		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(RegisterActivity.class.getResource("/images/planeIcon.png")));
+
+		frame.setIconImage(
+				Toolkit.getDefaultToolkit().getImage(RegisterActivity.class.getResource("/images/planeIcon.png")));
 		frame.getContentPane().setLayout(null);
 		frame.setSize(340, 600);
-		frame.getContentPane().setBackground(new Color(0, 204, 102));
+		frame.getContentPane().setBackground(new Color(0, 128, 128));
 		frame.getRootPane().setDefaultButton(mSubmit);
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
@@ -311,9 +311,6 @@ public class RegisterActivity {
 				} else if (!radioMale.isSelected() && !radioFMale.isSelected() && !radioOther.isSelected()) {
 					JOptionPane.showMessageDialog(frame, "Please check any one gender!", "Alert",
 							JOptionPane.ERROR_MESSAGE);
-				} else if (!radioAdmin.isSelected() && !radioUser.isSelected()) {
-					JOptionPane.showMessageDialog(frame, "Please check any one user type!", "Alert",
-							JOptionPane.ERROR_MESSAGE);
 				} else {
 					UserData userData = new UserData();
 					userData.setId(1);
@@ -326,33 +323,26 @@ public class RegisterActivity {
 						userData.setContactNo(Long.parseLong(editContactNo.getText()));
 					} catch (Exception e) {
 						// TODO: handle exception
-						JOptionPane.showMessageDialog(frame, e.getMessage(), "Alert",
-								JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(frame, e.getMessage(), "Alert", JOptionPane.ERROR_MESSAGE);
 					}
 					userData.setDob(simpleDateFormat.format(editDob.getDate()));
 					userData.setAddress(editAdress.getText());
-					if(radioMale.isSelected()) {
-						userData.setGender("M");	
-					} else if(radioFMale.isSelected()) {
-						userData.setGender("F");	
-					} else if(radioOther.isSelected()){
+					if (radioMale.isSelected()) {
+						userData.setGender("M");
+					} else if (radioFMale.isSelected()) {
+						userData.setGender("F");
+					} else if (radioOther.isSelected()) {
 						userData.setGender("O");
 					}
-					
-					if(radioAdmin.isSelected()) {
-						userData.setUserType("Admin");	
-					} else if(radioUser.isSelected()){
-						userData.setUserType("User");
-					}
-					
-					if(userDAOImplements.saveUser(userData)) {
+					userData.setUserType("User");
+
+					if (userDAOImplements.saveUser(userData)) {
 						JOptionPane.showMessageDialog(frame, "User Registered!", "Success",
 								JOptionPane.INFORMATION_MESSAGE);
 						frame.dispose();
 						new MainActivity().show();
 					}
-										
-					
+
 				}
 
 			}
