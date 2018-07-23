@@ -23,6 +23,8 @@ import org.jdesktop.swingx.JXDatePicker;
 
 import com.ams.dao.impl.UserDAOImplements;
 import com.ams.entities.UserData;
+import com.ams.model.GlobalClass;
+import com.ams.model.SendMail;
 import com.ams.model.Validations;
 import javax.swing.border.LineBorder;
 
@@ -303,7 +305,6 @@ public class RegisterActivity {
 
 	public void show() {
 		mSubmit.addActionListener(new ActionListener() {
-
 			public void actionPerformed(ActionEvent arg0) {
 				if (!Validations.validateTextField(list)) {
 					JOptionPane.showMessageDialog(frame, "Please fill all the fields!!", "Alert",
@@ -334,14 +335,19 @@ public class RegisterActivity {
 					} else if (radioOther.isSelected()) {
 						userData.setGender("O");
 					}
+					String genratedOTP = GlobalClass.getOTP();
 					userData.setUserType("User");
+					
 
-					if (userDAOImplements.saveUser(userData)) {
-						JOptionPane.showMessageDialog(frame, "User Registered!", "Success",
-								JOptionPane.INFORMATION_MESSAGE);
-						frame.dispose();
-						new MainActivity().show();
-					}
+					SendMail.send(userData.getEmail(), "One Step Verification - AMS", "Hello " + userData.getFullName()
+							+ ",\nYour OTP : " + genratedOTP
+							+ "\nIt will be expire in 10 minutes. Please do verify before 10 minutes otherwise you will be terminated!");	
+					/*
+					 * if (userDAOImplements.saveUser(userData)) {
+					 * JOptionPane.showMessageDialog(frame, "User Registered!", "Success",
+					 * JOptionPane.INFORMATION_MESSAGE); frame.dispose(); new MainActivity().show();
+					 * }
+					 */
 
 				}
 
@@ -350,7 +356,8 @@ public class RegisterActivity {
 		mCancel.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
+				// TODO Auto-generated method stub			
+				
 				new MainActivity().show();
 				frame.dispose();
 			}

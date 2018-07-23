@@ -13,6 +13,7 @@ public class UserData {
 	private long contactNo;
 	private String gender;
 	private String userType;
+	private boolean userStatus;
 
 	public int getId() {
 		return id;
@@ -101,6 +102,14 @@ public class UserData {
 
 	public void setDob(String dob) {
 		this.dob = dob;
+	}
+
+	public boolean getUserStatus() {
+		return userStatus;
+	}
+
+	public void setUserStatus(boolean userStatus) {
+		this.userStatus = userStatus;
 	}
 
 }

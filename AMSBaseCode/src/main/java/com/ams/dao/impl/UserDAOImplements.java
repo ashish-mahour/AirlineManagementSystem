@@ -24,7 +24,7 @@ public class UserDAOImplements implements UserDAO {
 		userDatas = new ArrayList<UserData>();
 		try {
 			statement.execute(
-					"CREATE TABLE IF NOT EXISTS USERS_DATA(ID INT AUTO_INCREMENT PRIMARY KEY, USERNAME VARCHAR(200), PASSWORD VARCHAR(200), EMAIL VARCHAR(200), FULL_NAME VARCHAR(200), AGE INT, DOB DATE, ADDRESS VARCHAR(200), CONTACT_NO NUMERIC(15), GENDER VARCHAR(1), USER_TYPE VARCHAR(200))");
+					"CREATE TABLE IF NOT EXISTS USERS_DATA(ID INT AUTO_INCREMENT PRIMARY KEY, USERNAME VARCHAR(200), PASSWORD VARCHAR(200), EMAIL VARCHAR(200), FULL_NAME VARCHAR(200), AGE INT, DOB DATE, ADDRESS VARCHAR(200), CONTACT_NO NUMERIC(15), GENDER VARCHAR(1), USER_TYPE VARCHAR(200), USER_STATUS BIT)");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -35,7 +35,7 @@ public class UserDAOImplements implements UserDAO {
 	public boolean saveUser(UserData userData) {
 		// TODO Auto-generated method stub
 		preparedStatement = DBConnect.getPreparedStatement(
-				"INSERT INTO USERS_DATA (USERNAME, PASSWORD, EMAIL, FULL_NAME, AGE, DOB, ADDRESS, CONTACT_NO, GENDER, USER_TYPE) VALUES (?,?,?,?,?,?,?,?,?,?)");
+				"INSERT INTO USERS_DATA (USERNAME, PASSWORD, EMAIL, FULL_NAME, AGE, DOB, ADDRESS, CONTACT_NO, GENDER, USER_TYPE, USER_STATUS) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
 		try {
 			preparedStatement.setString(1, userData.getUserName());
 			preparedStatement.setString(2, userData.getPassword());
@@ -47,6 +47,7 @@ public class UserDAOImplements implements UserDAO {
 			preparedStatement.setLong(8, userData.getContactNo());
 			preparedStatement.setString(9, userData.getGender());
 			preparedStatement.setString(10, userData.getUserType());
+			preparedStatement.setBoolean(11, userData.getUserStatus());
 			preparedStatement.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
