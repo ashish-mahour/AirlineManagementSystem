@@ -13,10 +13,11 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+
 public class SendMail {
 	private static String username = "demoacc61195@gmail.com";
 	private static String password = "ashish_mahour";
-	public static void send(String reciversMail,String mailSubject, String mailBody) {
+	public static boolean send(String reciversMail,String mailSubject, String mailBody) {
 		Properties properties = new Properties();
 		properties.put("mail.smtp.starttls.enable", "true");
 		properties.put("mail.smtp.auth", "true");
@@ -48,6 +49,6 @@ public class SendMail {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		return true;
 	}
 }

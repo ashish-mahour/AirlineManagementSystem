@@ -151,7 +151,7 @@ public class MainActivity {
 
 			public void mouseClicked(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				new RegisterActivity().show();
+				new RegisterActivity();
 				jFrame.dispose();
 
 			}
