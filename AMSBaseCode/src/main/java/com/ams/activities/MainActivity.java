@@ -25,9 +25,9 @@ import com.ams.dao.impl.UserDAOImplements;
 import com.ams.entities.UserData;
 import javax.swing.border.LineBorder;
 import javax.swing.SwingConstants;
-import javax.swing.border.MatteBorder;
 import java.awt.Dialog.ModalExclusionType;
 import java.awt.Window.Type;
+import javax.swing.border.EmptyBorder;
 
 public class MainActivity {
 
@@ -80,7 +80,7 @@ public class MainActivity {
 		cancel.setBorder(new LineBorder(new Color(204, 255, 255), 2, true));
 		cancel.setBackground(new Color(0, 255, 127));
 		mRegLabel = new JLabel("New User ? Create new account ");
-		mRegLabel.setBorder(new MatteBorder(2, 0, 0, 0, (Color) new Color(175, 238, 238)));
+		mRegLabel.setBorder(new EmptyBorder(2, 2, 2, 2));
 		mRegLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		mRegLabel.setOpaque(true);
 		mRegLabel.setBackground(new Color(0, 206, 209));
@@ -104,17 +104,17 @@ public class MainActivity {
 		password.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		password.setSize(330, 30);
 
-		submit.setLocation(12, 367);
+		submit.setLocation(12, 378);
 		submit.setFont(new Font("SimSun", Font.PLAIN, 20));
 		submit.setSize(144, 30);
 
-		cancel.setLocation(190, 367);
+		cancel.setLocation(190, 378);
 		cancel.setFont(new Font("SimSun", Font.PLAIN, 20));
 		cancel.setSize(150, 30);
 
-		mRegLabel.setLocation(0, 409);
+		mRegLabel.setLocation(12, 455);
 		mRegLabel.setFont(new Font("Calibri Light", Font.PLAIN, 18));
-		mRegLabel.setSize(352, 30);
+		mRegLabel.setSize(330, 30);
 
 		mRegLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
@@ -196,7 +196,7 @@ public class MainActivity {
 		jFrame.setIconImage(Toolkit.getDefaultToolkit().getImage(MainActivity.class.getResource("/images/planeIcon.png")));
 		jFrame.setBackground(new Color(0, 100, 0));
 		jFrame.getRootPane().setDefaultButton(submit);
-		jFrame.getContentPane().setBackground(new Color(32, 178, 170));
+		jFrame.getContentPane().setBackground(new Color(0, 128, 128));
 		jFrame.getContentPane().add(mlabelUsername);
 		jFrame.getContentPane().add(username);
 		jFrame.getContentPane().add(mLabelPassword);
@@ -206,7 +206,7 @@ public class MainActivity {
 		jFrame.getContentPane().add(mRegLabel);
 		jFrame.getContentPane().add(image);
 		jFrame.getContentPane().setLayout(null);
-		jFrame.setSize(368, 478);
+		jFrame.setSize(368, 524);
 		jFrame.setVisible(true);
 		jFrame.setLocationRelativeTo(null);
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

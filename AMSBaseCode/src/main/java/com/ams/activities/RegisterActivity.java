@@ -361,7 +361,7 @@ public class RegisterActivity {
 						JOptionPane.showMessageDialog(frame, "User Registered!", "Success",
 								JOptionPane.INFORMATION_MESSAGE);
 						frame.dispose();
-						new MainActivity().show();
+						//new MainActivity().show();
 					}
 				}
 
@@ -371,7 +371,7 @@ public class RegisterActivity {
 
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				new MainActivity().show();
+				//new MainActivity().show();
 				frame.dispose();
 			}
 		});	

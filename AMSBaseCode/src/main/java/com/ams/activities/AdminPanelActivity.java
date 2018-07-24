@@ -264,7 +264,7 @@ public class AdminPanelActivity {
 				if (dialogAction == JOptionPane.YES_OPTION) {
 					userDAOImplements.deleteUser(userData.getUserName());
 					frame.dispose();
-					new MainActivity().show();
+					//new MainActivity().show();
 				}
 
 			}
@@ -339,7 +339,7 @@ public class AdminPanelActivity {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				frame.dispose();
-				new MainActivity().show();
+				//new MainActivity().show();
 
 			}
 		});
