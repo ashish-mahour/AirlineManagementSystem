@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
+import com.ams.customdialogs.WaitingDialog;
 import com.ams.dao.impl.LocationDAOImpl;
 import com.ams.dao.impl.UserDAOImplements;
 import com.ams.entities.LocationData;
@@ -75,158 +76,183 @@ public class AdminPanelActivity {
 	private String locationCode = "";
 	private LocationData locationData;
 	private LocationDAOImpl locationDAOImpl;
+	private WaitingDialog waitingDialog = new WaitingDialog("Processing..");
 
-	public AdminPanelActivity(UserData userData) {
+	public AdminPanelActivity(final UserData userData) {
 		// TODO Auto-generated constructor stub
-		this.userData = userData;
-		frame = new JFrame("Admin Panel - AMS");
-		locationDAOImpl = new LocationDAOImpl();
-		frame.setResizable(false);
-		frame.setIconImage(
-				Toolkit.getDefaultToolkit().getImage(AdminPanelActivity.class.getResource("/images/planeIcon.png")));
-
+		Thread t = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				waitingDialog.setVisible(true);
+			}
+		});
+		t.setPriority(Thread.MAX_PRIORITY);
+		t.start();
 		try {
-			imageFile = new File("src\\main\\java\\images\\m.png");
-			iconImage = ImageIO.read(imageFile);
-		} catch (Exception e) {
-			e.printStackTrace();
+			t.join();
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
+		this.userData = userData;
+		Thread t2 = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				frame = new JFrame("Admin Panel - AMS");
+				locationDAOImpl = new LocationDAOImpl();
+				frame.setResizable(false);
+				frame.setIconImage(
+						Toolkit.getDefaultToolkit().getImage(AdminPanelActivity.class.getResource("/images/planeIcon.png")));
 
-		icon = new JLabel(new ImageIcon(iconImage));
-		icon.setSize(100, 100);
-		icon.setLocation(10, 20);
+				try {
+					imageFile = new File("src\\main\\java\\images\\m.png");
+					iconImage = ImageIO.read(imageFile);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 
-		username = new JLabel(userData.getFullName());
-		username.setForeground(new Color(255, 255, 255));
-		username.setBackground(new Color(204, 204, 204));
-		usertype = new JLabel(userData.getUserType());
-		usertype.setForeground(new Color(255, 255, 255));
+				icon = new JLabel(new ImageIcon(iconImage));
+				icon.setSize(100, 100);
+				icon.setLocation(10, 20);
 
-		detailsMenu = new JPopupMenu();
-		detailsMenu.setBackground(Color.BLUE);
+				username = new JLabel(userData.getFullName());
+				username.setForeground(new Color(255, 255, 255));
+				username.setBackground(new Color(204, 204, 204));
+				usertype = new JLabel(userData.getUserType());
+				usertype.setForeground(new Color(255, 255, 255));
 
-		editDetails = new JMenuItem("Edit Details");
-		editDetails.setForeground(Color.WHITE);
-		editDetails.setBackground(Color.BLUE);
-		viewDetails = new JMenuItem("View Details");
-		viewDetails.setForeground(Color.WHITE);
-		viewDetails.setBackground(Color.BLUE);
-		deleteAcc = new JMenuItem("Delete Account");
-		deleteAcc.setBackground(Color.BLUE);
-		deleteAcc.setForeground(Color.WHITE);
+				detailsMenu = new JPopupMenu();
+				detailsMenu.setBackground(Color.BLUE);
 
-		detailsButton = new JButton("Details");
-		detailsButton.setAlignmentY(0.0f);
-		detailsButton.setBackground(new Color(0, 204, 255));
-		detailsButton.setBorder(new LineBorder(new Color(204, 255, 255), 1, true));
+				editDetails = new JMenuItem("Edit Details");
+				editDetails.setForeground(Color.WHITE);
+				editDetails.setBackground(Color.BLUE);
+				viewDetails = new JMenuItem("View Details");
+				viewDetails.setForeground(Color.WHITE);
+				viewDetails.setBackground(Color.BLUE);
+				deleteAcc = new JMenuItem("Delete Account");
+				deleteAcc.setBackground(Color.BLUE);
+				deleteAcc.setForeground(Color.WHITE);
 
-		detailsMenu.add(editDetails);
-		detailsMenu.add(viewDetails);
-		detailsMenu.add(deleteAcc);
+				detailsButton = new JButton("Details");
+				detailsButton.setAlignmentY(0.0f);
+				detailsButton.setBackground(new Color(0, 204, 255));
+				detailsButton.setBorder(new LineBorder(new Color(204, 255, 255), 1, true));
 
-		username.setLocation(10, 130);
-		username.setSize(127, 20);
-		username.setToolTipText(userData.getFullName());
-		username.setFont(new Font("Segoe Print", Font.BOLD, 14));
+				detailsMenu.add(editDetails);
+				detailsMenu.add(viewDetails);
+				detailsMenu.add(deleteAcc);
 
-		usertype.setLocation(10, 150);
-		usertype.setSize(68, 20);
-		usertype.setFont(new Font("Segoe Print", Font.PLAIN, 8));
+				username.setLocation(10, 130);
+				username.setSize(127, 20);
+				username.setToolTipText(userData.getFullName());
+				username.setFont(new Font("Segoe Print", Font.BOLD, 14));
 
-		detailsButton.setLocation(10, 182);
-		detailsButton.setSize(87, 32);
-		detailsButton.setFont(new Font("Monospaced", Font.PLAIN, 18));
+				usertype.setLocation(10, 150);
+				usertype.setSize(68, 20);
+				usertype.setFont(new Font("Segoe Print", Font.PLAIN, 8));
 
-		container = new JPanel();
-		container.setAutoscrolls(true);
-		container.setBorder(new LineBorder(new Color(102, 102, 102), 3, true));
-		container.setLayout(new CardLayout());
-		container.setBackground(new Color(204, 204, 204));
-		container.setLocation(136, 20);
-		container.setSize(431, 494);
+				detailsButton.setLocation(10, 182);
+				detailsButton.setSize(87, 32);
+				detailsButton.setFont(new Font("Monospaced", Font.PLAIN, 18));
 
-		viewDetailsActivity = new ViewDetails(userData);
-		editDetailsActivity = new EditDetails(userData);
-		userDAOImplements = new UserDAOImplements();
+				container = new JPanel();
+				container.setAutoscrolls(true);
+				container.setBorder(new LineBorder(new Color(102, 102, 102), 3, true));
+				container.setLayout(new CardLayout());
+				container.setBackground(new Color(204, 204, 204));
+				container.setLocation(136, 20);
+				container.setSize(431, 494);
 
-		frame.getContentPane().add(icon);
-		frame.getContentPane().add(username);
-		frame.getContentPane().add(usertype);
-		frame.getContentPane().add(detailsButton);
-		frame.getContentPane().add(container);
+				viewDetailsActivity = new ViewDetails(userData);
+				editDetailsActivity = new EditDetails(userData);
+				userDAOImplements = new UserDAOImplements();
 
-		frame.getContentPane().setLayout(null);
-		frame.setSize(595, 565);
-		frame.getContentPane().setBackground(new Color(102, 102, 102));
+				frame.getContentPane().add(icon);
+				frame.getContentPane().add(username);
+				frame.getContentPane().add(usertype);
+				frame.getContentPane().add(detailsButton);
+				frame.getContentPane().add(container);
 
-		btnExit = new JButton("Logout");
-		btnExit.setBorder(new LineBorder(new Color(255, 204, 204), 1, true));
-		btnExit.setBackground(new Color(255, 153, 153));
-		btnExit.setFont(new Font("Monospaced", Font.PLAIN, 18));
-		btnExit.setBounds(10, 309, 68, 31);
-		frame.getContentPane().add(btnExit);
+				frame.getContentPane().setLayout(null);
+				frame.setSize(595, 565);
+				frame.getContentPane().setBackground(new Color(102, 102, 102));
 
-		btnManageFlights = new JButton("Flights");
-		btnManageFlights.setBorder(new LineBorder(new Color(255, 204, 153), 1, true));
-		btnManageFlights.setBackground(new Color(255, 160, 122));
-		btnManageFlights.setFont(new Font("Monospaced", Font.PLAIN, 18));
-		btnManageFlights.setBounds(10, 225, 100, 31);
-		frame.getContentPane().add(btnManageFlights);
-		popupMenu.setForeground(Color.ORANGE);
-		popupMenu.setBackground(new Color(255, 165, 0));
+				btnExit = new JButton("Logout");
+				btnExit.setBorder(new LineBorder(new Color(255, 204, 204), 1, true));
+				btnExit.setBackground(new Color(255, 153, 153));
+				btnExit.setFont(new Font("Monospaced", Font.PLAIN, 18));
+				btnExit.setBounds(10, 309, 68, 31);
+				frame.getContentPane().add(btnExit);
 
-		addPopup(btnManageFlights, popupMenu);
-		addPopup(detailsButton, detailsMenu);
-		mntmAddFlights.setBackground(Color.ORANGE);
-		mntmAddFlights.setForeground(Color.BLACK);
+				btnManageFlights = new JButton("Flights");
+				btnManageFlights.setBorder(new LineBorder(new Color(255, 204, 153), 1, true));
+				btnManageFlights.setBackground(new Color(255, 160, 122));
+				btnManageFlights.setFont(new Font("Monospaced", Font.PLAIN, 18));
+				btnManageFlights.setBounds(10, 225, 100, 31);
+				frame.getContentPane().add(btnManageFlights);
+				popupMenu.setForeground(Color.ORANGE);
+				popupMenu.setBackground(new Color(255, 165, 0));
 
-		popupMenu.add(mntmAddFlights);
-		mntmUpdateDetails.setForeground(Color.BLACK);
-		mntmUpdateDetails.setBackground(Color.ORANGE);
+				addPopup(btnManageFlights, popupMenu);
+				addPopup(detailsButton, detailsMenu);
+				mntmAddFlights.setBackground(Color.ORANGE);
+				mntmAddFlights.setForeground(Color.BLACK);
 
-		popupMenu.add(mntmUpdateDetails);
+				popupMenu.add(mntmAddFlights);
+				mntmUpdateDetails.setForeground(Color.BLACK);
+				mntmUpdateDetails.setBackground(Color.ORANGE);
 
-		mntmDeleteFlight = new JMenuItem("Delete Flight");
-		mntmDeleteFlight.setForeground(Color.BLACK);
-		mntmDeleteFlight.setBackground(Color.ORANGE);
-		popupMenu.add(mntmDeleteFlight);
+				popupMenu.add(mntmUpdateDetails);
 
-		mntmShowAllFlights = new JMenuItem("Show all Flights");
-		mntmShowAllFlights.setBackground(Color.ORANGE);
-		mntmShowAllFlights.setForeground(Color.BLACK);
-		popupMenu.add(mntmShowAllFlights);
+				mntmDeleteFlight = new JMenuItem("Delete Flight");
+				mntmDeleteFlight.setForeground(Color.BLACK);
+				mntmDeleteFlight.setBackground(Color.ORANGE);
+				popupMenu.add(mntmDeleteFlight);
 
-		btnManageLoactions = new JButton("Loactions");
-		btnManageLoactions.setBorder(new LineBorder(new Color(51, 255, 153), 1, true));
-		btnManageLoactions.setBackground(new Color(72, 209, 204));
-		btnManageLoactions.setFont(new Font("Monospaced", Font.PLAIN, 18));
-		btnManageLoactions.setBounds(10, 269, 116, 31);
+				mntmShowAllFlights = new JMenuItem("Show all Flights");
+				mntmShowAllFlights.setBackground(Color.ORANGE);
+				mntmShowAllFlights.setForeground(Color.BLACK);
+				popupMenu.add(mntmShowAllFlights);
 
-		frame.getContentPane().add(btnManageLoactions);
+				btnManageLoactions = new JButton("Loactions");
+				btnManageLoactions.setBorder(new LineBorder(new Color(51, 255, 153), 1, true));
+				btnManageLoactions.setBackground(new Color(72, 209, 204));
+				btnManageLoactions.setFont(new Font("Monospaced", Font.PLAIN, 18));
+				btnManageLoactions.setBounds(10, 269, 116, 31);
 
-		addPopup(btnManageLoactions, popupMenu_1);
-		mntmAddLocation.setBackground(new Color(32, 178, 170));
+				frame.getContentPane().add(btnManageLoactions);
 
-		popupMenu_1.add(mntmAddLocation);
-		mntmModifyLocation.setBackground(new Color(32, 178, 170));
+				addPopup(btnManageLoactions, popupMenu_1);
+				mntmAddLocation.setBackground(new Color(32, 178, 170));
 
-		popupMenu_1.add(mntmModifyLocation);
-		mntmDeleteLocation.setBackground(new Color(32, 178, 170));
+				popupMenu_1.add(mntmAddLocation);
+				mntmModifyLocation.setBackground(new Color(32, 178, 170));
 
-		popupMenu_1.add(mntmDeleteLocation);
+				popupMenu_1.add(mntmModifyLocation);
+				mntmDeleteLocation.setBackground(new Color(32, 178, 170));
 
-		mntmViewAll = new JMenuItem("View all");
-		mntmViewAll.setBackground(new Color(32, 178, 170));
-		popupMenu_1.add(mntmViewAll);
-		frame.setVisible(true);
-		frame.setLocationRelativeTo(null);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getRootPane().setDefaultButton(null);
+				popupMenu_1.add(mntmDeleteLocation);
 
+				mntmViewAll = new JMenuItem("View all");
+				mntmViewAll.setBackground(new Color(32, 178, 170));
+				popupMenu_1.add(mntmViewAll);
+				frame.setVisible(true);
+				frame.setLocationRelativeTo(null);
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				frame.getRootPane().setDefaultButton(null);
+				show();
+			}
+		});
+		t2.start();
+		
 	}
 
-	public void show() {
-
+	private void show() {
 		viewDetails.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
@@ -339,10 +365,11 @@ public class AdminPanelActivity {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				frame.dispose();
-				//new MainActivity().show();
+				new MainActivity().show();
 
 			}
 		});
+		waitingDialog.dispose();
 	}
 
 	private static void addPopup(Component component, final JPopupMenu popup) {

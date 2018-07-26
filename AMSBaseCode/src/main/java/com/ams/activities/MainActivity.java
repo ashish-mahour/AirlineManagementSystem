@@ -21,10 +21,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import com.ams.customdialogs.WaitingDialog;
 import com.ams.dao.impl.UserDAOImplements;
 import com.ams.entities.UserData;
 import javax.swing.border.LineBorder;
 import javax.swing.SwingConstants;
+
 import java.awt.Dialog.ModalExclusionType;
 import java.awt.Window.Type;
 import javax.swing.border.EmptyBorder;
@@ -45,9 +47,11 @@ public class MainActivity {
 	ArrayList<UserData> userDatas;
 	UserDAOImplements userDAOImplements;
 	boolean isLoggedin = false;
+	private static WaitingDialog frame = new WaitingDialog("Processing..");
 
 	public MainActivity() {
 		// TODO Auto-generated constructor stub
+		frame.setVisible(true);
 		try {
 			bufferedImage = ImageIO.read(MainActivity.class.getResource("/images/airlineLogo.png"));
 		} catch (IOException e) {
@@ -162,12 +166,12 @@ public class MainActivity {
 				// TODO Auto-generated method stub
 				for (UserData userData : userDatas) {
 					if (userData.getUserName().equalsIgnoreCase(username.getText()) && userData.getPassword().equalsIgnoreCase(String.valueOf(password.getPassword())) && userData.getUserType().equalsIgnoreCase("admin")) {
-						new AdminPanelActivity(userData).show();
+						new AdminPanelActivity(userData);
 						jFrame.dispose();
 						isLoggedin = true;
 						break;
 					} else if (userData.getUserName().equalsIgnoreCase(username.getText()) && userData.getPassword().equalsIgnoreCase(String.valueOf(password.getPassword())) && userData.getUserType().equalsIgnoreCase("user")) {
-						new UserPanelActivity(userData).show();
+						new UserPanelActivity(userData);
 						jFrame.dispose();
 						isLoggedin = true;
 						break;
@@ -210,9 +214,11 @@ public class MainActivity {
 		jFrame.setVisible(true);
 		jFrame.setLocationRelativeTo(null);
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.dispose();
 	}
 
 	public static void main(String[] args) {
 		new MainActivity().show();
+		
 	}
 }

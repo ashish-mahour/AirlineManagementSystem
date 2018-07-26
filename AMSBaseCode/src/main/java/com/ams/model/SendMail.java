@@ -13,42 +13,77 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import com.ams.customdialogs.WaitingDialog;
 
 public class SendMail {
 	private static String username = "demoacc61195@gmail.com";
 	private static String password = "ashish_mahour";
-	public static boolean send(String reciversMail,String mailSubject, String mailBody) {
-		Properties properties = new Properties();
-		properties.put("mail.smtp.starttls.enable", "true");
-		properties.put("mail.smtp.auth", "true");
-		properties.put("mail.smtp.host", "smtp.gmail.com");
-		properties.put("mail.smtp.port", "587");
-		
-		Session session = Session.getInstance(properties, new Authenticator() {
+	private static WaitingDialog sendingDialog;
+
+	public SendMail(final String title) {
+		// TODO Auto-generated constructor stub
+		Thread t = new Thread(new Runnable() {
 
 			@Override
-			protected PasswordAuthentication getPasswordAuthentication() {
+			public void run() {
 				// TODO Auto-generated method stub
-				return new PasswordAuthentication(username, password);
+				sendingDialog = new WaitingDialog(title);
+				sendingDialog.setVisible(true);
+
 			}
-			
 		});
-		
-		Message message = new MimeMessage(session);
+		t.setPriority(Thread.MAX_PRIORITY);
+		t.start();
 		try {
-			message.setFrom(new InternetAddress(username));
-			message.setRecipient(RecipientType.TO, new InternetAddress(reciversMail));
-			message.setSubject(mailSubject);
-			message.setText(mailBody);
-			Transport.send(message);
-			
-		} catch (AddressException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MessagingException e) {
+			t.join();
+		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+	}
+
+	public boolean send(final String reciversMail,final String mailSubject,final String mailBody) {
+		Thread t2 = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				Properties properties = new Properties();
+				properties.put("mail.smtp.starttls.enable", "true");
+				properties.put("mail.smtp.auth", "true");
+				properties.put("mail.smtp.host", "smtp.gmail.com");
+				properties.put("mail.smtp.port", "587");
+
+				Session session = Session.getInstance(properties, new Authenticator() {
+
+					@Override
+					protected PasswordAuthentication getPasswordAuthentication() {
+						// TODO Auto-generated method stub
+						return new PasswordAuthentication(username, password);
+					}
+
+				});
+
+				Message message = new MimeMessage(session);
+				try {
+					message.setFrom(new InternetAddress(username));
+					message.setRecipient(RecipientType.TO, new InternetAddress(reciversMail));
+					message.setSubject(mailSubject);
+					message.setText(mailBody);
+					Transport.send(message);
+					sendingDialog.dispose();
+					sendingDialog.setVisible(false);
+				} catch (AddressException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (MessagingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+		});
+		t2.setPriority(Thread.MIN_PRIORITY);
+		t2.start();
 		return true;
 	}
 }

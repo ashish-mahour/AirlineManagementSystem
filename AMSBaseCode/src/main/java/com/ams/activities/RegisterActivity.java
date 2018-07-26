@@ -21,6 +21,7 @@ import javax.swing.JTextField;
 
 import org.jdesktop.swingx.JXDatePicker;
 
+import com.ams.customdialogs.WaitingDialog;
 import com.ams.dao.impl.UserDAOImplements;
 import com.ams.entities.UserData;
 import com.ams.model.GlobalClass;
@@ -50,10 +51,31 @@ public class RegisterActivity {
 
 	SimpleDateFormat simpleDateFormat;
 
-	public RegisterActivity(){
+	private static WaitingDialog waitingDialog = new WaitingDialog("Processing..");
+
+	public RegisterActivity() {
 		// TODO Auto-generated constructor stub
-		initGUI();
+		Thread t = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				waitingDialog.setVisible(true);
+			}
+		});
+		t.setPriority(Thread.MAX_PRIORITY);
+		t.start();
+		Thread t2 = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				initGUI();
+			}
+		});
+		t2.start();
 	}
+
 	private void initGUI() {
 		frame = new JFrame("User Registration - AMS ");
 
@@ -310,6 +332,7 @@ public class RegisterActivity {
 	private void show() {
 		mSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
 				if (!Validations.validateTextField(list)) {
 					JOptionPane.showMessageDialog(frame, "Please fill all the fields!!", "Alert",
 							JOptionPane.ERROR_MESSAGE);
@@ -317,7 +340,7 @@ public class RegisterActivity {
 					JOptionPane.showMessageDialog(frame, "Please check any one gender!", "Alert",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
-					UserData userData = new UserData();
+					final UserData userData = new UserData();
 					userData.setId(1);
 					userData.setUserName(editUsername.getText());
 					userData.setPassword(editPassword.getText());
@@ -339,42 +362,47 @@ public class RegisterActivity {
 					} else if (radioOther.isSelected()) {
 						userData.setGender("O");
 					}
-					String genratedOTP = GlobalClass.getOTP();
 					userData.setUserType("User");
-					boolean sentStatus = SendMail.send(userData.getEmail(), "One Step Verification - AMS", "Hello " + userData.getFullName()
-							+ ",\nYour OTP : " + genratedOTP
-							+ "\nIt will be expire in 10 minutes. Please do verify before 10 minutes otherwise you will be terminated!");
-					String userEnteredOTP = "";
-					if(sentStatus) {
-						JOptionPane.showMessageDialog(frame, "OTP Sent to "+userData.getEmail()
-						, "Alert - AMS", JOptionPane.INFORMATION_MESSAGE);
-						userEnteredOTP = JOptionPane.showInputDialog(frame, "Enter OTP :"
-								, "Alert - AMS", JOptionPane.INFORMATION_MESSAGE);
-					}
-					if(userEnteredOTP == null) {
-						JOptionPane.showMessageDialog(frame, "User not Registered!", "Success",
-								JOptionPane.ERROR_MESSAGE);
-					}
-					else if (userEnteredOTP.trim().equalsIgnoreCase(genratedOTP)) {
-						userData.setUserStatus(true);
-						userDAOImplements.saveUser(userData);
-						JOptionPane.showMessageDialog(frame, "User Registered!", "Success",
-								JOptionPane.INFORMATION_MESSAGE);
-						frame.dispose();
-						//new MainActivity().show();
-					}
-				}
 
+					final String genratedOTP = GlobalClass.getOTP();
+					boolean sent = new SendMail("Sending OTP...").send(userData.getEmail(), "One Step Verification - AMS", "Hello "
+							+ userData.getFullName() + ",\nYour OTP : " + genratedOTP
+							+ "\nIt will be expire in 10 minutes. Please do verify before 10 minutes otherwise you will be terminated!");
+					System.out.println(sent);
+					if (sent) {
+						String userEnteredOTP = "";
+						JOptionPane.showMessageDialog(frame, "OTP Sent to " + userData.getEmail(), "Alert - AMS",
+								JOptionPane.INFORMATION_MESSAGE);
+						userEnteredOTP = JOptionPane.showInputDialog(frame, "Enter OTP :", "Alert - AMS",
+								JOptionPane.INFORMATION_MESSAGE);
+						if (userEnteredOTP == null) {
+							JOptionPane.showMessageDialog(frame, "User not Registered!", "Success",
+									JOptionPane.ERROR_MESSAGE);
+							frame.dispose();
+							new MainActivity().show();
+						} else if (userEnteredOTP.trim().equalsIgnoreCase(genratedOTP)) {
+							userData.setUserStatus(true);
+							userDAOImplements.saveUser(userData);
+							JOptionPane.showMessageDialog(frame, "User Registered!", "Success",
+									JOptionPane.INFORMATION_MESSAGE);
+							frame.dispose();
+							new MainActivity().show();
+						}
+					}
+
+				}
 			}
 		});
+
 		mCancel.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				//new MainActivity().show();
+				new MainActivity().show();
 				frame.dispose();
 			}
-		});	
+		});
+		waitingDialog.setVisible(false);
 	}
 
 }
