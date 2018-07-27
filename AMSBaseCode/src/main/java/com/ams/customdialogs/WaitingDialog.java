@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.JProgressBar;
 import java.awt.Cursor;
+import java.awt.Toolkit;
 
 public class WaitingDialog extends JFrame {
 	/**
@@ -22,6 +23,7 @@ public class WaitingDialog extends JFrame {
 		initGUI();
 	}
 	private void initGUI() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(WaitingDialog.class.getResource("/images/planeIcon.png")));
 		setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 		getContentPane().setBackground(new Color(240, 255, 255));
 		setType(Type.POPUP);

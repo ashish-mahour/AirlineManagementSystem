@@ -21,6 +21,7 @@ import javax.swing.JTextField;
 
 import org.jdesktop.swingx.JXDatePicker;
 
+import com.ams.customdialogs.VerifingOTP;
 import com.ams.customdialogs.WaitingDialog;
 import com.ams.dao.impl.UserDAOImplements;
 import com.ams.entities.UserData;
@@ -365,16 +366,17 @@ public class RegisterActivity {
 					userData.setUserType("User");
 
 					final String genratedOTP = GlobalClass.getOTP();
-					boolean sent = new SendMail("Sending OTP...").send(userData.getEmail(), "One Step Verification - AMS", "Hello "
+					VerifingOTP verifingOTP = new VerifingOTP(userData,genratedOTP);
+					new SendMail("Sending OTP...", frame, verifingOTP).send(userData.getEmail(), "One Step Verification - AMS", "Hello "
 							+ userData.getFullName() + ",\nYour OTP : " + genratedOTP
-							+ "\nIt will be expire in 10 minutes. Please do verify before 10 minutes otherwise you will be terminated!");
-					System.out.println(sent);
-					if (sent) {
+							+ "\nIt will be expire in 2 minutes. Please do verify before 2 minutes otherwise you will be terminated!");
+					/*if (sent) {
 						String userEnteredOTP = "";
 						JOptionPane.showMessageDialog(frame, "OTP Sent to " + userData.getEmail(), "Alert - AMS",
 								JOptionPane.INFORMATION_MESSAGE);
 						userEnteredOTP = JOptionPane.showInputDialog(frame, "Enter OTP :", "Alert - AMS",
 								JOptionPane.INFORMATION_MESSAGE);
+						
 						if (userEnteredOTP == null) {
 							JOptionPane.showMessageDialog(frame, "User not Registered!", "Success",
 									JOptionPane.ERROR_MESSAGE);
@@ -388,7 +390,7 @@ public class RegisterActivity {
 							frame.dispose();
 							new MainActivity().show();
 						}
-					}
+					}*/
 
 				}
 			}
