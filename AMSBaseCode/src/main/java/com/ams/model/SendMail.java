@@ -88,11 +88,15 @@ public class SendMail {
 						new MainActivity().show();
 					}
 				} catch (AddressException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					sendingDialog.dispose();
+					JOptionPane.showMessageDialog(currentFrame, e.getMessage(), "Alert - AMS",
+							JOptionPane.INFORMATION_MESSAGE);
+					currentFrame.dispose();
 				} catch (MessagingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					sendingDialog.dispose();
+					JOptionPane.showMessageDialog(currentFrame, e.getMessage(), "Alert - AMS",
+							JOptionPane.INFORMATION_MESSAGE);
+					currentFrame.dispose();
 				}
 
 			}

@@ -231,13 +231,12 @@ public class UserPanelActivity {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				int dialogAction = JOptionPane.showConfirmDialog(frame, "Are you sure for deleting your account ?",
-						"Delete Account", JOptionPane.INFORMATION_MESSAGE);
+						"Alert - AMS", JOptionPane.QUESTION_MESSAGE);
 				if (dialogAction == JOptionPane.YES_OPTION) {
 					userDAOImplements.deleteUser(userData.getUserName());
 					frame.dispose();
-					// new MainActivity().show();
+					new MainActivity().show();
 				}
-
 			}
 		});
 		btnExit.addActionListener(new ActionListener() {

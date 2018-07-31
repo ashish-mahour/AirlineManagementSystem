@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
@@ -23,12 +26,15 @@ import org.jdesktop.swingx.JXDatePicker;
 
 import com.ams.customdialogs.VerifingOTP;
 import com.ams.customdialogs.WaitingDialog;
-import com.ams.dao.impl.UserDAOImplements;
 import com.ams.entities.UserData;
+import com.ams.model.EncryptString;
 import com.ams.model.GlobalClass;
 import com.ams.model.SendMail;
 import com.ams.model.Validations;
 import javax.swing.border.LineBorder;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JPanel;
 
 public class RegisterActivity {
 	JFrame frame;
@@ -37,7 +43,9 @@ public class RegisterActivity {
 	JLabel textUsername, textPassword, textEmail, textFullName, textAge, textDob, textAddress, textContactNo,
 			textGender, textUType;
 
-	JTextField editUsername, editPassword, editEmail, editFullName, editAge, editAdress, editContactNo;
+	JTextField editUsername, editEmail, editFullName, editAge, editAdress, editContactNo;
+	
+	JPasswordField editPassword;
 
 	JRadioButton radioMale, radioFMale, radioOther, radioUser;
 
@@ -48,11 +56,12 @@ public class RegisterActivity {
 
 	ArrayList<JTextField> list;
 
-	UserDAOImplements userDAOImplements;
-
 	SimpleDateFormat simpleDateFormat;
 
 	private static WaitingDialog waitingDialog = new WaitingDialog("Processing..");
+	private final JPanel panel = new JPanel();
+	private final JLabel lblTitle = new JLabel("User Registration - AMS ");
+	private final JButton btnClose = new JButton("X");
 
 	public RegisterActivity() {
 		// TODO Auto-generated constructor stub
@@ -77,16 +86,22 @@ public class RegisterActivity {
 		t2.start();
 	}
 
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	private void initGUI() {
 		frame = new JFrame("User Registration - AMS ");
+		frame.setUndecorated(true);
 
 		mSubmit = new JButton("Submit");
-		mSubmit.setBorder(new LineBorder(new Color(153, 255, 255), 2, true));
-		mSubmit.setBackground(new Color(0, 204, 204));
+		mSubmit.setForeground(new Color(255, 255, 255));
+		mSubmit.setBorder(new LineBorder(new Color(0, 250, 154), 1, true));
+		mSubmit.setBackground(new Color(60, 179, 113));
 
 		mCancel = new JButton("Cancel");
-		mCancel.setBorder(new LineBorder(new Color(153, 255, 255), 2, true));
-		mCancel.setBackground(new Color(0, 204, 204));
+		mCancel.setForeground(new Color(255, 255, 255));
+		mCancel.setBorder(new LineBorder(new Color(255, 153, 0), 1, true));
+		mCancel.setBackground(new Color(255, 51, 51));
 
 		textUsername = new JLabel("Username : ");
 		textUsername.setForeground(new Color(255, 255, 255));
@@ -110,58 +125,70 @@ public class RegisterActivity {
 		textUType.setForeground(new Color(255, 255, 255));
 
 		editUsername = new JTextField();
-		editUsername.setBackground(new Color(153, 255, 153));
-		editUsername.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
+		editUsername.setForeground(Color.WHITE);
+		editUsername.setBackground(Color.GRAY);
+		editUsername.setBorder(new EmptyBorder(1, 1, 1, 1));
 
-		editPassword = new JTextField();
-		editPassword.setBackground(new Color(153, 255, 153));
-		editPassword.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
+		editPassword = new JPasswordField();
+		editPassword.setForeground(Color.WHITE);
+		editPassword.setBackground(Color.GRAY);
+		editPassword.setBorder(new EmptyBorder(1, 1, 1, 1));
 
 		editEmail = new JTextField();
-		editEmail.setBackground(new Color(153, 255, 153));
-		editEmail.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
+		editEmail.setForeground(Color.WHITE);
+		editEmail.setBackground(Color.GRAY);
+		editEmail.setBorder(new EmptyBorder(1, 1, 1, 1));
 
 		editFullName = new JTextField();
-		editFullName.setBackground(new Color(153, 255, 153));
-		editFullName.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
+		editFullName.setForeground(Color.WHITE);
+		editFullName.setBackground(Color.GRAY);
+		editFullName.setBorder(new EmptyBorder(1, 1, 1, 1));
 
 		editAge = new JTextField();
-		editAge.setBackground(new Color(153, 255, 153));
-		editAge.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
+		editAge.setForeground(Color.WHITE);
+		editAge.setBackground(Color.GRAY);
+		editAge.setBorder(new EmptyBorder(1, 1, 1, 1));
 
 		editAdress = new JTextField();
-		editAdress.setBackground(new Color(153, 255, 153));
-		editAdress.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
+		editAdress.setForeground(Color.WHITE);
+		editAdress.setBackground(Color.GRAY);
+		editAdress.setBorder(new EmptyBorder(1, 1, 1, 1));
 
 		editContactNo = new JTextField();
-		editContactNo.setBackground(new Color(153, 255, 153));
-		editContactNo.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
+		editContactNo.setForeground(Color.WHITE);
+		editContactNo.setBackground(Color.GRAY);
+		editContactNo.setBorder(new EmptyBorder(1, 1, 1, 1));
 
 		genderGroup = new ButtonGroup();
 
 		radioMale = new JRadioButton("Male");
-		radioMale.setBackground(new Color(153, 255, 153));
-		radioMale.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
+		radioMale.setForeground(Color.WHITE);
+		radioMale.setBackground(Color.GRAY);
+		radioMale.setBorder(new LineBorder(Color.DARK_GRAY, 2, true));
+		radioMale.setSelected(true);
 
 		radioFMale = new JRadioButton("Female");
-		radioFMale.setBackground(new Color(153, 255, 153));
-		radioFMale.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
+		radioFMale.setForeground(Color.WHITE);
+		radioFMale.setBackground(Color.GRAY);
+		radioFMale.setBorder(new LineBorder(Color.DARK_GRAY, 2, true));
 
 		radioOther = new JRadioButton("Other");
-		radioOther.setBackground(new Color(153, 255, 153));
-		radioOther.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
+		radioOther.setForeground(Color.WHITE);
+		radioOther.setBackground(Color.GRAY);
+		radioOther.setBorder(new LineBorder(Color.DARK_GRAY, 2, true));
 
 		utypeGroup = new ButtonGroup();
 
 		radioUser = new JRadioButton("User");
+		radioUser.setVerticalAlignment(SwingConstants.TOP);
+		radioUser.setForeground(Color.WHITE);
 		radioUser.setToolTipText("You can only be a user!");
 		radioUser.setSelected(true);
-		radioUser.setBackground(new Color(153, 255, 153));
-		radioUser.setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
+		radioUser.setBackground(Color.GRAY);
+		radioUser.setBorder(new LineBorder(Color.DARK_GRAY, 2, true));
 
 		list = new ArrayList<JTextField>();
 
-		userDAOImplements = new UserDAOImplements();
 
 		simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -171,109 +198,113 @@ public class RegisterActivity {
 			e.printStackTrace();
 		}
 
-		textUsername.setLocation(20, 10);
+		textUsername.setLocation(20, 51);
 		textUsername.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 16));
 		textUsername.setSize(100, 30);
 
-		editUsername.setLocation(120, 10);
-		editUsername.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		editUsername.setLocation(120, 51);
+		editUsername.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 16));
 		editUsername.setSize(180, 30);
 
-		textPassword.setLocation(20, 50);
+		textPassword.setLocation(20, 93);
 		textPassword.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 16));
 		textPassword.setSize(100, 30);
 
-		editPassword.setLocation(120, 50);
-		editPassword.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		editPassword.setLocation(120, 93);
+		editPassword.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 16));
 		editPassword.setSize(180, 30);
 
-		textEmail.setLocation(20, 90);
+		textEmail.setLocation(20, 135);
 		textEmail.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 16));
 		textEmail.setSize(100, 30);
 
-		editEmail.setLocation(120, 90);
-		editEmail.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		editEmail.setLocation(120, 135);
+		editEmail.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 16));
 		editEmail.setSize(180, 30);
 
-		textDob.setLocation(20, 130);
+		textDob.setLocation(20, 177);
 		textDob.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 16));
 		textDob.setSize(130, 30);
 
 		editDob = new JXDatePicker();
+		editDob.getEditor().setFont(new Font("Segoe UI Symbol", Font.PLAIN, 16));
+		editDob.getEditor().setForeground(Color.WHITE);
 		editDob.setFormats("dd-MM-yyyy");
 		editDob.setDate(minDate);
-		editDob.setLocation(150, 130);
+		editDob.setLocation(150, 177);
 		editDob.setSize(150, 30);
-		editDob.getEditor().setBackground(new Color(153, 255, 153));
-		editDob.getEditor().setBorder(new LineBorder(new Color(204, 255, 204), 2, true));
+		editDob.getMonthView().setVisible(true);
+		editDob.getMonthView().setZoomable(true);
+		editDob.getEditor().setBackground(Color.gray);
+	
 
-		textFullName.setLocation(20, 170);
+		textFullName.setLocation(20, 219);
 		textFullName.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 16));
 		textFullName.setSize(100, 30);
 
-		editFullName.setLocation(120, 170);
-		editFullName.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		editFullName.setLocation(120, 219);
+		editFullName.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 16));
 		editFullName.setSize(180, 30);
 
-		textAge.setLocation(20, 210);
+		textAge.setLocation(20, 261);
 		textAge.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 16));
 		textAge.setSize(100, 30);
 
-		editAge.setLocation(120, 210);
-		editAge.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		editAge.setLocation(120, 261);
+		editAge.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 16));
 		editAge.setSize(180, 30);
 
-		textAddress.setLocation(20, 250);
+		textAddress.setLocation(20, 303);
 		textAddress.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 16));
 		textAddress.setSize(100, 30);
 
-		editAdress.setLocation(120, 250);
-		editAdress.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		editAdress.setLocation(120, 303);
+		editAdress.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 16));
 		editAdress.setSize(180, 30);
 
-		textContactNo.setLocation(20, 290);
+		textContactNo.setLocation(20, 345);
 		textContactNo.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 16));
 		textContactNo.setSize(120, 30);
 
-		editContactNo.setLocation(150, 290);
-		editContactNo.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		editContactNo.setLocation(150, 345);
+		editContactNo.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 16));
 		editContactNo.setSize(150, 30);
 
-		textGender.setLocation(20, 330);
+		textGender.setLocation(20, 387);
 		textGender.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 16));
 		textGender.setSize(100, 30);
 
-		radioMale.setLocation(120, 330);
-		radioMale.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		radioMale.setLocation(120, 387);
+		radioMale.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 16));
 		radioMale.setSize(180, 30);
 
-		radioFMale.setLocation(120, 360);
-		radioFMale.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		radioFMale.setLocation(120, 415);
+		radioFMale.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 16));
 		radioFMale.setSize(180, 30);
 
-		radioOther.setLocation(120, 390);
-		radioOther.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		radioOther.setLocation(120, 444);
+		radioOther.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 16));
 		radioOther.setSize(180, 30);
 
 		genderGroup.add(radioMale);
 		genderGroup.add(radioFMale);
 		genderGroup.add(radioOther);
 
-		textUType.setLocation(20, 430);
+		textUType.setLocation(20, 482);
 		textUType.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 16));
 		textUType.setSize(100, 30);
 
-		radioUser.setLocation(120, 430);
-		radioUser.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		radioUser.setLocation(120, 486);
+		radioUser.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 16));
 		radioUser.setSize(180, 30);
 		utypeGroup.add(radioUser);
 
-		mSubmit.setLocation(20, 500);
-		mSubmit.setFont(new Font("Imprint MT Shadow", Font.PLAIN, 18));
+		mSubmit.setLocation(170, 558);
+		mSubmit.setFont(new Font("Lucida Bright", Font.PLAIN, 18));
 		mSubmit.setSize(130, 30);
 
-		mCancel.setLocation(162, 500);
-		mCancel.setFont(new Font("Imprint MT Shadow", Font.PLAIN, 18));
+		mCancel.setLocation(20, 558);
+		mCancel.setFont(new Font("Lucida Bright", Font.PLAIN, 18));
 		mCancel.setSize(138, 30);
 
 		frame.getContentPane().add(textUsername);
@@ -321,16 +352,54 @@ public class RegisterActivity {
 		frame.setIconImage(
 				Toolkit.getDefaultToolkit().getImage(RegisterActivity.class.getResource("/images/planeIcon.png")));
 		frame.getContentPane().setLayout(null);
-		frame.setSize(340, 600);
-		frame.getContentPane().setBackground(new Color(0, 128, 128));
+		frame.setSize(322, 600);
+		frame.getContentPane().setBackground(Color.DARK_GRAY);
 		frame.getRootPane().setDefaultButton(mSubmit);
+		panel.setBackground(new Color(50, 205, 50));
+		panel.setBorder(new EmptyBorder(1, 1, 1, 1));
+		panel.setBounds(0, 0, 322, 39);
+		
+		frame.getContentPane().add(panel);
+		panel.setLayout(null);
+		lblTitle.setHorizontalAlignment(SwingConstants.LEFT);
+		lblTitle.setForeground(Color.WHITE);
+		lblTitle.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 16));
+		lblTitle.setBounds(12, 0, 264, 39);
+		
+		panel.add(lblTitle);
+		btnClose.setFont(new Font("Dialog", Font.BOLD, 16));
+		btnClose.setForeground(new Color(255, 255, 255));
+		btnClose.setBorder(new EmptyBorder(1, 1, 1, 1));
+		btnClose.setBackground(new Color(50, 205, 50));
+		btnClose.setBounds(278, 0, 44, 39);
+		
+		panel.add(btnClose);
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(false);
 		show();
 	}
 
 	private void show() {
+		btnClose.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.exit(0);
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnClose.setBackground(Color.RED);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnClose.setBackground(new Color(50, 205, 50));
+			}
+			
+		});
 		mSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
@@ -344,7 +413,7 @@ public class RegisterActivity {
 					final UserData userData = new UserData();
 					userData.setId(1);
 					userData.setUserName(editUsername.getText());
-					userData.setPassword(editPassword.getText());
+					userData.setPassword(EncryptString.getEncryptString(String.valueOf(editPassword.getPassword())));
 					userData.setEmail(editEmail.getText());
 					userData.setFullName(editFullName.getText());
 					try {
@@ -370,27 +439,6 @@ public class RegisterActivity {
 					new SendMail("Sending OTP...", frame, verifingOTP).send(userData.getEmail(), "One Step Verification - AMS", "Hello "
 							+ userData.getFullName() + ",\nYour OTP : " + genratedOTP
 							+ "\nIt will be expire in 2 minutes. Please do verify before 2 minutes otherwise you will be terminated!");
-					/*if (sent) {
-						String userEnteredOTP = "";
-						JOptionPane.showMessageDialog(frame, "OTP Sent to " + userData.getEmail(), "Alert - AMS",
-								JOptionPane.INFORMATION_MESSAGE);
-						userEnteredOTP = JOptionPane.showInputDialog(frame, "Enter OTP :", "Alert - AMS",
-								JOptionPane.INFORMATION_MESSAGE);
-						
-						if (userEnteredOTP == null) {
-							JOptionPane.showMessageDialog(frame, "User not Registered!", "Success",
-									JOptionPane.ERROR_MESSAGE);
-							frame.dispose();
-							new MainActivity().show();
-						} else if (userEnteredOTP.trim().equalsIgnoreCase(genratedOTP)) {
-							userData.setUserStatus(true);
-							userDAOImplements.saveUser(userData);
-							JOptionPane.showMessageDialog(frame, "User Registered!", "Success",
-									JOptionPane.INFORMATION_MESSAGE);
-							frame.dispose();
-							new MainActivity().show();
-						}
-					}*/
 
 				}
 			}
@@ -406,5 +454,4 @@ public class RegisterActivity {
 		});
 		waitingDialog.setVisible(false);
 	}
-
 }

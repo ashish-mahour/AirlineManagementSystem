@@ -28,7 +28,7 @@ public class AddUpdateLocation extends JPanel {
 	private final JTextField textFieldLocationName = new JTextField();
 	private final JLabel lblLocationCode = new JLabel("Location Code");
 	private final JTextField textFieldCode = new JTextField();
-	private final JButton btnSublmit = new JButton("SUBMIT");
+	public final JButton btnSublmit = new JButton("SUBMIT");
 	private LocationDAOImpl locationDAOImpl;
 	private LocationData locationData;
 	private boolean updateFlag = false;
@@ -40,13 +40,13 @@ public class AddUpdateLocation extends JPanel {
 	public AddUpdateLocation(LocationData locationData,boolean update) {
 		this.locationData = locationData;
 		this.updateFlag = update;
-		lblTitle.setText("Update Details");
+		lblTitle.setText("Update Location Details");
 		showData();
 	}
 	
 	public AddUpdateLocation() {
 		showData();
-		lblTitle.setText("Add Details");
+		lblTitle.setText("Add Location Details");
 	}
 	public void showData() {
 		textFieldLocationName.setFont(new Font("Dialog", Font.PLAIN, 14));
@@ -122,7 +122,7 @@ public class AddUpdateLocation extends JPanel {
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setForeground(Color.WHITE);
 		lblTitle.setFont(new Font("Copperplate Gothic Light", Font.BOLD, 18));
-		lblTitle.setBounds(102, 12, 221, 27);
+		lblTitle.setBounds(49, 12, 290, 27);
 		
 		panel.add(lblTitle);
 	}

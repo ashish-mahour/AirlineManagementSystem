@@ -25,8 +25,10 @@ import com.ams.dao.impl.LocationDAOImpl;
 import com.ams.dao.impl.UserDAOImplements;
 import com.ams.entities.LocationData;
 import com.ams.entities.UserData;
+import com.ams.panels.AddUpdateFlights;
 import com.ams.panels.AddUpdateLocation;
 import com.ams.panels.EditDetails;
+import com.ams.panels.ViewAllLocations;
 import com.ams.panels.ViewDetails;
 
 import java.awt.Component;
@@ -286,11 +288,11 @@ public class AdminPanelActivity {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				int dialogAction = JOptionPane.showConfirmDialog(frame, "Are you sure for deleting your account ?",
-						"Delete Account", JOptionPane.INFORMATION_MESSAGE);
+						"Alert - AMS", JOptionPane.QUESTION_MESSAGE);
 				if (dialogAction == JOptionPane.YES_OPTION) {
 					userDAOImplements.deleteUser(userData.getUserName());
 					frame.dispose();
-					//new MainActivity().show();
+					new MainActivity().show();
 				}
 
 			}
@@ -306,6 +308,7 @@ public class AdminPanelActivity {
 				container.repaint();
 				container.revalidate();
 				container.add(addLocation);
+				frame.getRootPane().setDefaultButton(addLocation.btnSublmit);
 				container.repaint();
 				container.revalidate();
 
@@ -328,6 +331,7 @@ public class AdminPanelActivity {
 					container.repaint();
 					container.revalidate();
 					container.add(addUpdateLocation);
+					frame.getRootPane().setDefaultButton(addUpdateLocation.btnSublmit);
 					container.repaint();
 					container.revalidate();
 				} else {
@@ -343,7 +347,6 @@ public class AdminPanelActivity {
 				// TODO Auto-generated method stub
 				locationCode = JOptionPane.showInputDialog(frame, "Location Code :", "Alert - AMS",
 						JOptionPane.INFORMATION_MESSAGE);
-				// locationCode = askingforUpdate.getLocationCode();
 				locationData = locationDAOImpl.getLocationByCode(locationCode);
 				if (locationData != null) {
 					int selectionBtn = JOptionPane.showConfirmDialog(frame,
@@ -351,11 +354,45 @@ public class AdminPanelActivity {
 							JOptionPane.INFORMATION_MESSAGE);
 					if (selectionBtn == JOptionPane.YES_OPTION) {
 						locationDAOImpl.deleteLocation(locationData.getLocationCode());
+						container.removeAll();
+						container.repaint();
+						container.revalidate();
 					}
 				} else {
 					JOptionPane.showMessageDialog(frame, "No data found!", "Alert - AMS", JOptionPane.ERROR_MESSAGE);
 				}
 
+			}
+		});
+		mntmViewAll.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				ViewAllLocations viewAllLocations = new ViewAllLocations();
+				container.removeAll();
+				container.repaint();
+				container.revalidate();
+				container.add(viewAllLocations);
+				container.repaint();
+				container.revalidate();
+				
+			}
+		});
+		
+		mntmAddFlights.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				AddUpdateFlights addUpdateFlights = new AddUpdateFlights();
+				container.removeAll();
+				container.repaint();
+				container.revalidate();
+				container.add(addUpdateFlights);
+				frame.getRootPane().setDefaultButton(addUpdateFlights.btnSublmit);
+				container.repaint();
+				container.revalidate();
 			}
 		});
 

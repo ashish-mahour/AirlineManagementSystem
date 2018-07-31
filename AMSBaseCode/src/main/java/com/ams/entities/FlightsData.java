@@ -67,7 +67,6 @@ public class FlightsData {
 
 	public FlightsData(int id, String flightName, String flightArrival, String flightDestination, String arrivalTime,
 			String destinationTime, int seatsAvailable) {
-		super();
 		this.id = id;
 		this.flightName = flightName;
 		this.flightArrival = flightArrival;

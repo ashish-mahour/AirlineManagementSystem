@@ -16,6 +16,8 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -43,12 +45,16 @@ public class VerifingOTP extends JFrame {
 	private UserData userData;
 	private UserDAOImplements userDAOImplements = new UserDAOImplements();
 	private String genratedOTP = null; 
+	private final JPanel panel = new JPanel();
+	private final JLabel lblTitle = new JLabel("Verify OTP - AMS");
+	private final JButton btnClose = new JButton("X");
 	/**
 	 * Create the frame.
 	 * @param userData 
 	 * @param genratedOTP 
 	 */
 	public VerifingOTP(UserData userData, String genratedOTP) {
+		setUndecorated(true);
 		this.userData = userData;
 		this.genratedOTP = genratedOTP;
 		initGUI();
@@ -57,7 +63,7 @@ public class VerifingOTP extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VerifingOTP.class.getResource("/images/planeIcon.png")));
 		setType(Type.POPUP);
 		setTitle("Account Activation");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 277, 208);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(128, 128, 128));
@@ -70,19 +76,19 @@ public class VerifingOTP extends JFrame {
 		lblEnterOtp.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEnterOtp.setFont(new Font("Malgun Gothic", Font.PLAIN, 12));
 		lblEnterOtp.setOpaque(true);
-		lblEnterOtp.setBounds(10, 11, 239, 35);
+		lblEnterOtp.setBounds(10, 51, 255, 35);
 		
 		contentPane.add(lblEnterOtp);
 		otpField.setHorizontalAlignment(SwingConstants.CENTER);
 		otpField.setBorder(new EmptyBorder(1, 1, 1, 1));
 		otpField.setBackground(new Color(192, 192, 192));
 		otpField.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		otpField.setBounds(10, 48, 239, 35);
+		otpField.setBounds(10, 85, 255, 35);
 		
 		contentPane.add(otpField);
 		progressBar.setStringPainted(true);
 		progressBar.setForeground(new Color(220, 20, 60));
-		progressBar.setBounds(10, 142, 239, 21);
+		progressBar.setBounds(10, 175, 255, 21);
 		progressBar.setValue(0);
 		progressBar.setMaximum(totalTime);
 		
@@ -91,10 +97,51 @@ public class VerifingOTP extends JFrame {
 		btnSubmit.setBorder(new EmptyBorder(1, 1, 1, 1));
 		btnSubmit.setForeground(new Color(240, 248, 255));
 		btnSubmit.setBackground(new Color(0, 206, 209));
-		btnSubmit.setBounds(62, 95, 139, 35);
+		btnSubmit.setBounds(63, 134, 148, 29);
 		
 		contentPane.add(btnSubmit);
+		
+		panel.setBackground(new Color(50, 205, 50));
+		panel.setBorder(new EmptyBorder(1, 1, 1, 1));
+		panel.setBounds(0, 0, 277, 39);
+		
+		getContentPane().add(panel);
+		panel.setLayout(null);
+		lblTitle.setHorizontalAlignment(SwingConstants.LEFT);
+		lblTitle.setForeground(Color.WHITE);
+		lblTitle.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 16));
+		lblTitle.setBounds(12, 0, 155, 39);
+		
+		panel.add(lblTitle);
+		btnClose.setFont(new Font("Dialog", Font.BOLD, 16));
+		btnClose.setForeground(new Color(255, 255, 255));
+		btnClose.setBorder(new EmptyBorder(1, 1, 1, 1));
+		btnClose.setBackground(new Color(50, 205, 50));
+		btnClose.setBounds(233, 0, 44, 39);
+		
+		panel.add(btnClose);
+		
+		btnClose.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.exit(0);
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnClose.setBackground(Color.RED);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnClose.setBackground(new Color(50, 205, 50));
+			}
+			
+		});
+		
 		setLocationRelativeTo(null);
+		setResizable(false);
 		btnSubmit.addActionListener(new ActionListener() {
 			
 			@Override
