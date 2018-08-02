@@ -78,15 +78,15 @@ public class MainActivity {
 		mLabelPassword = new JLabel("Password");
 		mLabelPassword.setForeground(new Color(255, 255, 255));
 		username = new JTextField();
-		username.setForeground(new Color(255, 255, 255));
+		username.setForeground(new Color(0, 0, 0));
 		username.setToolTipText("Enter your username");
 		password = new JPasswordField();
-		password.setForeground(new Color(255, 255, 255));
+		password.setForeground(new Color(0, 0, 0));
 		password.setToolTipText("Enter your password");
 		submit = new JButton("Submit");
 		submit.setForeground(new Color(255, 255, 255));
 		submit.setBorder(new LineBorder(new Color(50, 205, 50), 1, true));
-		submit.setBackground(new Color(34, 139, 34));
+		submit.setBackground(new Color(50, 205, 50));
 		username.setBorder(new EmptyBorder(1, 1, 1, 1));
 		username.setBackground(new Color(169, 169, 169));
 		password.setBorder(new EmptyBorder(1, 1, 1, 1));
@@ -121,11 +121,11 @@ public class MainActivity {
 		password.setSize(344, 30);
 
 		submit.setLocation(185, 470);
-		submit.setFont(new Font("SimSun", Font.PLAIN, 20));
+		submit.setFont(new Font("SimSun", Font.BOLD, 20));
 		submit.setSize(171, 30);
 
 		cancel.setLocation(12, 470);
-		cancel.setFont(new Font("SimSun", Font.PLAIN, 20));
+		cancel.setFont(new Font("SimSun", Font.BOLD, 20));
 		cancel.setSize(161, 30);
 
 		mRegLabel.setLocation(0, 512);

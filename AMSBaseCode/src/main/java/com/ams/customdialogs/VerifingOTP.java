@@ -125,7 +125,10 @@ public class VerifingOTP extends JFrame {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.exit(0);
+				JOptionPane.showMessageDialog(VerifingOTP.this, "User not Registered!", "Success",
+						JOptionPane.ERROR_MESSAGE);
+				dispose();
+				new MainActivity().show();
 			}
 
 			@Override

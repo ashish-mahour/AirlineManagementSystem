@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,12 +16,15 @@ import java.util.Date;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 
 import org.jdesktop.swingx.JXDatePicker;
 
@@ -37,17 +41,20 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JPanel;
 
 public class RegisterActivity {
-	JFrame frame;
-	JButton mSubmit, mCancel;
+	private JFrame frame;
+	private JButton mSubmit, mCancel;
 
 	JLabel textUsername, textPassword, textEmail, textFullName, textAge, textDob, textAddress, textContactNo,
-			textGender, textUType;
+			textGender;
 
-	JTextField editUsername, editEmail, editFullName, editAge, editAdress, editContactNo;
+	JFormattedTextField editUsername, editEmail, editFullName, editAdress, editContactNo;
+	JSpinner editAge;
+	
+	private SpinnerNumberModel numberModel = new SpinnerNumberModel();
 	
 	JPasswordField editPassword;
 
-	JRadioButton radioMale, radioFMale, radioOther, radioUser;
+	JRadioButton radioMale, radioFMale, radioOther;
 
 	ButtonGroup genderGroup, utypeGroup;
 
@@ -121,10 +128,8 @@ public class RegisterActivity {
 		textContactNo.setForeground(new Color(255, 255, 255));
 		textGender = new JLabel("Gender : ");
 		textGender.setForeground(new Color(255, 255, 255));
-		textUType = new JLabel("User Type :");
-		textUType.setForeground(new Color(255, 255, 255));
 
-		editUsername = new JTextField();
+		editUsername = new JFormattedTextField();
 		editUsername.setForeground(Color.WHITE);
 		editUsername.setBackground(Color.GRAY);
 		editUsername.setBorder(new EmptyBorder(1, 1, 1, 1));
@@ -134,30 +139,31 @@ public class RegisterActivity {
 		editPassword.setBackground(Color.GRAY);
 		editPassword.setBorder(new EmptyBorder(1, 1, 1, 1));
 
-		editEmail = new JTextField();
+		editEmail = new JFormattedTextField();
 		editEmail.setForeground(Color.WHITE);
 		editEmail.setBackground(Color.GRAY);
 		editEmail.setBorder(new EmptyBorder(1, 1, 1, 1));
 
-		editFullName = new JTextField();
+		editFullName = new JFormattedTextField();
 		editFullName.setForeground(Color.WHITE);
 		editFullName.setBackground(Color.GRAY);
 		editFullName.setBorder(new EmptyBorder(1, 1, 1, 1));
 
-		editAge = new JTextField();
-		editAge.setForeground(Color.WHITE);
+		editAge = new JSpinner();
 		editAge.setBackground(Color.GRAY);
 		editAge.setBorder(new EmptyBorder(1, 1, 1, 1));
+		
 
-		editAdress = new JTextField();
+		editAdress = new JFormattedTextField();
 		editAdress.setForeground(Color.WHITE);
 		editAdress.setBackground(Color.GRAY);
 		editAdress.setBorder(new EmptyBorder(1, 1, 1, 1));
 
-		editContactNo = new JTextField();
+		editContactNo = new JFormattedTextField(NumberFormat.getInstance());
 		editContactNo.setForeground(Color.WHITE);
 		editContactNo.setBackground(Color.GRAY);
 		editContactNo.setBorder(new EmptyBorder(1, 1, 1, 1));
+		editContactNo.setColumns(10);
 
 		genderGroup = new ButtonGroup();
 
@@ -178,14 +184,6 @@ public class RegisterActivity {
 		radioOther.setBorder(new LineBorder(Color.DARK_GRAY, 2, true));
 
 		utypeGroup = new ButtonGroup();
-
-		radioUser = new JRadioButton("User");
-		radioUser.setVerticalAlignment(SwingConstants.TOP);
-		radioUser.setForeground(Color.WHITE);
-		radioUser.setToolTipText("You can only be a user!");
-		radioUser.setSelected(true);
-		radioUser.setBackground(Color.GRAY);
-		radioUser.setBorder(new LineBorder(Color.DARK_GRAY, 2, true));
 
 		list = new ArrayList<JTextField>();
 
@@ -233,8 +231,6 @@ public class RegisterActivity {
 		editDob.setDate(minDate);
 		editDob.setLocation(150, 177);
 		editDob.setSize(150, 30);
-		editDob.getMonthView().setVisible(true);
-		editDob.getMonthView().setZoomable(true);
 		editDob.getEditor().setBackground(Color.gray);
 	
 
@@ -250,9 +246,16 @@ public class RegisterActivity {
 		textAge.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 16));
 		textAge.setSize(100, 30);
 
+		numberModel.setValue(18);
+		numberModel.setMaximum(99);
+		numberModel.setMinimum(18);
 		editAge.setLocation(120, 261);
 		editAge.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 16));
 		editAge.setSize(180, 30);
+		editAge.setModel(numberModel);
+		editAge.setEditor(new JSpinner.NumberEditor(editAge, "00"));
+		editAge.getEditor().getComponent(0).setBackground(Color.GRAY);
+		editAge.getEditor().getComponent(0).setForeground(Color.WHITE);
 
 		textAddress.setLocation(20, 303);
 		textAddress.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 16));
@@ -290,20 +293,11 @@ public class RegisterActivity {
 		genderGroup.add(radioFMale);
 		genderGroup.add(radioOther);
 
-		textUType.setLocation(20, 482);
-		textUType.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 16));
-		textUType.setSize(100, 30);
-
-		radioUser.setLocation(120, 486);
-		radioUser.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 16));
-		radioUser.setSize(180, 30);
-		utypeGroup.add(radioUser);
-
-		mSubmit.setLocation(170, 558);
+		mSubmit.setLocation(170, 533);
 		mSubmit.setFont(new Font("Lucida Bright", Font.PLAIN, 18));
 		mSubmit.setSize(130, 30);
 
-		mCancel.setLocation(20, 558);
+		mCancel.setLocation(12, 533);
 		mCancel.setFont(new Font("Lucida Bright", Font.PLAIN, 18));
 		mCancel.setSize(138, 30);
 
@@ -336,9 +330,6 @@ public class RegisterActivity {
 		frame.getContentPane().add(radioFMale);
 		frame.getContentPane().add(radioOther);
 
-		frame.getContentPane().add(textUType);
-		frame.getContentPane().add(radioUser);
-
 		frame.getContentPane().add(mCancel);
 		frame.getContentPane().add(mSubmit);
 
@@ -352,7 +343,7 @@ public class RegisterActivity {
 		frame.setIconImage(
 				Toolkit.getDefaultToolkit().getImage(RegisterActivity.class.getResource("/images/planeIcon.png")));
 		frame.getContentPane().setLayout(null);
-		frame.setSize(322, 600);
+		frame.setSize(322, 575);
 		frame.getContentPane().setBackground(Color.DARK_GRAY);
 		frame.getRootPane().setDefaultButton(mSubmit);
 		panel.setBackground(new Color(50, 205, 50));
@@ -402,7 +393,6 @@ public class RegisterActivity {
 		});
 		mSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				if (!Validations.validateTextField(list)) {
 					JOptionPane.showMessageDialog(frame, "Please fill all the fields!!", "Alert",
 							JOptionPane.ERROR_MESSAGE);
@@ -417,7 +407,7 @@ public class RegisterActivity {
 					userData.setEmail(editEmail.getText());
 					userData.setFullName(editFullName.getText());
 					try {
-						userData.setAge(Integer.parseInt(editAge.getText()));
+						userData.setAge(Integer.parseInt(String.valueOf(editAge.getValue())));
 						userData.setContactNo(Long.parseLong(editContactNo.getText()));
 					} catch (Exception e) {
 						// TODO: handle exception
@@ -432,7 +422,7 @@ public class RegisterActivity {
 					} else if (radioOther.isSelected()) {
 						userData.setGender("O");
 					}
-					userData.setUserType("User");
+					userData.setUserType("User");// always user
 
 					final String genratedOTP = GlobalClass.getOTP();
 					VerifingOTP verifingOTP = new VerifingOTP(userData,genratedOTP);

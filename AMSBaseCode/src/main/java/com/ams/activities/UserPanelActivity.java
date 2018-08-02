@@ -28,6 +28,7 @@ import com.ams.panels.ViewDetails;
 import java.awt.Toolkit;
 import javax.swing.border.LineBorder;
 import java.awt.Component;
+import javax.swing.border.EmptyBorder;
 
 public class UserPanelActivity {
 	JFrame frame;
@@ -85,13 +86,12 @@ public class UserPanelActivity {
 			e1.printStackTrace();
 		}
 		Thread t2 = new Thread(new Runnable() {
-			
+
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				frame = new JFrame("User panel - AMS");
-				frame.setIconImage(
-						Toolkit.getDefaultToolkit().getImage(UserPanelActivity.class.getResource("/images/planeIcon.png")));
+				frame.setIconImage(Toolkit.getDefaultToolkit()
+						.getImage(UserPanelActivity.class.getResource("/images/planeIcon.png")));
 
 				try {
 					imageFile = new File("src\\main\\java\\images\\m.png");
@@ -105,11 +105,13 @@ public class UserPanelActivity {
 				icon.setLocation(10, 20);
 
 				username = new JLabel(userData.getFullName());
+				username.setForeground(new Color(255, 255, 255));
 				usertype = new JLabel(userData.getUserType());
+				usertype.setForeground(new Color(255, 255, 255));
 
 				detailsButton = new JButton("Details");
-				detailsButton.setBorder(new LineBorder(new Color(204, 255, 204), 1, true));
-				detailsButton.setBackground(new Color(102, 204, 0));
+				detailsButton.setBorder(new EmptyBorder(1, 1, 1, 1));
+				detailsButton.setBackground(new Color(192, 192, 192));
 
 				username.setLocation(10, 130);
 				username.setSize(124, 20);
@@ -141,49 +143,63 @@ public class UserPanelActivity {
 				frame.getContentPane().add(detailsButton);
 
 				popupMenu = new JPopupMenu();
+				popupMenu.setBorder(new EmptyBorder(1, 1, 1, 1));
+				popupMenu.setBackground(new Color(0, 0, 0));
+				popupMenu.setForeground(new Color(0, 0, 0));
 				addPopup(detailsButton, popupMenu);
 
 				mntmViewDetails = new JMenuItem("View Details");
-				mntmViewDetails.setBorder(new LineBorder(new Color(0, 204, 102), 1, true));
-				mntmViewDetails.setBackground(new Color(0, 153, 51));
+				mntmViewDetails.setForeground(new Color(0, 0, 0));
+				mntmViewDetails.setBorder(new LineBorder(new Color(105, 105, 105), 1, true));
+				mntmViewDetails.setBackground(new Color(105, 105, 105));
 				popupMenu.add(mntmViewDetails);
 
 				mntmEditDetails = new JMenuItem("Edit Details");
-				mntmEditDetails.setBorder(new LineBorder(new Color(0, 204, 102), 1, true));
-				mntmEditDetails.setBackground(new Color(0, 153, 51));
+				mntmEditDetails.setForeground(new Color(0, 0, 0));
+				mntmEditDetails.setBorder(new LineBorder(new Color(105, 105, 105), 1, true));
+				mntmEditDetails.setBackground(new Color(105, 105, 105));
 				popupMenu.add(mntmEditDetails);
 
 				mntmDeleteMyAccount = new JMenuItem("Delete my account");
-				mntmDeleteMyAccount.setBorder(new LineBorder(new Color(0, 204, 102), 1, true));
-				mntmDeleteMyAccount.setBackground(new Color(0, 153, 51));
+				mntmDeleteMyAccount.setForeground(new Color(0, 0, 0));
+				mntmDeleteMyAccount.setBorder(new LineBorder(new Color(105, 105, 105), 1, true));
+				mntmDeleteMyAccount.setBackground(new Color(105, 105, 105));
 				popupMenu.add(mntmDeleteMyAccount);
 				frame.getContentPane().add(container);
 
 				frame.getContentPane().setLayout(null);
 				frame.setSize(599, 569);
-				frame.getContentPane().setBackground(new Color(102, 102, 102));
+				frame.getContentPane().setBackground(new Color(0, 0, 0));
 
 				btnExit = new JButton("Logout");
-				btnExit.setBorder(new LineBorder(new Color(255, 204, 153), 1, true));
-				btnExit.setBackground(new Color(255, 102, 51));
+				btnExit.setBorder(new EmptyBorder(1, 1, 1, 1));
+				btnExit.setBackground(new Color(192, 192, 192));
 				btnExit.setFont(new Font("Monospaced", Font.PLAIN, 18));
-				btnExit.setBounds(10, 267, 108, 31);
+				btnExit.setBounds(10, 267, 124, 31);
 				frame.getContentPane().add(btnExit);
 				btnFlights.setFont(new Font("Monospaced", Font.PLAIN, 18));
-				btnFlights.setBorder(new LineBorder(new Color(204, 255, 204), 1, true));
-				btnFlights.setBackground(new Color(135, 206, 250));
+				btnFlights.setBorder(new EmptyBorder(1, 1, 1, 1));
+				btnFlights.setBackground(new Color(192, 192, 192));
 				btnFlights.setBounds(10, 224, 124, 31);
 
 				frame.getContentPane().add(btnFlights);
+				popupMenuFlights.setBackground(new Color(105, 105, 105));
+				popupMenuFlights.setBorder(new EmptyBorder(1, 1, 1, 1));
 
 				addPopup(btnFlights, popupMenuFlights);
-				mntmCheckFlight.setBackground(new Color(0, 191, 255));
+				mntmCheckFlight.setBorder(new EmptyBorder(1, 1, 1, 1));
+				mntmCheckFlight.setForeground(new Color(0, 0, 0));
+				mntmCheckFlight.setBackground(new Color(105, 105, 105));
 
 				popupMenuFlights.add(mntmCheckFlight);
-				mntmBookFlight.setBackground(new Color(0, 191, 255));
+				mntmBookFlight.setBorder(new EmptyBorder(1, 1, 1, 1));
+				mntmBookFlight.setForeground(new Color(0, 0, 0));
+				mntmBookFlight.setBackground(new Color(105, 105, 105));
 
 				popupMenuFlights.add(mntmBookFlight);
-				mntmCancelFlights.setBackground(new Color(0, 191, 255));
+				mntmCancelFlights.setBorder(new EmptyBorder(1, 1, 1, 1));
+				mntmCancelFlights.setForeground(new Color(0, 0, 0));
+				mntmCancelFlights.setBackground(new Color(105, 105, 105));
 
 				popupMenuFlights.add(mntmCancelFlights);
 				frame.setVisible(true);
@@ -194,7 +210,6 @@ public class UserPanelActivity {
 			}
 		});
 		t2.start();
-		
 
 	}
 

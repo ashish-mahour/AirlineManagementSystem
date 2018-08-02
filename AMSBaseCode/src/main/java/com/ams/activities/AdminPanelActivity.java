@@ -34,33 +34,34 @@ import com.ams.panels.ViewDetails;
 import java.awt.Component;
 import java.awt.Toolkit;
 import javax.swing.border.LineBorder;
+import javax.swing.border.EmptyBorder;
 
 public class AdminPanelActivity {
 
-	JFrame frame;
+	private JFrame frame = new JFrame("Admin Panel - AMS");;
+	private BufferedImage iconImage;
+	private File imageFile;
+	private JLabel icon;
+	private JLabel username;
+	private JLabel usertype;
 
-	BufferedImage iconImage;
-	File imageFile;
+	private JPopupMenu detailsMenu;
+	private JMenuItem editDetails, viewDetails, deleteAcc;
 
-	JLabel icon, username, usertype;
+	private JPanel container;
 
-	JPopupMenu detailsMenu;
-	JMenuItem editDetails, viewDetails, deleteAcc;
+	private JButton detailsButton;
 
-	JPanel container;
-
-	JButton detailsButton;
-
-	UserData userData;
+	private UserData userData;
 
 	JLabel textUsername, textPassword, textEmail, textFullName, textAge, textDob, textAddress, textContactNo,
 			textGender, textUType;
 
-	ViewDetails viewDetailsActivity;
+	private ViewDetails viewDetailsActivity;
 
-	EditDetails editDetailsActivity;
+	private EditDetails editDetailsActivity;
 
-	UserDAOImplements userDAOImplements;
+	private UserDAOImplements userDAOImplements;
 	private JButton btnExit;
 	private JButton btnManageFlights;
 	private JButton btnManageLoactions;
@@ -103,8 +104,6 @@ public class AdminPanelActivity {
 			
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
-				frame = new JFrame("Admin Panel - AMS");
 				locationDAOImpl = new LocationDAOImpl();
 				frame.setResizable(false);
 				frame.setIconImage(
@@ -128,22 +127,24 @@ public class AdminPanelActivity {
 				usertype.setForeground(new Color(255, 255, 255));
 
 				detailsMenu = new JPopupMenu();
-				detailsMenu.setBackground(Color.BLUE);
+				detailsMenu.setBorder(new EmptyBorder(1, 1, 1, 1));
+				detailsMenu.setBackground(new Color(0, 0, 0));
 
 				editDetails = new JMenuItem("Edit Details");
-				editDetails.setForeground(Color.WHITE);
-				editDetails.setBackground(Color.BLUE);
+				editDetails.setForeground(new Color(0, 0, 0));
+				editDetails.setBackground(new Color(105, 105, 105));
 				viewDetails = new JMenuItem("View Details");
-				viewDetails.setForeground(Color.WHITE);
-				viewDetails.setBackground(Color.BLUE);
+				viewDetails.setForeground(new Color(0, 0, 0));
+				viewDetails.setBackground(new Color(105, 105, 105));
 				deleteAcc = new JMenuItem("Delete Account");
-				deleteAcc.setBackground(Color.BLUE);
-				deleteAcc.setForeground(Color.WHITE);
+				deleteAcc.setBackground(new Color(105, 105, 105));
+				deleteAcc.setForeground(new Color(0, 0, 0));
 
 				detailsButton = new JButton("Details");
+				detailsButton.setForeground(new Color(0, 0, 0));
 				detailsButton.setAlignmentY(0.0f);
-				detailsButton.setBackground(new Color(0, 204, 255));
-				detailsButton.setBorder(new LineBorder(new Color(204, 255, 255), 1, true));
+				detailsButton.setBackground(new Color(192, 192, 192));
+				detailsButton.setBorder(new EmptyBorder(1, 1, 1, 1));
 
 				detailsMenu.add(editDetails);
 				detailsMenu.add(viewDetails);
@@ -159,16 +160,16 @@ public class AdminPanelActivity {
 				usertype.setFont(new Font("Segoe Print", Font.PLAIN, 8));
 
 				detailsButton.setLocation(10, 182);
-				detailsButton.setSize(87, 32);
-				detailsButton.setFont(new Font("Monospaced", Font.PLAIN, 18));
+				detailsButton.setSize(114, 32);
+				detailsButton.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 18));
 
 				container = new JPanel();
 				container.setAutoscrolls(true);
 				container.setBorder(new LineBorder(new Color(102, 102, 102), 3, true));
 				container.setLayout(new CardLayout());
 				container.setBackground(new Color(204, 204, 204));
-				container.setLocation(136, 20);
-				container.setSize(431, 494);
+				container.setLocation(136, 12);
+				container.setSize(431, 502);
 
 				viewDetailsActivity = new ViewDetails(userData);
 				editDetailsActivity = new EditDetails(userData);
@@ -182,66 +183,76 @@ public class AdminPanelActivity {
 
 				frame.getContentPane().setLayout(null);
 				frame.setSize(595, 565);
-				frame.getContentPane().setBackground(new Color(102, 102, 102));
+				frame.getContentPane().setBackground(new Color(0, 0, 0));
 
 				btnExit = new JButton("Logout");
-				btnExit.setBorder(new LineBorder(new Color(255, 204, 204), 1, true));
-				btnExit.setBackground(new Color(255, 153, 153));
-				btnExit.setFont(new Font("Monospaced", Font.PLAIN, 18));
-				btnExit.setBounds(10, 309, 68, 31);
+				btnExit.setForeground(new Color(0, 0, 0));
+				btnExit.setBorder(new EmptyBorder(1, 1, 1, 1));
+				btnExit.setBackground(new Color(192, 192, 192));
+				btnExit.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 18));
+				btnExit.setBounds(10, 309, 114, 31);
 				frame.getContentPane().add(btnExit);
 
 				btnManageFlights = new JButton("Flights");
-				btnManageFlights.setBorder(new LineBorder(new Color(255, 204, 153), 1, true));
-				btnManageFlights.setBackground(new Color(255, 160, 122));
-				btnManageFlights.setFont(new Font("Monospaced", Font.PLAIN, 18));
-				btnManageFlights.setBounds(10, 225, 100, 31);
+				btnManageFlights.setForeground(new Color(0, 0, 0));
+				btnManageFlights.setBorder(new EmptyBorder(1, 1, 1, 1));
+				btnManageFlights.setBackground(new Color(192, 192, 192));
+				btnManageFlights.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 18));
+				btnManageFlights.setBounds(10, 225, 116, 31);
 				frame.getContentPane().add(btnManageFlights);
+				popupMenu.setBorder(new EmptyBorder(1, 1, 1, 1));
 				popupMenu.setForeground(Color.ORANGE);
-				popupMenu.setBackground(new Color(255, 165, 0));
+				popupMenu.setBackground(new Color(128, 128, 128));
 
 				addPopup(btnManageFlights, popupMenu);
 				addPopup(detailsButton, detailsMenu);
-				mntmAddFlights.setBackground(Color.ORANGE);
+				mntmAddFlights.setBackground(new Color(105, 105, 105));
 				mntmAddFlights.setForeground(Color.BLACK);
 
 				popupMenu.add(mntmAddFlights);
 				mntmUpdateDetails.setForeground(Color.BLACK);
-				mntmUpdateDetails.setBackground(Color.ORANGE);
+				mntmUpdateDetails.setBackground(new Color(105, 105, 105));
 
 				popupMenu.add(mntmUpdateDetails);
 
 				mntmDeleteFlight = new JMenuItem("Delete Flight");
-				mntmDeleteFlight.setForeground(Color.BLACK);
-				mntmDeleteFlight.setBackground(Color.ORANGE);
+				mntmDeleteFlight.setForeground(new Color(0, 0, 0));
+				mntmDeleteFlight.setBackground(new Color(105, 105, 105));
 				popupMenu.add(mntmDeleteFlight);
 
 				mntmShowAllFlights = new JMenuItem("Show all Flights");
-				mntmShowAllFlights.setBackground(Color.ORANGE);
+				mntmShowAllFlights.setBackground(new Color(105, 105, 105));
 				mntmShowAllFlights.setForeground(Color.BLACK);
 				popupMenu.add(mntmShowAllFlights);
 
 				btnManageLoactions = new JButton("Loactions");
-				btnManageLoactions.setBorder(new LineBorder(new Color(51, 255, 153), 1, true));
-				btnManageLoactions.setBackground(new Color(72, 209, 204));
-				btnManageLoactions.setFont(new Font("Monospaced", Font.PLAIN, 18));
+				btnManageLoactions.setForeground(new Color(0, 0, 0));
+				btnManageLoactions.setBorder(new EmptyBorder(1, 1, 1, 1));
+				btnManageLoactions.setBackground(new Color(192, 192, 192));
+				btnManageLoactions.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 18));
 				btnManageLoactions.setBounds(10, 269, 116, 31);
 
 				frame.getContentPane().add(btnManageLoactions);
+				popupMenu_1.setBackground(new Color(0, 0, 0));
+				popupMenu_1.setBorder(new EmptyBorder(1, 1, 1, 1));
 
 				addPopup(btnManageLoactions, popupMenu_1);
-				mntmAddLocation.setBackground(new Color(32, 178, 170));
+				mntmAddLocation.setForeground(new Color(0, 0, 0));
+				mntmAddLocation.setBackground(new Color(105, 105, 105));
 
 				popupMenu_1.add(mntmAddLocation);
-				mntmModifyLocation.setBackground(new Color(32, 178, 170));
+				mntmModifyLocation.setForeground(new Color(0, 0, 0));
+				mntmModifyLocation.setBackground(new Color(105, 105, 105));
 
 				popupMenu_1.add(mntmModifyLocation);
-				mntmDeleteLocation.setBackground(new Color(32, 178, 170));
+				mntmDeleteLocation.setForeground(new Color(0, 0, 0));
+				mntmDeleteLocation.setBackground(new Color(105, 105, 105));
 
 				popupMenu_1.add(mntmDeleteLocation);
 
 				mntmViewAll = new JMenuItem("View all");
-				mntmViewAll.setBackground(new Color(32, 178, 170));
+				mntmViewAll.setForeground(new Color(0, 0, 0));
+				mntmViewAll.setBackground(new Color(105, 105, 105));
 				popupMenu_1.add(mntmViewAll);
 				frame.setVisible(true);
 				frame.setLocationRelativeTo(null);
@@ -251,7 +262,6 @@ public class AdminPanelActivity {
 			}
 		});
 		t2.start();
-		
 	}
 
 	private void show() {
@@ -288,7 +298,7 @@ public class AdminPanelActivity {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				int dialogAction = JOptionPane.showConfirmDialog(frame, "Are you sure for deleting your account ?",
-						"Alert - AMS", JOptionPane.QUESTION_MESSAGE);
+						"Alert - AMS", JOptionPane.YES_NO_CANCEL_OPTION);
 				if (dialogAction == JOptionPane.YES_OPTION) {
 					userDAOImplements.deleteUser(userData.getUserName());
 					frame.dispose();
@@ -395,6 +405,7 @@ public class AdminPanelActivity {
 				container.revalidate();
 			}
 		});
+		
 
 		btnExit.addActionListener(new ActionListener() {
 

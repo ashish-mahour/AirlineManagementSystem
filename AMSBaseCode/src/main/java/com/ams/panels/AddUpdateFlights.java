@@ -15,6 +15,8 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -25,6 +27,7 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.JSpinner;
+import java.util.Date;
 
 public class AddUpdateFlights extends JPanel {
 	/**
@@ -45,14 +48,15 @@ public class AddUpdateFlights extends JPanel {
 	private final JComboBox<String> destinationComboBox = new JComboBox<String>();
 	private final JLabel lblTimeArrival = new JLabel("Time Arrival");
 	private final JLabel lblTimeDestination = new JLabel("Time Destination");
-	private final JLabel lblNoOf = new JLabel("No. of Seats");
+	private final JLabel lblNoOf = new JLabel("Number of Seats");
 	private LocationDAOImpl locationDAOImpl = new LocationDAOImpl();
 	private ArrayList<LocationData> locationDatas = new ArrayList<LocationData>();
 	private final JSpinner noOfSeats = new JSpinner();
 	private final JSpinner spinnerTimeArr = new JSpinner();
 	private final JSpinner spinnerTimeDest = new JSpinner();
 	private final SpinnerNumberModel spinnerNumberModel = new SpinnerNumberModel();
-	private final SpinnerDateModel spinnerDateModel = new SpinnerDateModel();
+	private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:ss a");
+	private Date defaultDate = null;
 
 	/**
 	 * Creating the panel.
@@ -62,6 +66,7 @@ public class AddUpdateFlights extends JPanel {
 		this.updateFlag = update;
 		lblTitle.setText("Update Flight Details");
 		locationDatas = locationDAOImpl.getAllLocation();
+		textFieldFlightName.setEditable(false);
 		showData();
 	}
 
@@ -72,6 +77,11 @@ public class AddUpdateFlights extends JPanel {
 	}
 
 	public void showData() {
+		try {
+			defaultDate = simpleDateFormat.parse("00:00 AM");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		initGUI();
 		flightDAOImp = new FlightDAOImpl();
 		if (updateFlag) {
@@ -81,16 +91,33 @@ public class AddUpdateFlights extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-
-				if (!updateFlag) {
-
-					JOptionPane.showMessageDialog(AddUpdateFlights.this, "Flight created!", "Alert - AMS",
-							JOptionPane.INFORMATION_MESSAGE);
+				if (textFieldFlightName.getText().trim().isEmpty()) {
+					JOptionPane.showMessageDialog(AddUpdateFlights.this, "Flight name can't be empty!", "Alert - AMS",
+							JOptionPane.ERROR_MESSAGE);
+				} else if (arrivalComboBox.getSelectedItem().toString()
+						.equalsIgnoreCase((destinationComboBox.getSelectedItem().toString()))) {
+					JOptionPane.showMessageDialog(AddUpdateFlights.this, "Destination and Arrival can't be same!",
+							"Alert - AMS", JOptionPane.ERROR_MESSAGE);
 				} else {
-					
-					JOptionPane.showMessageDialog(AddUpdateFlights.this, "Flight Updated!", "Alert - AMS",
-							JOptionPane.INFORMATION_MESSAGE);
+					try {
+						flightData = new FlightsData(0, textFieldFlightName.getText(),
+								arrivalComboBox.getSelectedItem().toString(),
+								destinationComboBox.getSelectedItem().toString(), simpleDateFormat.format(spinnerTimeArr.getValue()),
+								simpleDateFormat.format(spinnerTimeDest.getValue()),
+								Integer.valueOf(noOfSeats.getValue().toString()));
+						if (!updateFlag) {
+							flightDAOImp.addFlight(flightData);
+							JOptionPane.showMessageDialog(AddUpdateFlights.this, "Flight created!", "Alert - AMS",
+									JOptionPane.INFORMATION_MESSAGE);
+						} else {
+							flightDAOImp.modifyFlight(flightData.getFlightName(), flightData);
+							JOptionPane.showMessageDialog(AddUpdateFlights.this, "Flight Updated!", "Alert - AMS",
+									JOptionPane.INFORMATION_MESSAGE);
+						}
+					} catch (Exception e) {
+						JOptionPane.showMessageDialog(AddUpdateFlights.this, e.getMessage(), "Alert - AMS",
+								JOptionPane.ERROR_MESSAGE);
+					}
 				}
 			}
 		});
@@ -101,26 +128,26 @@ public class AddUpdateFlights extends JPanel {
 		setBackground(new Color(128, 128, 128));
 		setLayout(null);
 		panel.setBackground(new Color(0, 128, 128));
-		panel.setBorder(new LineBorder(new Color(245, 245, 245), 2, true));
+		panel.setBorder(new LineBorder(new Color(245, 245, 245), 1, true));
 		panel.setBounds(10, 11, 403, 374);
 
 		add(panel);
 		panel.setLayout(null);
-		lblFlightName.setForeground(new Color(255, 255, 255));
-		lblFlightName.setFont(new Font("Segoe Print", Font.BOLD, 15));
+		lblFlightName.setForeground(new Color(230, 230, 250));
+		lblFlightName.setFont(new Font("Segoe UI Symbol", Font.BOLD, 16));
 		lblFlightName.setBounds(31, 58, 138, 27);
 
 		panel.add(lblFlightName);
 
 		textFieldFlightName.setFont(new Font("Dialog", Font.PLAIN, 14));
-		textFieldFlightName.setBorder(new LineBorder(new Color(127, 255, 212), 1, true));
+		textFieldFlightName.setBorder(new LineBorder(new Color(102, 204, 255), 1, true));
 		textFieldFlightName.setBackground(new Color(211, 211, 211));
 		textFieldFlightName.setBounds(179, 58, 188, 27);
 		textFieldFlightName.setColumns(10);
 
 		panel.add(textFieldFlightName);
-		lblArrival.setForeground(Color.WHITE);
-		lblArrival.setFont(new Font("Segoe Print", Font.BOLD, 15));
+		lblArrival.setForeground(new Color(230, 230, 250));
+		lblArrival.setFont(new Font("Segoe UI Symbol", Font.BOLD, 16));
 		lblArrival.setBounds(31, 97, 138, 27);
 
 		panel.add(lblArrival);
@@ -143,8 +170,8 @@ public class AddUpdateFlights extends JPanel {
 		arrivalComboBox.setBorder(new LineBorder(new Color(135, 206, 250), 1, true));
 		panel.add(arrivalComboBox);
 
-		lblDestination.setForeground(Color.WHITE);
-		lblDestination.setFont(new Font("Segoe Print", Font.BOLD, 15));
+		lblDestination.setForeground(new Color(230, 230, 250));
+		lblDestination.setFont(new Font("Segoe UI Symbol", Font.BOLD, 16));
 		lblDestination.setBounds(31, 136, 138, 27);
 
 		panel.add(lblDestination);
@@ -153,50 +180,46 @@ public class AddUpdateFlights extends JPanel {
 		destinationComboBox.setBounds(179, 136, 188, 27);
 
 		panel.add(destinationComboBox);
-		lblTimeArrival.setForeground(Color.WHITE);
-		lblTimeArrival.setFont(new Font("Segoe Print", Font.BOLD, 15));
+		lblTimeArrival.setForeground(new Color(230, 230, 250));
+		lblTimeArrival.setFont(new Font("Segoe UI Symbol", Font.BOLD, 16));
 		lblTimeArrival.setBounds(31, 179, 138, 27);
 
 		panel.add(lblTimeArrival);
-		lblTimeDestination.setForeground(Color.WHITE);
-		lblTimeDestination.setFont(new Font("Segoe Print", Font.BOLD, 15));
-		lblTimeDestination.setBounds(31, 218, 138, 27);
+		lblTimeDestination.setForeground(new Color(230, 230, 250));
+		lblTimeDestination.setFont(new Font("Segoe UI Symbol", Font.BOLD, 16));
+		lblTimeDestination.setBounds(31, 218, 180, 27);
 
 		panel.add(lblTimeDestination);
-		lblNoOf.setForeground(Color.WHITE);
-		lblNoOf.setFont(new Font("Segoe Print", Font.BOLD, 15));
-		lblNoOf.setBounds(31, 258, 138, 27);
+		lblNoOf.setForeground(new Color(230, 230, 250));
+		lblNoOf.setFont(new Font("Segoe UI Symbol", Font.BOLD, 16));
+		lblNoOf.setBounds(31, 258, 207, 27);
 
 		panel.add(lblNoOf);
-		noOfSeats.getEditor().setBackground(new Color(0, 0, 205));
-		spinnerTimeArr.setBorder(new LineBorder(new Color(135, 206, 250), 1, true));
 		spinnerTimeArr.setBounds(179, 183, 188, 23);
-		
-		Calendar c = Calendar.getInstance();
-		c.set(Calendar.HOUR,0);
-		c.set(Calendar.MINUTE, 0);
-		c.set(Calendar.AM,0);
-		
-		spinnerDateModel.setValue(c.getTime());
-		
-		spinnerTimeArr.setModel(spinnerDateModel);
-		spinnerTimeArr.setEditor(new JSpinner.DateEditor(spinnerTimeArr, "HH:mm a"));
-		
+
+		spinnerTimeArr.setModel(new SpinnerDateModel(defaultDate, null, null, Calendar.HOUR_OF_DAY));
+		spinnerTimeArr.setEditor(new JSpinner.DateEditor(spinnerTimeArr, "hh:mm a"));
+
 		panel.add(spinnerTimeArr);
+		spinnerTimeDest.setBounds(229, 222, 138, 23);
+		spinnerTimeDest.setModel(new SpinnerDateModel(defaultDate, null, null, Calendar.HOUR_OF_DAY));
+		spinnerTimeDest.setEditor(new JSpinner.DateEditor(spinnerTimeDest, "hh:mm a"));
+		spinnerTimeDest.getEditor().getComponent(0).setBackground(new Color(211, 211, 211));
 		spinnerTimeDest.setBorder(new LineBorder(new Color(135, 206, 250), 1, true));
-		spinnerTimeDest.setBounds(179, 222, 188, 23);
-		spinnerTimeDest.setModel(spinnerDateModel);
-		spinnerTimeDest.setEditor(new JSpinner.DateEditor(spinnerTimeDest, "HH:mm a"));
-		
+
 		panel.add(spinnerTimeDest);
-		noOfSeats.setBorder(new LineBorder(new Color(135, 206, 250), 1, true));
+		noOfSeats.setToolTipText("Max (50 Seats)");
 		noOfSeats.setBounds(297, 261, 70, 23);
 		spinnerNumberModel.setValue(1);
 		spinnerNumberModel.setMinimum(1);
 		spinnerNumberModel.setMaximum(50);
 		noOfSeats.setModel(spinnerNumberModel);
 		noOfSeats.setEditor(new JSpinner.NumberEditor(noOfSeats, "00"));
+		noOfSeats.getEditor().getComponent(0).setBackground(new Color(211, 211, 211));
+		noOfSeats.setBorder(new LineBorder(new Color(135, 206, 250), 1, true));
 
+		spinnerTimeArr.getEditor().getComponent(0).setBackground(new Color(211, 211, 211));
+		spinnerTimeArr.setBorder(new LineBorder(new Color(135, 206, 250), 1, true));
 		panel.add(noOfSeats);
 
 		for (LocationData l : locationDatas) {

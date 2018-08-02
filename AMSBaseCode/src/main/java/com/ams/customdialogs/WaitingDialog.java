@@ -10,6 +10,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.Component;
 
 public class WaitingDialog extends JFrame {
 	/**
@@ -38,7 +39,9 @@ public class WaitingDialog extends JFrame {
 		setBounds(100, 100, 278, 73);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		getContentPane().setLayout(null);
-		progressBar.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
+		progressBar.setAlignmentY(Component.TOP_ALIGNMENT);
+		progressBar.setAlignmentX(Component.LEFT_ALIGNMENT);
+		progressBar.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		progressBar.setBackground(new Color(105, 105, 105));
 		progressBar.setForeground(new Color(169, 169, 169));
 		progressBar.setIndeterminate(true);

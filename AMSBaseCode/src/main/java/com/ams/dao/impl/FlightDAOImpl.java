@@ -35,7 +35,7 @@ public class FlightDAOImpl implements FlightDAO {
 	public boolean addFlight(FlightsData flightsData) {
 		// TODO Auto-generated method stub
 		preparedStatement = DBConnect.getPreparedStatement(
-				"INSERT INTO FLIGHT_DATA(NAME, ARRIVAL_CODE, DESINATION_CODE, ARRIVAL_TIME, DESTINATION_TIME, SEATS_AVAILABLE) VALUES(?,?,?,?,?,?,?)");
+				"INSERT INTO FLIGHT_DATA(NAME, ARRIVAL_CODE, DESINATION_CODE, ARRIVAL_TIME, DESTINATION_TIME, SEATS_AVAILABLE) VALUES(?,?,?,?,?,?)");
 		try {
 			preparedStatement.setString(1, flightsData.getFlightName());
 			preparedStatement.setString(2, flightsData.getFlightArrival());
