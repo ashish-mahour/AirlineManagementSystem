@@ -85,7 +85,16 @@ public class AddUpdateFlights extends JPanel {
 		initGUI();
 		flightDAOImp = new FlightDAOImpl();
 		if (updateFlag) {
-
+			textFieldFlightName.setText(flightData.getFlightName());
+			destinationComboBox.setSelectedItem(flightData.getFlightDestination());
+			arrivalComboBox.setSelectedItem(flightData.getFlightArrival());
+			try {
+				spinnerTimeArr.setValue(simpleDateFormat.parse(flightData.getArrivalTime()));
+				spinnerTimeDest.setValue(simpleDateFormat.parse(flightData.getDestinationTime()));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			noOfSeats.setValue(flightData.getSeatsAvailable());
 		}
 		btnSublmit.addActionListener(new ActionListener() {
 
@@ -161,7 +170,7 @@ public class AddUpdateFlights extends JPanel {
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setForeground(Color.WHITE);
 		lblTitle.setFont(new Font("Copperplate Gothic Light", Font.BOLD, 18));
-		lblTitle.setBounds(102, 12, 221, 27);
+		lblTitle.setBounds(12, 12, 379, 27);
 
 		panel.add(lblTitle);
 

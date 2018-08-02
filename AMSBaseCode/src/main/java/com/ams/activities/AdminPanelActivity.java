@@ -21,13 +21,16 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
 import com.ams.customdialogs.WaitingDialog;
+import com.ams.dao.impl.FlightDAOImpl;
 import com.ams.dao.impl.LocationDAOImpl;
 import com.ams.dao.impl.UserDAOImplements;
+import com.ams.entities.FlightsData;
 import com.ams.entities.LocationData;
 import com.ams.entities.UserData;
 import com.ams.panels.AddUpdateFlights;
 import com.ams.panels.AddUpdateLocation;
 import com.ams.panels.EditDetails;
+import com.ams.panels.ViewAllFlights;
 import com.ams.panels.ViewAllLocations;
 import com.ams.panels.ViewDetails;
 
@@ -67,7 +70,7 @@ public class AdminPanelActivity {
 	private JButton btnManageLoactions;
 	private final JPopupMenu popupMenu = new JPopupMenu();
 	private final JMenuItem mntmAddFlights = new JMenuItem("Add Flights");
-	private final JMenuItem mntmUpdateDetails = new JMenuItem("Update Details");
+	private final JMenuItem mntmUpdateFlight = new JMenuItem("Update Flight Details");
 	private JMenuItem mntmDeleteFlight;
 	private JMenuItem mntmShowAllFlights;
 	private static boolean menuShow = false;
@@ -80,6 +83,9 @@ public class AdminPanelActivity {
 	private LocationData locationData;
 	private LocationDAOImpl locationDAOImpl;
 	private WaitingDialog waitingDialog = new WaitingDialog("Processing..");
+	private FlightDAOImpl flightDAOImpl = new FlightDAOImpl();
+	private FlightsData flightsData;
+	private String flightName = null; 
 
 	public AdminPanelActivity(final UserData userData) {
 		// TODO Auto-generated constructor stub
@@ -210,10 +216,10 @@ public class AdminPanelActivity {
 				mntmAddFlights.setForeground(Color.BLACK);
 
 				popupMenu.add(mntmAddFlights);
-				mntmUpdateDetails.setForeground(Color.BLACK);
-				mntmUpdateDetails.setBackground(new Color(105, 105, 105));
+				mntmUpdateFlight.setForeground(Color.BLACK);
+				mntmUpdateFlight.setBackground(new Color(105, 105, 105));
 
-				popupMenu.add(mntmUpdateDetails);
+				popupMenu.add(mntmUpdateFlight);
 
 				mntmDeleteFlight = new JMenuItem("Delete Flight");
 				mntmDeleteFlight.setForeground(new Color(0, 0, 0));
@@ -281,7 +287,6 @@ public class AdminPanelActivity {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				container.removeAll();
 				container.repaint();
 				container.revalidate();
@@ -296,7 +301,6 @@ public class AdminPanelActivity {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				int dialogAction = JOptionPane.showConfirmDialog(frame, "Are you sure for deleting your account ?",
 						"Alert - AMS", JOptionPane.YES_NO_CANCEL_OPTION);
 				if (dialogAction == JOptionPane.YES_OPTION) {
@@ -312,7 +316,6 @@ public class AdminPanelActivity {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				AddUpdateLocation addLocation = new AddUpdateLocation();
 				container.removeAll();
 				container.repaint();
@@ -328,11 +331,8 @@ public class AdminPanelActivity {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				// AskingforUpdate askingforUpdate = new AskingforUpdate();
 				locationCode = JOptionPane.showInputDialog(frame, "Location Code :", "Alert - AMS",
 						JOptionPane.INFORMATION_MESSAGE);
-				// locationCode = askingforUpdate.getLocationCode();
 				locationData = locationDAOImpl.getLocationByCode(locationCode);
 				AddUpdateLocation addUpdateLocation;
 				if (locationData != null) {
@@ -354,7 +354,6 @@ public class AdminPanelActivity {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				locationCode = JOptionPane.showInputDialog(frame, "Location Code :", "Alert - AMS",
 						JOptionPane.INFORMATION_MESSAGE);
 				locationData = locationDAOImpl.getLocationByCode(locationCode);
@@ -378,7 +377,6 @@ public class AdminPanelActivity {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				ViewAllLocations viewAllLocations = new ViewAllLocations();
 				container.removeAll();
 				container.repaint();
@@ -394,7 +392,6 @@ public class AdminPanelActivity {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				AddUpdateFlights addUpdateFlights = new AddUpdateFlights();
 				container.removeAll();
 				container.repaint();
@@ -406,12 +403,71 @@ public class AdminPanelActivity {
 			}
 		});
 		
+		mntmUpdateFlight.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				flightName = JOptionPane.showInputDialog(frame, "Flight Name : ", "Alert - AMS", JOptionPane.QUESTION_MESSAGE);
+				flightsData = flightDAOImpl.getOne(flightName);
+				if(flightsData != null) {
+					AddUpdateFlights addUpdateFlights = new AddUpdateFlights(flightsData, true);
+					container.removeAll();
+					container.repaint();
+					container.revalidate();
+					container.add(addUpdateFlights);
+					container.repaint();
+					container.revalidate();
+				} else {
+					JOptionPane.showMessageDialog(frame, "No data found!", "Alert - AMS", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		mntmDeleteFlight.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				flightName = JOptionPane.showInputDialog(frame, "Flight Name :", "Alert - AMS",
+						JOptionPane.QUESTION_MESSAGE);
+				flightsData = flightDAOImpl.getOne(flightName);
+				if (flightsData != null) {
+					int selectionBtn = JOptionPane.showConfirmDialog(frame,
+							"Do you want to delete " + flightsData.getFlightName(), "Alert - AMS",
+							JOptionPane.INFORMATION_MESSAGE);
+					if (selectionBtn == JOptionPane.YES_OPTION) {
+						flightDAOImpl.deleteFlight(flightName);
+						container.removeAll();
+						container.repaint();
+						container.revalidate();
+					}
+				} else {
+					JOptionPane.showMessageDialog(frame, "No data found!", "Alert - AMS"
+							, JOptionPane.ERROR_MESSAGE);
+				}
+
+			}
+		});
+		
+		mntmShowAllFlights.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ViewAllFlights viewAllFlights = new ViewAllFlights();
+				container.removeAll();
+				container.repaint();
+				container.revalidate();
+				container.add(viewAllFlights);
+				container.repaint();
+				container.revalidate();
+				
+			}
+		});
+		
+		
 
 		btnExit.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				frame.dispose();
 				new MainActivity().show();
 
@@ -435,7 +491,6 @@ public class AdminPanelActivity {
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
 				if (!menuShow) {
 					showMenu(e);
 					menuShow = true;
