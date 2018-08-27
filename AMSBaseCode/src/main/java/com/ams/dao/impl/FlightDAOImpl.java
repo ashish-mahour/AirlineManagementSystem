@@ -67,7 +67,6 @@ public class FlightDAOImpl implements FlightDAO {
 			preparedStatement.setString(1, flightName);
 			preparedStatement.execute();
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return true;
@@ -75,7 +74,6 @@ public class FlightDAOImpl implements FlightDAO {
 
 	@Override
 	public FlightsData getOne(String flightName) {
-		// TODO Auto-generated method stub
 		preparedStatement = DBConnect.getPreparedStatement("SELECT * FROM FLIGHT_DATA WHERE NAME = ?");
 		try {
 			preparedStatement.setString(1, flightName);
@@ -85,7 +83,6 @@ public class FlightDAOImpl implements FlightDAO {
 						resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), resultSet.getInt(7));
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return flightsData;
@@ -93,7 +90,7 @@ public class FlightDAOImpl implements FlightDAO {
 
 	@Override
 	public ArrayList<FlightsData> getALL() {
-		// TODO Auto-generated method stub
+		flightsDatas.clear();
 		preparedStatement = DBConnect.getPreparedStatement("SELECT * FROM FLIGHT_DATA");
 		try {
 			resultSet = preparedStatement.executeQuery();
@@ -102,17 +99,28 @@ public class FlightDAOImpl implements FlightDAO {
 						resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), resultSet.getInt(7)));
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return flightsDatas;
 	}
 
 	@Override
-	public ArrayList<FlightsData> getByTimeAndPlace(String arrivalPlace, String destinationPlace, String arrivalTime,
-			String destinationTime) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<FlightsData> getByTimeAndPlace(String arrivalPlace, String destinationPlace, String arrivalTime) {
+		flightsDatas.clear();
+		preparedStatement = DBConnect.getPreparedStatement("SELECT * FROM FLIGHT_DATA WHERE ARRIVAL_CODE = ? AND DESINATION_CODE = ? AND TIME(ARRIVAL_TIME) >= ?");
+		try {
+			preparedStatement.setString(1, arrivalPlace);
+			preparedStatement.setString(2, destinationPlace);
+			preparedStatement.setString(3, arrivalTime);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				 flightsDatas.add(new FlightsData(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3),
+						resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), resultSet.getInt(7)));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flightsDatas;
 	}
 
 }

@@ -69,6 +69,7 @@ public class RegisterActivity {
 	private final JPanel panel = new JPanel();
 	private final JLabel lblTitle = new JLabel("User Registration - AMS ");
 	private final JButton btnClose = new JButton("X");
+	
 
 	public RegisterActivity() {
 		// TODO Auto-generated constructor stub
@@ -348,21 +349,21 @@ public class RegisterActivity {
 		frame.getRootPane().setDefaultButton(mSubmit);
 		panel.setBackground(new Color(50, 205, 50));
 		panel.setBorder(new EmptyBorder(1, 1, 1, 1));
-		panel.setBounds(0, 0, 322, 39);
+		panel.setBounds(0, 0, 322, 30);
 		
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		lblTitle.setHorizontalAlignment(SwingConstants.LEFT);
 		lblTitle.setForeground(Color.WHITE);
-		lblTitle.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 16));
-		lblTitle.setBounds(12, 0, 264, 39);
+		lblTitle.setFont(new Font("Microsoft JhengHei UI Light", Font.BOLD, 16));
+		lblTitle.setBounds(12, 0, 233, 30);
 		
 		panel.add(lblTitle);
 		btnClose.setFont(new Font("Dialog", Font.BOLD, 16));
 		btnClose.setForeground(new Color(255, 255, 255));
 		btnClose.setBorder(new EmptyBorder(1, 1, 1, 1));
 		btnClose.setBackground(new Color(50, 205, 50));
-		btnClose.setBounds(278, 0, 44, 39);
+		btnClose.setBounds(278, 0, 44, 30);
 		
 		panel.add(btnClose);
 		frame.setVisible(true);

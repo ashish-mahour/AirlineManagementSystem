@@ -38,6 +38,7 @@ import java.awt.Component;
 import java.awt.Toolkit;
 import javax.swing.border.LineBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.SwingConstants;
 
 public class AdminPanelActivity {
 
@@ -85,12 +86,15 @@ public class AdminPanelActivity {
 	private WaitingDialog waitingDialog = new WaitingDialog("Processing..");
 	private FlightDAOImpl flightDAOImpl = new FlightDAOImpl();
 	private FlightsData flightsData;
-	private String flightName = null; 
+	private String flightName = null;
+	private final JPanel panel_1 = new JPanel();
+	private final JLabel lblAdminPanel = new JLabel("Admin Panel - AMS");
+	private final JButton btnClose = new JButton("X");
 
 	public AdminPanelActivity(final UserData userData) {
-		// TODO Auto-generated constructor stub
+
 		Thread t = new Thread(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
@@ -107,13 +111,15 @@ public class AdminPanelActivity {
 		}
 		this.userData = userData;
 		Thread t2 = new Thread(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				locationDAOImpl = new LocationDAOImpl();
+				frame.setUndecorated(true);
+
 				frame.setResizable(false);
-				frame.setIconImage(
-						Toolkit.getDefaultToolkit().getImage(AdminPanelActivity.class.getResource("/images/planeIcon.png")));
+				frame.setIconImage(Toolkit.getDefaultToolkit()
+						.getImage(AdminPanelActivity.class.getResource("/images/planeIcon.png")));
 
 				try {
 					imageFile = new File("src\\main\\java\\images\\m.png");
@@ -123,8 +129,8 @@ public class AdminPanelActivity {
 				}
 
 				icon = new JLabel(new ImageIcon(iconImage));
-				icon.setSize(100, 100);
-				icon.setLocation(10, 20);
+				icon.setSize(100, 93);
+				icon.setLocation(10, 62);
 
 				username = new JLabel(userData.getFullName());
 				username.setForeground(new Color(255, 255, 255));
@@ -156,16 +162,16 @@ public class AdminPanelActivity {
 				detailsMenu.add(viewDetails);
 				detailsMenu.add(deleteAcc);
 
-				username.setLocation(10, 130);
+				username.setLocation(10, 156);
 				username.setSize(127, 20);
 				username.setToolTipText(userData.getFullName());
 				username.setFont(new Font("Segoe Print", Font.BOLD, 14));
 
-				usertype.setLocation(10, 150);
+				usertype.setLocation(10, 174);
 				usertype.setSize(68, 20);
 				usertype.setFont(new Font("Segoe Print", Font.PLAIN, 8));
 
-				detailsButton.setLocation(10, 182);
+				detailsButton.setLocation(10, 206);
 				detailsButton.setSize(114, 32);
 				detailsButton.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 18));
 
@@ -174,8 +180,8 @@ public class AdminPanelActivity {
 				container.setBorder(new LineBorder(new Color(102, 102, 102), 3, true));
 				container.setLayout(new CardLayout());
 				container.setBackground(new Color(204, 204, 204));
-				container.setLocation(136, 12);
-				container.setSize(431, 502);
+				container.setLocation(128, 36);
+				container.setSize(455, 517);
 
 				viewDetailsActivity = new ViewDetails(userData);
 				editDetailsActivity = new EditDetails(userData);
@@ -196,7 +202,7 @@ public class AdminPanelActivity {
 				btnExit.setBorder(new EmptyBorder(1, 1, 1, 1));
 				btnExit.setBackground(new Color(192, 192, 192));
 				btnExit.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 18));
-				btnExit.setBounds(10, 309, 114, 31);
+				btnExit.setBounds(10, 335, 114, 31);
 				frame.getContentPane().add(btnExit);
 
 				btnManageFlights = new JButton("Flights");
@@ -204,7 +210,7 @@ public class AdminPanelActivity {
 				btnManageFlights.setBorder(new EmptyBorder(1, 1, 1, 1));
 				btnManageFlights.setBackground(new Color(192, 192, 192));
 				btnManageFlights.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 18));
-				btnManageFlights.setBounds(10, 225, 116, 31);
+				btnManageFlights.setBounds(10, 250, 116, 31);
 				frame.getContentPane().add(btnManageFlights);
 				popupMenu.setBorder(new EmptyBorder(1, 1, 1, 1));
 				popupMenu.setForeground(Color.ORANGE);
@@ -236,7 +242,7 @@ public class AdminPanelActivity {
 				btnManageLoactions.setBorder(new EmptyBorder(1, 1, 1, 1));
 				btnManageLoactions.setBackground(new Color(192, 192, 192));
 				btnManageLoactions.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 18));
-				btnManageLoactions.setBounds(10, 269, 116, 31);
+				btnManageLoactions.setBounds(8, 293, 116, 31);
 
 				frame.getContentPane().add(btnManageLoactions);
 				popupMenu_1.setBackground(new Color(0, 0, 0));
@@ -260,6 +266,25 @@ public class AdminPanelActivity {
 				mntmViewAll.setForeground(new Color(0, 0, 0));
 				mntmViewAll.setBackground(new Color(105, 105, 105));
 				popupMenu_1.add(mntmViewAll);
+				panel_1.setLayout(null);
+				panel_1.setBorder(new EmptyBorder(1, 1, 1, 1));
+				panel_1.setBackground(new Color(50, 205, 50));
+				panel_1.setBounds(0, 0, 595, 32);
+
+				frame.getContentPane().add(panel_1);
+				lblAdminPanel.setHorizontalAlignment(SwingConstants.LEFT);
+				lblAdminPanel.setForeground(Color.WHITE);
+				lblAdminPanel.setFont(new Font("Microsoft JhengHei UI Light", Font.BOLD, 16));
+				lblAdminPanel.setBounds(12, 0, 233, 30);
+
+				panel_1.add(lblAdminPanel);
+				btnClose.setForeground(Color.WHITE);
+				btnClose.setFont(new Font("Dialog", Font.BOLD, 16));
+				btnClose.setBorder(new EmptyBorder(1, 1, 1, 1));
+				btnClose.setBackground(new Color(50, 205, 50));
+				btnClose.setBounds(551, -1, 44, 33);
+
+				panel_1.add(btnClose);
 				frame.setVisible(true);
 				frame.setLocationRelativeTo(null);
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -271,6 +296,24 @@ public class AdminPanelActivity {
 	}
 
 	private void show() {
+		btnClose.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.exit(0);
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnClose.setBackground(Color.RED);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnClose.setBackground(new Color(50, 205, 50));
+			}
+
+		});
 		viewDetails.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
@@ -374,7 +417,7 @@ public class AdminPanelActivity {
 			}
 		});
 		mntmViewAll.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ViewAllLocations viewAllLocations = new ViewAllLocations();
@@ -384,12 +427,12 @@ public class AdminPanelActivity {
 				container.add(viewAllLocations);
 				container.repaint();
 				container.revalidate();
-				
+
 			}
 		});
-		
+
 		mntmAddFlights.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				AddUpdateFlights addUpdateFlights = new AddUpdateFlights();
@@ -402,14 +445,15 @@ public class AdminPanelActivity {
 				container.revalidate();
 			}
 		});
-		
+
 		mntmUpdateFlight.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				flightName = JOptionPane.showInputDialog(frame, "Flight Name : ", "Alert - AMS", JOptionPane.QUESTION_MESSAGE);
+				flightName = JOptionPane.showInputDialog(frame, "Flight Name : ", "Alert - AMS",
+						JOptionPane.QUESTION_MESSAGE);
 				flightsData = flightDAOImpl.getOne(flightName);
-				if(flightsData != null) {
+				if (flightsData != null) {
 					AddUpdateFlights addUpdateFlights = new AddUpdateFlights(flightsData, true);
 					container.removeAll();
 					container.repaint();
@@ -440,15 +484,14 @@ public class AdminPanelActivity {
 						container.revalidate();
 					}
 				} else {
-					JOptionPane.showMessageDialog(frame, "No data found!", "Alert - AMS"
-							, JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(frame, "No data found!", "Alert - AMS", JOptionPane.ERROR_MESSAGE);
 				}
 
 			}
 		});
-		
+
 		mntmShowAllFlights.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ViewAllFlights viewAllFlights = new ViewAllFlights();
@@ -458,11 +501,9 @@ public class AdminPanelActivity {
 				container.add(viewAllFlights);
 				container.repaint();
 				container.revalidate();
-				
+
 			}
 		});
-		
-		
 
 		btnExit.addActionListener(new ActionListener() {
 

@@ -23,12 +23,14 @@ import javax.swing.JPopupMenu;
 import com.ams.customdialogs.WaitingDialog;
 import com.ams.dao.impl.UserDAOImplements;
 import com.ams.entities.UserData;
+import com.ams.panels.CheckFlights;
 import com.ams.panels.EditDetails;
 import com.ams.panels.ViewDetails;
 import java.awt.Toolkit;
 import javax.swing.border.LineBorder;
 import java.awt.Component;
 import javax.swing.border.EmptyBorder;
+import javax.swing.SwingConstants;
 
 public class UserPanelActivity {
 	JFrame frame;
@@ -65,6 +67,9 @@ public class UserPanelActivity {
 	private final JMenuItem mntmBookFlight = new JMenuItem("Book Flight");
 	private final JMenuItem mntmCancelFlights = new JMenuItem("Cancel Flights");
 	private WaitingDialog waitingDialog = new WaitingDialog("Processing..");
+	private JPanel panel;
+	private JLabel lblUserPanel;
+	private JButton btnClose;
 
 	public UserPanelActivity(final UserData userData) {
 		// TODO Auto-generated constructor stub
@@ -90,6 +95,7 @@ public class UserPanelActivity {
 			@Override
 			public void run() {
 				frame = new JFrame("User panel - AMS");
+				frame.setUndecorated(true);
 				frame.setIconImage(Toolkit.getDefaultToolkit()
 						.getImage(UserPanelActivity.class.getResource("/images/planeIcon.png")));
 
@@ -102,7 +108,7 @@ public class UserPanelActivity {
 
 				icon = new JLabel(new ImageIcon(iconImage));
 				icon.setSize(100, 100);
-				icon.setLocation(10, 20);
+				icon.setLocation(10, 72);
 
 				username = new JLabel(userData.getFullName());
 				username.setForeground(new Color(255, 255, 255));
@@ -113,16 +119,16 @@ public class UserPanelActivity {
 				detailsButton.setBorder(new EmptyBorder(1, 1, 1, 1));
 				detailsButton.setBackground(new Color(192, 192, 192));
 
-				username.setLocation(10, 130);
+				username.setLocation(10, 184);
 				username.setSize(124, 20);
 				username.setToolTipText(userData.getFullName());
 				username.setFont(new Font("Segoe Script", Font.PLAIN, 14));
 
-				usertype.setLocation(10, 150);
+				usertype.setLocation(10, 205);
 				usertype.setSize(100, 20);
 				usertype.setFont(new Font("Segoe Print", Font.PLAIN, 8));
 
-				detailsButton.setLocation(10, 181);
+				detailsButton.setLocation(10, 233);
 				detailsButton.setSize(124, 31);
 				detailsButton.setFont(new Font("Monospaced", Font.PLAIN, 18));
 
@@ -130,8 +136,8 @@ public class UserPanelActivity {
 				container.setBorder(new LineBorder(new Color(153, 153, 153), 2, true));
 				container.setLayout(new CardLayout());
 				container.setBackground(new Color(204, 204, 204));
-				container.setLocation(144, 20);
-				container.setSize(424, 500);
+				container.setLocation(152, 44);
+				container.setSize(435, 513);
 
 				viewDetailsActivity = new ViewDetails(userData);
 				editDetailsActivity = new EditDetails(userData);
@@ -175,12 +181,12 @@ public class UserPanelActivity {
 				btnExit.setBorder(new EmptyBorder(1, 1, 1, 1));
 				btnExit.setBackground(new Color(192, 192, 192));
 				btnExit.setFont(new Font("Monospaced", Font.PLAIN, 18));
-				btnExit.setBounds(10, 267, 124, 31);
+				btnExit.setBounds(10, 319, 124, 31);
 				frame.getContentPane().add(btnExit);
 				btnFlights.setFont(new Font("Monospaced", Font.PLAIN, 18));
 				btnFlights.setBorder(new EmptyBorder(1, 1, 1, 1));
 				btnFlights.setBackground(new Color(192, 192, 192));
-				btnFlights.setBounds(10, 224, 124, 31);
+				btnFlights.setBounds(10, 276, 124, 31);
 
 				frame.getContentPane().add(btnFlights);
 				popupMenuFlights.setBackground(new Color(105, 105, 105));
@@ -202,6 +208,28 @@ public class UserPanelActivity {
 				mntmCancelFlights.setBackground(new Color(105, 105, 105));
 
 				popupMenuFlights.add(mntmCancelFlights);
+				
+				panel = new JPanel();
+				panel.setLayout(null);
+				panel.setBorder(new EmptyBorder(1, 1, 1, 1));
+				panel.setBackground(new Color(50, 205, 50));
+				panel.setBounds(0, 0, 599, 32);
+				frame.getContentPane().add(panel);
+				
+				lblUserPanel = new JLabel("User Panel - AMS");
+				lblUserPanel.setHorizontalAlignment(SwingConstants.LEFT);
+				lblUserPanel.setForeground(Color.WHITE);
+				lblUserPanel.setFont(new Font("Microsoft JhengHei UI Light", Font.BOLD, 16));
+				lblUserPanel.setBounds(12, 0, 233, 30);
+				panel.add(lblUserPanel);
+				
+				btnClose = new JButton("X");
+				btnClose.setForeground(Color.WHITE);
+				btnClose.setFont(new Font("Dialog", Font.BOLD, 16));
+				btnClose.setBorder(new EmptyBorder(1, 1, 1, 1));
+				btnClose.setBackground(new Color(50, 205, 50));
+				btnClose.setBounds(551, -1, 44, 33);
+				panel.add(btnClose);
 				frame.setVisible(true);
 				frame.setLocationRelativeTo(null);
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -214,6 +242,24 @@ public class UserPanelActivity {
 	}
 
 	private void show() {
+		btnClose.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.exit(0);
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnClose.setBackground(Color.RED);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnClose.setBackground(new Color(50, 205, 50));
+			}
+
+		});
 		mntmViewDetails.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
@@ -264,6 +310,20 @@ public class UserPanelActivity {
 
 			}
 		});
+		mntmCheckFlight.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				CheckFlights checkFlights = new CheckFlights();
+				container.removeAll();
+				container.repaint();
+				container.revalidate();
+				container.add(checkFlights);
+				container.repaint();
+				container.revalidate();
+			}
+		});
+		
 
 	}
 

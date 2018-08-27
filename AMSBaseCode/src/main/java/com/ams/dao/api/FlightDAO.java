@@ -15,6 +15,5 @@ public interface FlightDAO {
 
 	public ArrayList<FlightsData> getALL();
 
-	public ArrayList<FlightsData> getByTimeAndPlace(String arrivalPlace, String destinationPlace, String arrivalTime,
-			String destinationTime);
+	public ArrayList<FlightsData> getByTimeAndPlace(String arrivalPlace, String destinationPlace, String arrivalTime);
 }

@@ -23,17 +23,15 @@ public class SendMail {
 	private static String username = "demoacc61195@gmail.com";
 	private static String password = "ashish_mahour";
 	private static WaitingDialog sendingDialog;
-	private JFrame targetFrame,currentFrame;
+	private JFrame targetFrame, currentFrame;
 
 	public SendMail(final String title, JFrame currentFrame, JFrame targetFrame) {
 		this.currentFrame = currentFrame;
 		this.targetFrame = targetFrame;
-		// TODO Auto-generated constructor stub
 		Thread t = new Thread(new Runnable() {
 
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				sendingDialog = new WaitingDialog(title);
 				sendingDialog.setVisible(true);
 
@@ -47,10 +45,10 @@ public class SendMail {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
-	public boolean send(final String reciversMail,final String mailSubject,final String mailBody) {
+	public boolean send(final String reciversMail, final String mailSubject, final String mailBody) {
 		Thread t2 = new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -78,11 +76,11 @@ public class SendMail {
 					message.setText(mailBody);
 					Transport.send(message);
 					sendingDialog.dispose();
-					JOptionPane.showMessageDialog(currentFrame, "OTP Sent to " +reciversMail, "Alert - AMS",
+					JOptionPane.showMessageDialog(currentFrame, "OTP Sent to " + reciversMail, "Alert - AMS",
 							JOptionPane.INFORMATION_MESSAGE);
 					currentFrame.dispose();
 					targetFrame.setVisible(true);
-					if(targetFrame instanceof VerifingOTP) {
+					if (targetFrame instanceof VerifingOTP) {
 						((VerifingOTP) targetFrame).doProgress();
 						targetFrame.dispose();
 						new MainActivity().show();

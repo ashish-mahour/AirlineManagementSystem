@@ -141,20 +141,20 @@ public class MainActivity {
 		
 		panel.setBackground(new Color(50, 205, 50));
 		panel.setBorder(new EmptyBorder(1, 1, 1, 1));
-		panel.setBounds(0, 0, 368, 39);
+		panel.setBounds(0, 0, 368, 30);
 		panel.setLayout(null);
 		
 		lblTitle.setHorizontalAlignment(SwingConstants.LEFT);
 		lblTitle.setForeground(Color.WHITE);
 		lblTitle.setFont(new Font("Nirmala UI Semilight", Font.BOLD, 16));
-		lblTitle.setBounds(12, 0, 294, 39);
+		lblTitle.setBounds(12, 0, 294, 30);
 		
 		panel.add(lblTitle);
 		btnClose.setFont(new Font("Dialog", Font.BOLD, 16));
 		btnClose.setForeground(new Color(255, 255, 255));
 		btnClose.setBorder(new EmptyBorder(1, 1, 1, 1));
 		btnClose.setBackground(new Color(50, 205, 50));
-		btnClose.setBounds(324, 0, 44, 39);
+		btnClose.setBounds(324, 0, 44, 30);
 		
 		panel.add(btnClose);
 	}
