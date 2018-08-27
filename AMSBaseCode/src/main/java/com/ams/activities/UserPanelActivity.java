@@ -23,6 +23,8 @@ import javax.swing.JPopupMenu;
 import com.ams.customdialogs.WaitingDialog;
 import com.ams.dao.impl.UserDAOImplements;
 import com.ams.entities.UserData;
+import com.ams.panels.BookFlights;
+import com.ams.panels.CancelFlights;
 import com.ams.panels.CheckFlights;
 import com.ams.panels.EditDetails;
 import com.ams.panels.ViewDetails;
@@ -40,7 +42,7 @@ public class UserPanelActivity {
 
 	JLabel icon, username, usertype;
 
-	JPanel container;
+	public static JPanel container;
 
 	JButton detailsButton;
 
@@ -208,21 +210,21 @@ public class UserPanelActivity {
 				mntmCancelFlights.setBackground(new Color(105, 105, 105));
 
 				popupMenuFlights.add(mntmCancelFlights);
-				
+
 				panel = new JPanel();
 				panel.setLayout(null);
 				panel.setBorder(new EmptyBorder(1, 1, 1, 1));
 				panel.setBackground(new Color(50, 205, 50));
 				panel.setBounds(0, 0, 599, 32);
 				frame.getContentPane().add(panel);
-				
+
 				lblUserPanel = new JLabel("User Panel - AMS");
 				lblUserPanel.setHorizontalAlignment(SwingConstants.LEFT);
 				lblUserPanel.setForeground(Color.WHITE);
 				lblUserPanel.setFont(new Font("Microsoft JhengHei UI Light", Font.BOLD, 16));
 				lblUserPanel.setBounds(12, 0, 233, 30);
 				panel.add(lblUserPanel);
-				
+
 				btnClose = new JButton("X");
 				btnClose.setForeground(Color.WHITE);
 				btnClose.setFont(new Font("Dialog", Font.BOLD, 16));
@@ -276,7 +278,6 @@ public class UserPanelActivity {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				container.removeAll();
 				container.repaint();
 				container.revalidate();
@@ -311,7 +312,7 @@ public class UserPanelActivity {
 			}
 		});
 		mntmCheckFlight.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				CheckFlights checkFlights = new CheckFlights();
@@ -323,7 +324,34 @@ public class UserPanelActivity {
 				container.revalidate();
 			}
 		});
+
+		mntmBookFlight.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				BookFlights bookFlights = new BookFlights(userData);
+				container.removeAll();
+				container.repaint();
+				container.revalidate();
+				container.add(bookFlights);
+				container.repaint();
+				container.revalidate();
+			}
+		});
 		
+		mntmCancelFlights.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				CancelFlights cancelFlights = new CancelFlights(userData);
+				container.removeAll();
+				container.repaint();
+				container.revalidate();
+				container.add(cancelFlights);
+				container.repaint();
+				container.revalidate();
+			}
+		});
 
 	}
 
