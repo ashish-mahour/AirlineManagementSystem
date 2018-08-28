@@ -49,7 +49,7 @@ public class BookCancelFlight extends JPanel {
 	private final JLabel lblTextTimeDestination = new JLabel("Text Time Destination");
 	private final JPanel seatsAvailablePanel = new JPanel();
 	private final JScrollPane scrollPane = new JScrollPane(seatsAvailablePanel);
-	private final JButton btnBook = new JButton("Book Flights");
+	private final JButton btnBookOrCancel = new JButton("Book Flights");
 	private int seatsAvailable = 0;
 	private boolean cancelFlightFlag = false;
 	private Statement statement;
@@ -58,6 +58,7 @@ public class BookCancelFlight extends JPanel {
 	private ArrayList<String> seatsBooked = new ArrayList<String>();
 	private ResultSet resultSet;
 	private FlightDAOImpl flightDAOImpl = new FlightDAOImpl();
+	private final JButton btnCancel = new JButton("Cancel");
 
 	/**
 	 * Create the panel.
@@ -91,15 +92,23 @@ public class BookCancelFlight extends JPanel {
 		}
 
 		if (cancelFlightFlag) {
-			btnBook.setText("Cancel Flights");
-			seatsAvailable = seatsBooked.size();
-			seatsAvailablePanel.setLayout(new GridLayout((seatsAvailable / 4), 4));
+			btnBookOrCancel.setText("Cancel Flights");
+			seatsAvailable = flightsData.getSeatsAvailable();
+			seatsAvailablePanel.setLayout(new GridLayout((seatsBooked.size()/ 4), 4));
 		} else {
 			seatsAvailable = flightsData.getSeatsAvailable();
 			seatsAvailablePanel.setLayout(new GridLayout((seatsAvailable / 4), 4));
 		}
 		initGUI();
 		lblTitle.setText(title);
+		
+		btnCancel.setForeground(Color.BLACK);
+		btnCancel.setFont(new Font("Monospaced", Font.PLAIN, 18));
+		btnCancel.setBorder(new LineBorder(new Color(152, 251, 152), 1, true));
+		btnCancel.setBackground(new Color(30, 144, 255));
+		btnCancel.setBounds(22, 377, 171, 33);
+		
+		panel.add(btnCancel);
 
 	}
 
@@ -173,13 +182,13 @@ public class BookCancelFlight extends JPanel {
 		scrollPane.setBounds(22, 211, 366, 154);
 
 		panel.add(scrollPane);
-		btnBook.setForeground(new Color(0, 0, 0));
-		btnBook.setFont(new Font("Monospaced", Font.PLAIN, 18));
-		btnBook.setBorder(new LineBorder(new Color(152, 251, 152), 1, true));
-		btnBook.setBackground(new Color(30, 144, 255));
-		btnBook.setBounds(114, 377, 188, 33);
+		btnBookOrCancel.setForeground(new Color(0, 0, 0));
+		btnBookOrCancel.setFont(new Font("Monospaced", Font.PLAIN, 18));
+		btnBookOrCancel.setBorder(new LineBorder(new Color(152, 251, 152), 1, true));
+		btnBookOrCancel.setBackground(new Color(30, 144, 255));
+		btnBookOrCancel.setBounds(205, 377, 183, 33);
 
-		panel.add(btnBook);
+		panel.add(btnBookOrCancel);
 		lblTextFlightName.setText(flightsData.getFlightName());
 		lblTextFlightArrival.setText(flightsData.getFlightArrival());
 		lblTextFlightDestination.setText(flightsData.getFlightDestination());
@@ -202,7 +211,7 @@ public class BookCancelFlight extends JPanel {
 			}
 		}
 
-		btnBook.addActionListener(new ActionListener() {
+		btnBookOrCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (!cancelFlightFlag) {
 					for (int i = 0; i < seatsAvailablePanel.getComponentCount(); i++) {
@@ -237,7 +246,54 @@ public class BookCancelFlight extends JPanel {
 					UserPanelActivity.container.repaint();
 					UserPanelActivity.container.revalidate();
 				} else {
+					for (int i = 0; i < seatsAvailablePanel.getComponentCount(); i++) {
+						if (seatsAvailablePanel.getComponent(i) instanceof JCheckBox) {
+							JCheckBox jCheckBox = (JCheckBox) seatsAvailablePanel.getComponent(i);
+							if (jCheckBox.isSelected()) {
+								seatsAvailable++;
+								preparedStatement = DBConnect.getPreparedStatement(
+										"DELETE FROM BOOKED_FLIGHT_DATA WHERE SEAT_NO = ?");
+								try {
+									preparedStatement.setString(1, jCheckBox.getText());
+									preparedStatement.execute();
+								} catch (SQLException e1) {
+									e1.printStackTrace();
+								}
 
+							}
+						}
+					}
+					JOptionPane.showMessageDialog(BookCancelFlight.this, "Flights Canceled!", "Alert - AMS",
+							JOptionPane.INFORMATION_MESSAGE);
+					flightsData.setSeatsAvailable(seatsAvailable);
+					flightDAOImpl.modifyFlight(flightsData.getFlightName(), flightsData);
+					UserPanelActivity.container.removeAll();
+					UserPanelActivity.container.repaint();
+					UserPanelActivity.container.revalidate();
+					UserPanelActivity.container.add(new CancelFlights(userData));
+					UserPanelActivity.container.repaint();
+					UserPanelActivity.container.revalidate();
+				}
+			}
+		});
+		
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!cancelFlightFlag) {
+					UserPanelActivity.container.removeAll();
+					UserPanelActivity.container.repaint();
+					UserPanelActivity.container.revalidate();
+					UserPanelActivity.container.add(new BookFlights(userData));
+					UserPanelActivity.container.repaint();
+					UserPanelActivity.container.revalidate();
+				}
+				else {
+					UserPanelActivity.container.removeAll();
+					UserPanelActivity.container.repaint();
+					UserPanelActivity.container.revalidate();
+					UserPanelActivity.container.add(new CancelFlights(userData));
+					UserPanelActivity.container.repaint();
+					UserPanelActivity.container.revalidate();
 				}
 			}
 		});

@@ -14,12 +14,15 @@ import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.ams.activities.UserPanelActivity;
 import com.ams.dao.impl.FlightDAOImpl;
 import com.ams.entities.FlightsData;
 import com.ams.entities.UserData;
 import com.ams.model.DBConnect;
 
 import javax.swing.JTable;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CancelFlights extends JPanel {
 
@@ -50,12 +53,12 @@ public class CancelFlights extends JPanel {
 	}
 	private void initGUI() {
 		
-		preparedStatement = DBConnect.getPreparedStatement("SELECT DISTINCT FLIGHT_ID,FLIGHT_NAME FROM BOOKED_FLIGHT_DATA WHERE UID = ?");
+		preparedStatement = DBConnect.getPreparedStatement("SELECT DISTINCT FLIGHT_NAME FROM BOOKED_FLIGHT_DATA WHERE UID = ?");
 		try {
 			preparedStatement.setInt(1, userData.getId());
 			resultSet = preparedStatement.executeQuery();
 			while(resultSet.next()) {
-				flightsDatas.add(flightDAOImpl.getOne(resultSet.getString(2)));
+				flightsDatas.add(flightDAOImpl.getOne(resultSet.getString(1)));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -76,6 +79,7 @@ public class CancelFlights extends JPanel {
 		lblBookedFlights.setBounds(12, 11, 196, 27);
 		
 		panel.add(lblBookedFlights);
+		
 		btnCancelFlight.setForeground(Color.WHITE);
 		btnCancelFlight.setFont(new Font("Monospaced", Font.PLAIN, 18));
 		btnCancelFlight.setBorder(new LineBorder(new Color(152, 251, 152), 1, true));
@@ -102,6 +106,27 @@ public class CancelFlights extends JPanel {
 					,flightsData.getArrivalTime(),flightsData.getDestinationTime(),flightsData.getSeatsAvailable()
 			});
 		}
+		
+		btnCancelFlight.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int id = Integer.valueOf(table.getValueAt(table.getSelectedRow(), 0).toString());
+				String flightName = table.getValueAt(table.getSelectedRow(), 1).toString();
+				String flightArrival = table.getValueAt(table.getSelectedRow(), 2).toString();
+				String flightDest = table.getValueAt(table.getSelectedRow(), 3).toString();
+				String arrivalTime = table.getValueAt(table.getSelectedRow(), 4).toString();
+				String destTime = table.getValueAt(table.getSelectedRow(), 5).toString();
+				int availableSeats = Integer.valueOf(table.getValueAt(table.getSelectedRow(), 6).toString());
+				FlightsData flightsData = new FlightsData(id, flightName, flightArrival, flightDest, arrivalTime,
+						destTime, availableSeats);
+				
+				UserPanelActivity.container.removeAll();
+				UserPanelActivity.container.repaint();
+				UserPanelActivity.container.revalidate();
+				UserPanelActivity.container.add(new BookCancelFlight(flightsData, userData, "Cancel Flights", true));
+				UserPanelActivity.container.repaint();
+				UserPanelActivity.container.revalidate();
+			}
+		});
 		
 	}
 }
