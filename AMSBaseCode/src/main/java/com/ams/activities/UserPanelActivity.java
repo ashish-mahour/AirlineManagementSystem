@@ -231,6 +231,7 @@ public class UserPanelActivity {
 				btnClose.setBorder(new EmptyBorder(1, 1, 1, 1));
 				btnClose.setBackground(new Color(50, 205, 50));
 				btnClose.setBounds(551, -1, 44, 33);
+				btnClose.setFocusPainted(false);
 				panel.add(btnClose);
 				frame.setVisible(true);
 				frame.setLocationRelativeTo(null);

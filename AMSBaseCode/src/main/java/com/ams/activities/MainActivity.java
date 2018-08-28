@@ -155,6 +155,7 @@ public class MainActivity {
 		btnClose.setBorder(new EmptyBorder(1, 1, 1, 1));
 		btnClose.setBackground(new Color(50, 205, 50));
 		btnClose.setBounds(324, 0, 44, 30);
+		btnClose.setFocusPainted(false);
 		
 		panel.add(btnClose);
 	}
@@ -163,7 +164,6 @@ public class MainActivity {
 		mRegLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseExited(MouseEvent arg0) {
-				// TODO Auto-generated method stub
 				mRegLabel.setForeground(Color.WHITE);
 
 			}
