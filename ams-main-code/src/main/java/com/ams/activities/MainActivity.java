@@ -49,7 +49,7 @@ public class MainActivity {
 	JButton submit, cancel;
 
 	ArrayList<UserData> userDatas;
-	UserDAOImplements userDAOImplements;
+	UserDAOImplements userDAOImplements = new UserDAOImplements();
 	boolean isLoggedin = false;
 	private final JPanel panel = new JPanel();
 	private final JLabel lblTitle = new JLabel("Airline Management System - LOGIN");
@@ -136,7 +136,7 @@ public class MainActivity {
 
 		userDatas = new ArrayList<UserData>();
 
-		userDAOImplements = new UserDAOImplements();
+		
 		userDatas = userDAOImplements.getAll();
 		
 		panel.setBackground(new Color(50, 205, 50));
