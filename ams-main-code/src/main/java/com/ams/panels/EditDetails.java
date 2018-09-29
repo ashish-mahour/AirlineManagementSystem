@@ -219,7 +219,7 @@ public class EditDetails extends JPanel {
 					userDataforUpdate.setFullName(lblTextfullname.getText());
 					userDataforUpdate.setAge(Integer.parseInt(lblTextage.getText()));
 					userDataforUpdate.setAddress(lblTextaddress.getText());
-					userDataforUpdate.setContactNo(Long.parseLong(lblTextcontact.getText()));
+					userDataforUpdate.setContactNo(lblTextcontact.getText());
 					userDataforUpdate.setGender(lblTextgender.getText());
 					userDataforUpdate.setUserType(lblTextutype.getText());
 					userDataforUpdate.setDob(new SimpleDateFormat("yyyy-MM-dd").format(txtTextdateofbirth.getDate()));

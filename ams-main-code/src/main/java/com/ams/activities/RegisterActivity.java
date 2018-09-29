@@ -94,9 +94,6 @@ public class RegisterActivity {
 		t2.start();
 	}
 
-	/**
-	 * @wbp.parser.entryPoint
-	 */
 	private void initGUI() {
 		frame = new JFrame("User Registration - AMS ");
 		frame.setUndecorated(true);
@@ -410,9 +407,8 @@ public class RegisterActivity {
 					userData.setFullName(editFullName.getText());
 					try {
 						userData.setAge(Integer.parseInt(String.valueOf(editAge.getValue())));
-						userData.setContactNo(Long.parseLong(editContactNo.getText()));
+						userData.setContactNo(editContactNo.getText());
 					} catch (Exception e) {
-						// TODO: handle exception
 						JOptionPane.showMessageDialog(frame, e.getMessage(), "Alert", JOptionPane.ERROR_MESSAGE);
 					}
 					userData.setDob(simpleDateFormat.format(editDob.getDate()));

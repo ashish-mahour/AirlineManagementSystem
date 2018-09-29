@@ -24,7 +24,7 @@ public class UserDAOImplements implements UserDAO {
 		userDatas = new ArrayList<UserData>();
 		try {
 			statement.execute(
-					"CREATE TABLE IF NOT EXISTS USERS_DATA(ID INT AUTO_INCREMENT PRIMARY KEY, USERNAME VARCHAR(200), PASSWORD VARCHAR(200), EMAIL VARCHAR(200), FULL_NAME VARCHAR(200), AGE INT, DOB DATE, ADDRESS VARCHAR(200), CONTACT_NO NUMERIC(15), GENDER VARCHAR(1), USER_TYPE VARCHAR(200), USER_STATUS BIT)");
+					"CREATE TABLE IF NOT EXISTS USERS_DATA(ID INT AUTO_INCREMENT PRIMARY KEY, USERNAME VARCHAR(200), PASSWORD VARCHAR(200), EMAIL VARCHAR(200), FULL_NAME VARCHAR(200), AGE INT, DOB DATE, ADDRESS VARCHAR(200), CONTACT_NO VARCHAR(200), GENDER VARCHAR(1), USER_TYPE VARCHAR(200), USER_STATUS BIT)");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -44,7 +44,7 @@ public class UserDAOImplements implements UserDAO {
 			preparedStatement.setInt(5, userData.getAge());
 			preparedStatement.setString(6, userData.getDob());
 			preparedStatement.setString(7, userData.getAddress());
-			preparedStatement.setLong(8, userData.getContactNo());
+			preparedStatement.setString(8, userData.getContactNo());
 			preparedStatement.setString(9, userData.getGender());
 			preparedStatement.setString(10, userData.getUserType());
 			preparedStatement.setBoolean(11, userData.getUserStatus());
@@ -87,7 +87,6 @@ public class UserDAOImplements implements UserDAO {
 
 	@Override
 	public UserData getUserByUsername(String username) {
-		// TODO Auto-generated method stub
 		preparedStatement = DBConnect.getPreparedStatement("SELECT * FROM USERS_DATA WHERE USERNAME = ?");
 		try {
 			preparedStatement.setString(1, username);
@@ -101,17 +100,16 @@ public class UserDAOImplements implements UserDAO {
 				userDataGlobal.setAge(resultSet.getInt(5));
 				userDataGlobal.setDob(resultSet.getString(7));
 				userDataGlobal.setAddress(resultSet.getString(8));
-				userDataGlobal.setContactNo(resultSet.getLong(9));
+				userDataGlobal.setContactNo(resultSet.getString(9));
 				userDataGlobal.setGender(resultSet.getString(10));
 				userDataGlobal.setUserType(resultSet.getString(11));
 			} else {
 				userDataGlobal = null;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return userDataGlobal;
 	}
@@ -132,24 +130,22 @@ public class UserDAOImplements implements UserDAO {
 				userDataGlobal.setAge(resultSet.getInt(5));
 				userDataGlobal.setDob(resultSet.getString(7));
 				userDataGlobal.setAddress(resultSet.getString(8));
-				userDataGlobal.setContactNo(resultSet.getLong(9));
+				userDataGlobal.setContactNo(resultSet.getString(9));
 				userDataGlobal.setGender(resultSet.getString(10));
 				userDataGlobal.setUserType(resultSet.getString(11));
 			} else {
 				userDataGlobal = null;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return userDataGlobal;
 	}
 
 	@Override
 	public ArrayList<UserData> getAll() {
-		// TODO Auto-generated method stub
 		statement = DBConnect.getStatement();
 		try {
 			resultSet = statement.executeQuery("SELECT * FROM USERS_DATA");
@@ -163,7 +159,7 @@ public class UserDAOImplements implements UserDAO {
 				userDatas.get(userDatas.size() - 1).setAge(resultSet.getInt(6));
 				userDatas.get(userDatas.size() - 1).setDob(resultSet.getString(7));
 				userDatas.get(userDatas.size() - 1).setAddress(resultSet.getString(8));
-				userDatas.get(userDatas.size() - 1).setContactNo(resultSet.getLong(9));
+				userDatas.get(userDatas.size() - 1).setContactNo(resultSet.getString(9));
 				userDatas.get(userDatas.size() - 1).setGender(resultSet.getString(10));
 				userDatas.get(userDatas.size() - 1).setUserType(resultSet.getString(11));
 			}

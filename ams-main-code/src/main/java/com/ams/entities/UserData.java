@@ -10,7 +10,7 @@ public class UserData {
 	private int age;
 	private String dob;
 	private String address;
-	private long contactNo;
+	private String contactNo;
 	private String gender;
 	private String userType;
 	private boolean userStatus;
@@ -72,11 +72,11 @@ public class UserData {
 		this.address = address;
 	}
 
-	public long getContactNo() {
+	public String getContactNo() {
 		return contactNo;
 	}
 
-	public void setContactNo(long contactNo) {
+	public void setContactNo(String contactNo) {
 		this.contactNo = contactNo;
 	}
 
